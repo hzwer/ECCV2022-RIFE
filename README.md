@@ -12,4 +12,9 @@ pip3 install numpy
 
 ## Inference and Testing
 * Download the pretrained models from [here](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing)
-* Put pretrained model (\*.pkl) to train_log/\*.pkl
+* Unzip and move pretrained models to train_log/\*.pkl
+
+## Usage
+```
+python3 inference.py --img img0.png img1.png
+```
