@@ -49,9 +49,9 @@ class ResBlock(nn.Module):
         x = self.relu2(x * w + y)
         return x
 
-class Flownet(nn.Module):
+class IFBlock(nn.Module):
     def __init__(self, in_planes, scale=1, c=64):
-        super(Flownet, self).__init__()
+        super(IFBlock, self).__init__()
         self.scale = scale
         self.conv0 = conv(in_planes, c, 3, 2, 1)
         self.res0 = ResBlock(c, c)
@@ -79,12 +79,12 @@ class Flownet(nn.Module):
             flow = F.interpolate(flow, scale_factor= self.scale, mode="bilinear", align_corners=False, recompute_scale_factor=False)
         return flow
     
-class FlownetCas(nn.Module):
+class IFNet(nn.Module):
     def __init__(self):
-        super(FlownetCas, self).__init__()
-        self.block0 = Flownet(6, scale=4, c=192)
-        self.block1 = Flownet(8, scale=2, c=128)
-        self.block2 = Flownet(8, scale=1, c=64)
+        super(IFNet, self).__init__()
+        self.block0 = IFBlock(6, scale=4, c=192)
+        self.block1 = IFBlock(8, scale=2, c=128)
+        self.block2 = IFBlock(8, scale=1, c=64)
 
     def forward(self, x):
         x = F.interpolate(x, scale_factor=0.5, mode="bilinear", align_corners=False, recompute_scale_factor=False)
