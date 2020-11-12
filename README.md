@@ -17,5 +17,5 @@ pip3 install opencv-python
 
 ## Usage
 ```
-python3 inference.py --img img0.png img1.png
+python3 inference.py --img /path/to/image_0 /path/to/image_1
 ```
