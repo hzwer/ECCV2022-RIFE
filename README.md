@@ -6,8 +6,9 @@ We propose a real-time intermediate flow estimation algorithm (RIFE) for video f
 
 ## Dependencies
 ```
-pip3 install torch==1.7.0
+pip3 install torch==1.6.0
 pip3 install numpy
+pip3 install opencv-python
 ```
 
 ## Inference and Testing
