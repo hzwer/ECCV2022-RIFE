@@ -13,6 +13,8 @@ pip3 install opencv-python
 
 ## Inference and Testing
 * Download the pretrained models from [here](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing)
+
+(We also provide 百度网盘 source. 链接: https://pan.baidu.com/s/17tHd-syovvRGP2C6UVPsIw 提取码: 5ha7)
 * Unzip and move the pretrained parameters to train_log/\*.pkl
 
 ## Usage
