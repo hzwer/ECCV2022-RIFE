@@ -4,11 +4,11 @@ import numpy as np
 from torch.optim import AdamW
 import torch.optim as optim
 import itertools
-from warplayer import warp
+from model.warplayer import warp
 from torch.nn.parallel import DistributedDataParallel as DDP
-from IFNet import *
+from model.IFNet import *
 import torch.nn.functional as F
-from loss import *
+from model.loss import *
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -21,13 +21,6 @@ def conv(in_planes, out_planes, kernel_size=3, stride=1, padding=1, dilation=1):
     )
 
 
-def conv_woact(in_planes, out_planes, kernel_size=3, stride=1, padding=1, dilation=1):
-    return nn.Sequential(
-        nn.Conv2d(in_planes, out_planes, kernel_size=kernel_size, stride=stride,
-                  padding=padding, dilation=dilation, bias=True),
-    )
-
-
 def deconv(in_planes, out_planes, kernel_size=4, stride=2, padding=1):
     return nn.Sequential(
         torch.nn.ConvTranspose2d(in_channels=in_planes, out_channels=out_planes,
@@ -35,6 +28,11 @@ def deconv(in_planes, out_planes, kernel_size=4, stride=2, padding=1):
         nn.PReLU(out_planes)
     )
 
+def conv_woact(in_planes, out_planes, kernel_size=3, stride=1, padding=1, dilation=1):
+    return nn.Sequential(
+        nn.Conv2d(in_planes, out_planes, kernel_size=kernel_size, stride=stride,
+                  padding=padding, dilation=dilation, bias=True),
+    )
 
 class ResBlock(nn.Module):
     def __init__(self, in_planes, out_planes, stride=2):
@@ -61,9 +59,7 @@ class ResBlock(nn.Module):
         x = self.relu2(x * w + y)
         return x
 
-
 c = 16
-
 
 class ContextNet(nn.Module):
     def __init__(self):
@@ -163,13 +159,19 @@ class Model:
         self.fusionnet.to(device)
 
     def load_model(self, path, rank=0):
+        def convert(param):
+            return {
+                k.replace("module.", ""): v
+                for k, v in param.items()
+                if "module." in k
+            }
         if rank == 0:
             self.flownet.load_state_dict(
-                torch.load('{}/flownet.pkl'.format(path)))
+                convert(torch.load('{}/flownet.pkl'.format(path), map_location=device)))
             self.contextnet.load_state_dict(
-                torch.load('{}/contextnet.pkl'.format(path)))
+                convert(torch.load('{}/contextnet.pkl'.format(path), map_location=device)))
             self.fusionnet.load_state_dict(
-                torch.load('{}/unet.pkl'.format(path)))
+                convert(torch.load('{}/unet.pkl'.format(path), map_location=device)))
 
     def save_model(self, path, rank=0):
         if rank == 0:
@@ -208,8 +210,6 @@ class Model:
             param_group['lr'] = learning_rate
         if training:
             self.train()
-#            with torch.no_grad():
-#                flow_gt = estimate(gt, img0)
         else:
             self.eval()
         flow, flow_list = self.flownet(imgs)
