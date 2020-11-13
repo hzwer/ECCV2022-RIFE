@@ -22,8 +22,10 @@ pip3 install opencv-python
 
 **Inference**
 ```
-$ python3 inference.py --img /path/to/image_0 /path/to/image_1
-// You will get an out.png. 
+$ python3 inference.py --img /path/to/image_0 /path/to/image_1 --times=5
+(You will get 32x interpolation results in default.)
+$ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -c:v libx264 -pix_fmt yuv420p output/slomo.mp4 -q:v 0 -q:a 0
+(You will get a slomo video based on two input images.)
 ```
 
 ## Citation
@@ -38,7 +40,7 @@ $ python3 inference.py --img /path/to/image_0 /path/to/image_1
 
 ## Reference
 Optical Flow:
-[ARFlow](https://github.com/lliuz/ARFlow)  [pytorch-liteflownet](https://github.com/sniklaus/pytorch-liteflownet)  [RAFT](https://github.com/princeton-vl/RAFT).
+[ARFlow](https://github.com/lliuz/ARFlow)  [pytorch-liteflownet](https://github.com/sniklaus/pytorch-liteflownet)  [RAFT](https://github.com/princeton-vl/RAFT)
 
 Video Interpolation:
 [DAIN](https://github.com/baowenbo/DAIN)  [CAIN](https://github.com/myungsub/CAIN)   [AdaCoF-pytorch](https://github.com/HyeongminLEE/AdaCoF-pytorch)
