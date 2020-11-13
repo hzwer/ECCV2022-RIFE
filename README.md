@@ -1,6 +1,7 @@
 # RIFE
-## [arXiv](https://arxiv.org/abs/2011.06294)
-**We are working on arranging our training code and other scripts.** 
+## [arXiv](https://arxiv.org/pdf/2011.06294.pdf)
+**We are working on arranging our training code and other scripts.**
+
 Our method support CPU and GPU with CUDA.
 
 ## Abstract
