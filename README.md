@@ -28,10 +28,10 @@ pip3 install opencv-python
 **Image Interpolation**
 
 ```
-$ python3 inference_img.py --img img0.png img1.png --times=5
-(You will get 32x interpolation results in default.)
+$ python3 inference_img.py --img img0.png img1.png --times=4
+(2^4=16X interpolation results)
 $ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -c:v libx264 -pix_fmt yuv420p output/slomo.mp4 -q:v 0 -q:a 0
-(You will get a slomo video based on two input images.)
+(generate a slomo mp4 video based on two input images)
 $ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -vf "split[s0][s1];[s0]palettegen=stats_mode=single[p];[s1][p]paletteuse=new=1" output/slomo.gif
 ```
 
@@ -39,6 +39,7 @@ $ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -vf "split[s0][s1];[s0]p
 
 ```
 $ python3 inference_mp4_2x.py --video video.mp4
+(generate video_2x.mp4, you can use this script recursively to get 4X, 8X, 16X...)
 ```
 
 ## Citation
