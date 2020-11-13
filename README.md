@@ -4,6 +4,8 @@
 
 Our model can run 30+FPS for 2X interpolation on 2080Ti GPU. We also support CPU device including MacOS.
 
+16X interpolation results from two input images: 
+
 ![Demo](./demo/I0_slomo_clipped.gif)
 ![Demo](./demo/I2_slomo_clipped.gif)
 
