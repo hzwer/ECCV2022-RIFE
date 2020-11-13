@@ -9,7 +9,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 parser = argparse.ArgumentParser(description='Interpolation for a pair of images')
 parser.add_argument('--img', dest='img', nargs=2, required=True)
-parser.add_argument('--times', default=5, type=int)
+parser.add_argument('--times', default=4, type=int)
 args = parser.parse_args()
 
 model = Model()
