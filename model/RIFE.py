@@ -200,10 +200,11 @@ class Model:
         else:
             return pred
 
-    def inference(self, imgs):
+    def inference(self, img0, img1):
         with torch.no_grad():
+            imgs = torch.cat((img0, img1), 1)
             flow, _ = self.flownet(imgs)
-        return self.predict(imgs, flow, training=False)
+        return self.predict(imgs, flow, training=False).detach()
 
     def update(self, imgs, gt, learning_rate=0, mul=1, training=True, flow_gt=None):
         for param_group in self.optimG.param_groups:
