@@ -2,7 +2,7 @@
 ## [arXiv](https://arxiv.org/pdf/2011.06294.pdf) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/jtl37r/r_realtime_720p_flowbased_video_frame/)
 We will release our training code soon. 
 
-Our model can run 30+FPS for 2X interpolation on 2080Ti GPU. We also support CPU device including MacOS system. Currently our method supports multi-frame interpolation between a pair of images and 2X frame interpolation for mp4 video. Everyone is welcome to use this alpha version and make suggestions!
+Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. We also support CPU device including MacOS system. Currently our method supports multi-frame interpolation between a pair of images and 2X interpolation for video. Everyone is welcome to use this alpha version and make suggestions!
 
 16X interpolation results from two input images: 
 
