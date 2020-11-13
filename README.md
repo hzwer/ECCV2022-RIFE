@@ -1,5 +1,5 @@
 # RIFE
-## [arXiv](https://arxiv.org/pdf/2011.06294.pdf)
+## [arXiv](https://arxiv.org/pdf/2011.06294.pdf) | [Reddit](https://www.reddit.com/r/computervision/comments/jtjza1/rife_open_source_realtime_720p_flowbased_video/)
 **We are working on arranging our training code and other scripts.**
 
 Our model can run 30+FPS for 2X interpolation on 2080Ti GPU. We also support CPU device including MacOS.
