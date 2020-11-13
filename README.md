@@ -2,7 +2,7 @@
 ## [arXiv](https://arxiv.org/pdf/2011.06294.pdf)
 **We are working on arranging our training code and other scripts.**
 
-Our method support CPU and GPU with CUDA.
+Our model can run 30+FPS for 2X interpolation on 2080Ti GPU. We also support CPU device including MacOS.
 
 ![Demo](./demo/I0_slomo_clipped.gif)
 ![Demo](./demo/I2_slomo_clipped.gif)
