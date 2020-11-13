@@ -19,21 +19,30 @@ pip3 install numpy
 pip3 install opencv-python
 ```
 
-## Inference and Testing
+## Usage
 * Download the pretrained models from [here](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing)
 
 (We also provide 百度网盘 source. 链接: https://pan.baidu.com/s/17tHd-syovvRGP2C6UVPsIw 提取码: 5ha7)
 * Unzip and move the pretrained parameters to train_log/\*.pkl
 
-**Inference**
+**Image Interpolation**
+
 ```
-$ python3 inference.py --img /path/to/image_0 /path/to/image_1 --times=5
+$ python3 inference_img.py --img img0.png img1.png --times=5
 (You will get 32x interpolation results in default.)
 $ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -c:v libx264 -pix_fmt yuv420p output/slomo.mp4 -q:v 0 -q:a 0
 (You will get a slomo video based on two input images.)
+$ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -vf "split[s0][s1];[s0]palettegen=stats_mode=single[p];[s1][p]paletteuse=new=1" output/slomo.gif
+```
+
+**Video 2x Interpolation**
+
+```
+$ python3 inference_mp4_2x.py --video video.mp4
 ```
 
 ## Citation
+
 ```
 @article{huang2020rife,
   title={RIFE: Real-Time Intermediate Flow Estimation for Video Frame Interpolation},
