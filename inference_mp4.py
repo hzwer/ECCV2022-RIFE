@@ -1,0 +1,48 @@
+import os
+import cv2
+import torch
+import argparse
+import numpy as np
+from torch.nn import functional as F
+from model.RIFE import Model
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+parser = argparse.ArgumentParser(description='Interpolation for a pair of images')
+parser.add_argument('--video', dest='video', required=True)
+args = parser.parse_args()
+
+model = Model()
+model.load_model('./train_log')
+model.eval()
+model.device()
+
+videoCapture = cv2.VideoCapture(args.video)
+fps = videoCapture.get(cv2.CAP_PROP_FPS)
+success, frame = videoCapture.read()
+h, w, _ = frame.shape
+ph = h // 32 * 32
+pw = w // 32 * 32
+padding = (0, pw - w, 0, ph - h)
+fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
+print('{}.mp4'.format(args.video[:-4]))
+output = cv2.VideoWriter('{}_2x.mp4'.format(args.video[:-4]), fourcc, fps * 2, (w, h))
+frame = frame
+while success:
+    lastframe = frame
+    success, frame = videoCapture.read()
+    if success:
+        I0 = torch.from_numpy(np.transpose(lastframe, (2,0,1)).astype("float32") / 255.).to(device).unsqueeze(0)
+        I1 = torch.from_numpy(np.transpose(frame, (2,0,1)).astype("float32") / 255.).to(device).unsqueeze(0)
+        I0 = F.pad(I0, padding)
+        I1 = F.pad(I1, padding)
+        if (F.interpolate(I0, (16, 16), mode='bilinear')
+            - F.interpolate(I1, (16, 16), mode='bilinear')).abs().mean() > 0.2:            
+            mid = lastframe
+        else:
+            mid = model.inference(I0, I1)
+            mid = ((mid[0].cpu().detach().numpy().transpose(1, 2, 0))*255.).astype('uint8')
+        output.write(lastframe[:h, :w])
+        output.write(mid[:h, :w])
+    output.write(frame)
+output.release()
