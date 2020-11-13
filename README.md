@@ -1,8 +1,8 @@
 # RIFE
 ## [arXiv](https://arxiv.org/pdf/2011.06294.pdf) | [Reddit](https://www.reddit.com/r/computervision/comments/jtjza1/rife_open_source_realtime_720p_flowbased_video/)
-**We are working on arranging our training code and other scripts.**
+We will release our training code soon. 
 
-Our model can run 30+FPS for 2X interpolation on 2080Ti GPU. We also support CPU device including MacOS.
+Our model can run 30+FPS for 2X interpolation on 2080Ti GPU. We also support CPU device including MacOS. Currently our method supports multi-frame interpolation between a pair of images and 2x frame interpolation for mp4 video.
 
 16X interpolation results from two input images: 
 
