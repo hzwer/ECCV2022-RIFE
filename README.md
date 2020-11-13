@@ -1,4 +1,5 @@
 # RIFE
+## [arXiv](https://arxiv.org/abs/2011.06294)
 **We are working on arranging our training code and other scripts.**
 
 ## Abstract
@@ -36,6 +37,13 @@ If you find this repository useful for your research, please cite the following 
 
 ## Reference
 [ARFlow](https://github.com/lliuz/ARFlow)
+
 [pytorch-liteflownet](https://github.com/sniklaus/pytorch-liteflownet)
+
 [RAFT](https://github.com/princeton-vl/RAFT)
+
+[DAIN](https://github.com/baowenbo/DAIN)
+
+[CAIN](https://github.com/myungsub/CAIN)
+
 [AdaCoF-pytorch](https://github.com/HyeongminLEE/AdaCoF-pytorch)
