@@ -26,7 +26,7 @@ $ python3 inference.py --img /path/to/image_0 /path/to/image_1
 // You will get an out.png. 
 ```
 
-If you find this repository useful for your research, please cite the following paper:
+## Citation
 ```
 @article{huang2020rife,
   title={RIFE: Real-Time Intermediate Flow Estimation for Video Frame Interpolation},
@@ -37,4 +37,8 @@ If you find this repository useful for your research, please cite the following 
 ```
 
 ## Reference
-[ARFlow](https://github.com/lliuz/ARFlow). [pytorch-liteflownet](https://github.com/sniklaus/pytorch-liteflownet). [RAFT](https://github.com/princeton-vl/RAFT). [DAIN](https://github.com/baowenbo/DAIN). [CAIN](https://github.com/myungsub/CAIN). [AdaCoF-pytorch](https://github.com/HyeongminLEE/AdaCoF-pytorch)
+Optical Flow:
+[ARFlow](https://github.com/lliuz/ARFlow)  [pytorch-liteflownet](https://github.com/sniklaus/pytorch-liteflownet)  [RAFT](https://github.com/princeton-vl/RAFT).
+
+Video Interpolation:
+[DAIN](https://github.com/baowenbo/DAIN)  [CAIN](https://github.com/myungsub/CAIN)   [AdaCoF-pytorch](https://github.com/HyeongminLEE/AdaCoF-pytorch)
