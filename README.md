@@ -45,6 +45,12 @@ $ python3 inference_mp4_2x.py --video video.mp4
 
 We will release our training and benchmark validation code soon.
 
+## Evaluation
+Download [Vimeo90K dataset](http://toflow.csail.mit.edu/) at ./vimeo_interp_test
+```
+$ python3 vimeo_benchmark.py
+```
+
 ## Citation
 
 ```
