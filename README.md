@@ -1,9 +1,7 @@
 # RIFE
 ## [arXiv](https://arxiv.org/pdf/2011.06294.pdf) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/jtl37r/r_realtime_720p_flowbased_video_frame/)
-We will release our training code soon.
 
 **You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Video_2x.ipynb) to have a try.**
-
 
 Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. We also support CPU device including MacOS system. Currently our method supports multi-frame interpolation between a pair of images and 2X interpolation for video. Everyone is welcome to use this alpha version and make suggestions!
 
@@ -44,6 +42,8 @@ $ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -vf "split[s0][s1];[s0]p
 $ python3 inference_mp4_2x.py --video video.mp4
 (generate video_2x.mp4, you can use this script recursively to get 4X, 8X, 16X...)
 ```
+
+We will release our training and benchmark validation code soon.
 
 ## Citation
 
