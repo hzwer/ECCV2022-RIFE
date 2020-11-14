@@ -21,8 +21,8 @@ videoCapture = cv2.VideoCapture(args.video)
 fps = videoCapture.get(cv2.CAP_PROP_FPS)
 success, frame = videoCapture.read()
 h, w, _ = frame.shape
-ph = h // 32 * 32
-pw = w // 32 * 32
+ph = ((h - 1) // 32 + 1) * 32
+pw = ((w - 1) // 32 + 1) * 32
 padding = (0, pw - w, 0, ph - h)
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
 print('{}.mp4'.format(args.video[:-4]))
