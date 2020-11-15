@@ -8,6 +8,10 @@ from torch.nn import functional as F
 from model.RIFE import Model
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+if torch.cuda.is_available():
+    torch.set_grad_enabled(False)
+    torch.backends.cudnn.enabled = True
+    torch.backends.cudnn.benchmark = True
 
 parser = argparse.ArgumentParser(description='Interpolation for a pair of images')
 parser.add_argument('--video', dest='video', required=True)
@@ -28,8 +32,8 @@ pw = ((w - 1) // 32 + 1) * 32
 padding = (0, pw - w, 0, ph - h)
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
 tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
-pbar = tqdm(total=tot_frame)
 print('{}.mp4, {} frames in total, {}FPS to {}FPS'.format(args.video[:-4], tot_frame, fps, fps * 2))
+pbar = tqdm(total=tot_frame)
 if args.montage:
     output = cv2.VideoWriter('{}_2x.mp4'.format(args.video[:-4]), fourcc, fps * 2, (2*w, h))
 else:        
@@ -44,11 +48,11 @@ while success:
         I0 = F.pad(I0, padding)
         I1 = F.pad(I1, padding)
         if (F.interpolate(I0, (16, 16), mode='bilinear', align_corners=False)
-            - F.interpolate(I1, (16, 16), mode='bilinear', align_corners=False)).abs().mean() > 0.2:            
+            - F.interpolate(I1, (16, 16), mode='bilinear', align_corners=False)).abs().mean() > 0.2: 
             mid = lastframe
         else:
             mid = model.inference(I0, I1)
-            mid = ((mid[0].cpu().detach().numpy().transpose(1, 2, 0))*255.).astype('uint8')
+            mid = (((mid[0] * 255.).cpu().detach().numpy().transpose(1, 2, 0))).astype('uint8')
         if args.montage:
             output.write(np.concatenate((lastframe, lastframe), 1))
             output.write(np.concatenate((lastframe, mid[:h, :w]), 1))
