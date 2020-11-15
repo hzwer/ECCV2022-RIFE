@@ -41,6 +41,8 @@ $ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -vf "split[s0][s1];[s0]p
 ```
 $ python3 inference_mp4_2x.py --video video.mp4
 (generate video_2x.mp4, you can use this script recursively to get 4X, 8X, 16X...)
+$ python3 inference_mp4_2x.py --video myvideo.mp4 --montage
+(if you want to montage the origin video)
 ```
 
 We will release our training and benchmark validation code soon.
