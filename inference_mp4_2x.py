@@ -3,6 +3,7 @@ import cv2
 import torch
 import argparse
 import numpy as np
+from tqdm import tqdm
 from torch.nn import functional as F
 from model.RIFE import Model
 
@@ -26,7 +27,9 @@ ph = ((h - 1) // 32 + 1) * 32
 pw = ((w - 1) // 32 + 1) * 32
 padding = (0, pw - w, 0, ph - h)
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-print('{}.mp4'.format(args.video[:-4]))
+tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
+pbar = tqdm(total=tot_frame)
+print('{}.mp4, {} frames in total, {}FPS to {}FPS'.format(args.video[:-4], tot_frame, fps, fps * 2))
 if args.montage:
     output = cv2.VideoWriter('{}_2x.mp4'.format(args.video[:-4]), fourcc, fps * 2, (2*w, h))
 else:        
@@ -52,8 +55,10 @@ while success:
         else:
             output.write(lastframe)
             output.write(mid[:h, :w])
+        pbar.update(1)
     if args.montage:
         output.write(np.concatenate((lastframe, lastframe), 1))
     else:
         output.write(lastframe)
+pbar.close()
 output.release()
