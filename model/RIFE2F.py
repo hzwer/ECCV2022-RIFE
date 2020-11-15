@@ -6,7 +6,7 @@ import torch.optim as optim
 import itertools
 from model.warplayer import warp
 from torch.nn.parallel import DistributedDataParallel as DDP
-from model.IFNet_Large import *
+from model.IFNet2F import *
 import torch.nn.functional as F
 from model.loss import *
 
@@ -59,7 +59,7 @@ class ResBlock(nn.Module):
         x = self.relu2(x * w + y)
         return x
 
-c = 24
+c = 16
 
 class ContextNet(nn.Module):
     def __init__(self):

@@ -5,7 +5,6 @@ import argparse
 import numpy as np
 from tqdm import tqdm
 from torch.nn import functional as F
-from model.RIFE import Model
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 if torch.cuda.is_available():
@@ -16,8 +15,13 @@ if torch.cuda.is_available():
 parser = argparse.ArgumentParser(description='Interpolation for a pair of images')
 parser.add_argument('--video', dest='video', required=True)
 parser.add_argument('--montage', dest='montage', action='store_true', help='montage origin video')
+parser.add_argument('--model', dest='model', type=str, default='RIFE')
 args = parser.parse_args()
 
+if args.model == '2F':
+    from model.RIFE2F import Model
+else:
+    from model.RIFE import Model
 model = Model()
 model.load_model('./train_log')
 model.eval()

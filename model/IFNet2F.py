@@ -86,9 +86,9 @@ class IFBlock(nn.Module):
 class IFNet(nn.Module):
     def __init__(self):
         super(IFNet, self).__init__()
-        self.block0 = IFBlock(6, scale=4, c=288)
-        self.block1 = IFBlock(8, scale=2, c=192)
-        self.block2 = IFBlock(8, scale=1, c=96)
+        self.block0 = IFBlock(6, scale=4, c=192)
+        self.block1 = IFBlock(8, scale=2, c=128)
+        self.block2 = IFBlock(8, scale=1, c=64)
 
     def forward(self, x):
         x = F.interpolate(x, scale_factor=0.5, mode="bilinear",
