@@ -16,7 +16,7 @@ if torch.cuda.is_available():
 parser = argparse.ArgumentParser(description='Interpolation for a pair of images')
 parser.add_argument('--video', dest='video', required=True)
 parser.add_argument('--montage', dest='montage', action='store_true', help='montage origin video')
-parser.add_argument('--fps', dest='fps', type='int', default=60)
+parser.add_argument('--fps', dest='fps', type=int, default=60)
 args = parser.parse_args()
 
 model = Model()
