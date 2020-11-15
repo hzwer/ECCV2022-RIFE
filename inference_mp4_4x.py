@@ -35,9 +35,9 @@ tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
 print('{}.mp4, {} frames in total, {}FPS to {}FPS'.format(args.video[:-4], tot_frame, fps, 4*fps))
 pbar = tqdm(total=tot_frame)
 if args.montage:
-    output = cv2.VideoWriter('{}_2x.mp4'.format(args.video[:-4]), fourcc, fps*4, (2*w, h))
+    output = cv2.VideoWriter('{}_4x.mp4'.format(args.video[:-4]), fourcc, fps*4, (2*w, h))
 else:        
-    output = cv2.VideoWriter('{}_2x.mp4'.format(args.video[:-4]), fourcc, fps*4, (w, h))
+    output = cv2.VideoWriter('{}_4x.mp4'.format(args.video[:-4]), fourcc, fps*4, (w, h))
 frame = frame
 while success:
     lastframe = frame
