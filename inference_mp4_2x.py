@@ -53,7 +53,7 @@ while success:
             output.write(lastframe)
             output.write(mid[:h, :w])
     if args.montage:
-        output.write(np.concatenate((frame, frame), 1))
+        output.write(np.concatenate((lastframe, lastframe), 1))
     else:
-        output.write(frame)
+        output.write(lastframe)
 output.release()
