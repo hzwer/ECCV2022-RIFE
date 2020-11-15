@@ -5,7 +5,7 @@
 
 **You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Video_2x.ipynb) to have a try and generate the demo above.**
 
-Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. We also support CPU device including MacOS system. Currently our method supports multi-frame interpolation between a pair of images and 2X interpolation for video. Everyone is welcome to use this alpha version and make suggestions!
+Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently our method supports 2X/4X interpolation for video, and multi-frame interpolation between a pair of images. Everyone is welcome to use this alpha version and make suggestions!
 
 16X interpolation results from two input images: 
 
