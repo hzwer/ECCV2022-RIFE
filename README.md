@@ -15,17 +15,17 @@ We propose a real-time intermediate flow estimation algorithm (RIFE) for video f
 
 ## Dependencies
 ```
-pip3 install torch==1.6.0
-pip3 install numpy
-pip3 install opencv-python
+$ pip3 install torch
+$ pip3 install numpy
+$ pip3 install opencv-python
 ```
-
 ## Usage
 * Download the pretrained models from [here](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing)
 
 (We also provide 百度网盘 source. 链接: https://pan.baidu.com/s/17tHd-syovvRGP2C6UVPsIw 提取码: 5ha7)
 * Unzip and move the pretrained parameters to train_log/\*.pkl
 
+The models under different setting is coming soon.
 **Image Interpolation**
 
 ```
