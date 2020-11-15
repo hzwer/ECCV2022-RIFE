@@ -16,7 +16,6 @@ if torch.cuda.is_available():
 parser = argparse.ArgumentParser(description='Interpolation for a pair of images')
 parser.add_argument('--video', dest='video', required=True)
 parser.add_argument('--montage', dest='montage', action='store_true', help='montage origin video')
-parser.add_argument('--fps', dest='fps', type=int, default=60)
 args = parser.parse_args()
 
 model = Model()
@@ -33,7 +32,7 @@ pw = ((w - 1) // 32 + 1) * 32
 padding = (0, pw - w, 0, ph - h)
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
 tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
-print('{}.mp4, {} frames in total, {}FPS to {}FPS'.format(args.video[:-4], tot_frame, fps, args.fps))
+print('{}.mp4, {} frames in total, {}FPS'.format(args.video[:-4], tot_frame, fps))
 pbar = tqdm(total=tot_frame)
 if args.montage:
     output = cv2.VideoWriter('{}_2x.mp4'.format(args.video[:-4]), fourcc, args.fps, (2*w, h))
