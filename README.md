@@ -1,5 +1,5 @@
 # RIFE
-## [arXiv](https://arxiv.org/pdf/2011.06294.pdf) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/jtl37r/r_realtime_720p_flowbased_video_frame/)
+## [arXiv](https://arxiv.org/pdf/2011.06294.pdf) | [Youtube](https://youtu.be/SU-oai_chxg) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/jtl37r/r_realtime_720p_flowbased_video_frame/)
 
 **You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Video_2x.ipynb) to have a try.**
 
