@@ -49,7 +49,7 @@ We will release our training and benchmark validation code soon.
 Download [Vimeo90K dataset](http://toflow.csail.mit.edu/) at ./vimeo_interp_test
 ```
 $ python3 Vimeo90K_benchmark.py
-(You will get 35.70PSNR and 0.979SSIM)
+(You will get 35.695PSNR and 0.9788SSIM)
 ```
 
 ## Citation
