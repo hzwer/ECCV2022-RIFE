@@ -1,7 +1,7 @@
 # RIFE
 ## [arXiv](https://arxiv.org/pdf/2011.06294.pdf) | [Youtube](https://youtu.be/SU-oai_chxg) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/jtl37r/r_realtime_720p_flowbased_video_frame/)
 
-<img src="demo/intro.png" alt="img" style="zoom:33%;" />
+<img src="demo/intro.png" alt="img" width=350 />
 
 **You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Video_2x.ipynb) to have a try and generate the demo above.**
 
