@@ -5,6 +5,7 @@ import torch
 import argparse
 import numpy as np
 from torch.nn import functional as F
+from pytorch_msssim import ssim_matlab
 from model.RIFE import Model
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -17,6 +18,7 @@ model.device()
 path = 'vimeo_interp_test/'
 f = open(path + 'tri_testlist.txt', 'r')
 psnr_list = []
+ssim_list = []
 for i in f:
     name = str(i).strip()
     if(len(name) <= 1):
@@ -28,7 +30,10 @@ for i in f:
     I0 = (torch.tensor(I0.transpose(2, 0, 1)).to(device) / 255.).unsqueeze(0)
     I2 = (torch.tensor(I2.transpose(2, 0, 1)).to(device) / 255.).unsqueeze(0)
     mid = model.inference(I0, I2)[0]
-    I1 = torch.tensor(I1.transpose(2, 0, 1)).to(device) / 255.
-    psnr = -10 * math.log10(torch.mean((I1 - mid) * (I1 - mid)).cpu().data)
+    mid = np.round((mid * 255).cpu().numpy()).astype('uint8').transpose(1, 2, 0) / 255.
+    I1 = I1 / 255.
+    psnr = -10 * math.log10(((I1 - mid) * (I1 - mid)).mean())
+    ssim = ssim_matlab(torch.tensor(I1).unsqueeze(0).float(), torch.tensor(mid).unsqueeze(0).float())
     psnr_list.append(psnr)
-    print(np.mean(psnr_list))
+    ssim_list.append(ssim)
+    print(np.mean(psnr_list), np.mean(ssim_list))
