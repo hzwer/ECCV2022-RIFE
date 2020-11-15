@@ -32,12 +32,12 @@ pw = ((w - 1) // 32 + 1) * 32
 padding = (0, pw - w, 0, ph - h)
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
 tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
-print('{}.mp4, {} frames in total, {}FPS'.format(args.video[:-4], tot_frame, fps))
+print('{}.mp4, {} frames in total, {}FPS to {}FPS'.format(args.video[:-4], tot_frame, fps, 2*fps))
 pbar = tqdm(total=tot_frame)
 if args.montage:
-    output = cv2.VideoWriter('{}_2x.mp4'.format(args.video[:-4]), fourcc, fps, (2*w, h))
+    output = cv2.VideoWriter('{}_2x.mp4'.format(args.video[:-4]), fourcc, fps*3, (2*w, h))
 else:        
-    output = cv2.VideoWriter('{}_2x.mp4'.format(args.video[:-4]), fourcc, fps, (w, h))
+    output = cv2.VideoWriter('{}_2x.mp4'.format(args.video[:-4]), fourcc, fps*3, (w, h))
 frame = frame
 while success:
     lastframe = frame
