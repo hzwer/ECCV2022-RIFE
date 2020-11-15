@@ -1,7 +1,7 @@
 # RIFE
 ## [arXiv](https://arxiv.org/pdf/2011.06294.pdf) | [Youtube](https://youtu.be/SU-oai_chxg) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/jtl37r/r_realtime_720p_flowbased_video_frame/)
 
-**You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Video_2x.ipynb) to have a try.**
+**You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Video_2x.ipynb) to have a try and generate the demo above.**
 
 Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. We also support CPU device including MacOS system. Currently our method supports multi-frame interpolation between a pair of images and 2X interpolation for video. Everyone is welcome to use this alpha version and make suggestions!
 
@@ -38,10 +38,12 @@ $ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -vf "split[s0][s1];[s0]p
 ```
 
 **Video 2x Interpolation**
-
+You can use our [demo video](https://drive.google.com/file/d/1i3xlKb7ax7Y70khcTcuePi6E7crO_dFc/view?usp=sharing) or use your own video to run our model. 
 ```
-$ python3 inference_mp4_2x.py --video video.mp4
+$ python3 inference_mp4_2x.py --video video.mp4 --fps=60
 (generate video_2x.mp4, you can use this script recursively to get 4X, 8X, 16X...)
+$ python3 inference_mp4_4x.py --video video.mp4 --fps=60
+(if you like want 4x interpolation)
 $ python3 inference_mp4_2x.py --video myvideo.mp4 --montage
 (if you want to montage the origin video)
 ```
