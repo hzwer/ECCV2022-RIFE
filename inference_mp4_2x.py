@@ -33,7 +33,7 @@ fps = np.round(videoCapture.get(cv2.CAP_PROP_FPS))
 success, frame = videoCapture.read()
 h, w, _ = frame.shape
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-output = cv2.VideoWriter('{}_4x.mp4'.format(args.video[:-4]), fourcc, args.fps, (w, h))
+output = cv2.VideoWriter('{}_2x.mp4'.format(args.video[:-4]), fourcc, args.fps, (w, h))
 if args.montage:
     left = w // 4
     w = w // 2
