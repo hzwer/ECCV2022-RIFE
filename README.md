@@ -23,7 +23,7 @@ $ pip3 install numpy
 $ pip3 install opencv-python
 ```
 ## Usage
-* Download the pretrained models from [here](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing)
+* Download the pretrained models from [here](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing.
 
 (我们也提供了百度网盘链接: https://pan.baidu.com/s/17tHd-syovvRGP2C6UVPsIw 提取码: 5ha7，把压缩包解开后放在 train_log/\*.pkl)
 * Unzip and move the pretrained parameters to train_log/\*.pkl
@@ -46,6 +46,7 @@ $ python3 inference_mp4_2x.py --video video.mp4 --montage
 (if you want to montage the origin video)
 
 The warning info, 'Warning: Your video has *** static frames, it may change the duration of the generated video.' means that your video has changed the frame rate by adding static frames, it is common if you have processed 24FPS video to 30FPS.
+
 **Image Interpolation**
 
 ```
