@@ -201,9 +201,8 @@ class Model:
             return pred
 
     def inference(self, img0, img1):
-        with torch.no_grad():
-            imgs = torch.cat((img0, img1), 1)
-            flow, _ = self.flownet(imgs)
+        imgs = torch.cat((img0, img1), 1)
+        flow, _ = self.flownet(imgs)
         return self.predict(imgs, flow, training=False).detach()
 
     def update(self, imgs, gt, learning_rate=0, mul=1, training=True, flow_gt=None):
