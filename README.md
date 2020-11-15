@@ -25,10 +25,27 @@ $ pip3 install opencv-python
 ## Usage
 * Download the pretrained models from [here](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing)
 
-(We also provide 百度网盘 source. 链接: https://pan.baidu.com/s/17tHd-syovvRGP2C6UVPsIw 提取码: 5ha7)
+(我们也提供了百度网盘链接: https://pan.baidu.com/s/17tHd-syovvRGP2C6UVPsIw 提取码: 5ha7，把压缩包解开后放在 train_log/\*.pkl)
 * Unzip and move the pretrained parameters to train_log/\*.pkl
 
 The models under different setting is coming soon.
+
+**Video 2x Interpolation**
+You can use our [demo video](https://drive.google.com/file/d/1i3xlKb7ax7Y70khcTcuePi6E7crO_dFc/view?usp=sharing) or use your own video to run our model. 
+```
+$ python3 inference_mp4_2x.py --video video.mp4 --fps=60
+```
+(generate video_2x.mp4, you can use this script recursively)
+```
+$ python3 inference_mp4_4x.py --video video.mp4 --fps=60
+```
+(if you want 4x interpolation)
+```
+$ python3 inference_mp4_2x.py --video video.mp4 --montage
+```
+(if you want to montage the origin video)
+
+The warning info, 'Warning: Your video has *** static frames, it may change the duration of the generated video.' means that your video has changed the frame rate by adding static frames, it is common if you have processed 24FPS video to 30FPS.
 **Image Interpolation**
 
 ```
@@ -39,20 +56,10 @@ $ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -c:v libx264 -pix_fmt yu
 $ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -vf "split[s0][s1];[s0]palettegen=stats_mode=single[p];[s1][p]paletteuse=new=1" output/slomo.gif
 ```
 
-**Video 2x Interpolation**
-You can use our [demo video](https://drive.google.com/file/d/1i3xlKb7ax7Y70khcTcuePi6E7crO_dFc/view?usp=sharing) or use your own video to run our model. 
-```
-$ python3 inference_mp4_2x.py --video video.mp4 --fps=60
-(generate video_2x.mp4, you can use this script recursively to get 4X, 8X, 16X...)
-$ python3 inference_mp4_4x.py --video video.mp4 --fps=60
-(if you like want 4x interpolation)
-$ python3 inference_mp4_2x.py --video myvideo.mp4 --montage
-(if you want to montage the origin video)
-```
-
+## Evaluation
 We will release our training and benchmark validation code soon.
 
-## Evaluation
+**Vimeo90K**
 Download [Vimeo90K dataset](http://toflow.csail.mit.edu/) at ./vimeo_interp_test
 ```
 $ python3 Vimeo90K_benchmark.py
