@@ -15,6 +15,7 @@ if torch.cuda.is_available():
 parser = argparse.ArgumentParser(description='Interpolation for a pair of images')
 parser.add_argument('--video', dest='video', required=True)
 parser.add_argument('--montage', dest='montage', action='store_true', help='montage origin video')
+parser.add_argument('--skip', dest='skip', action='store_true', help='whether to remove static frames before processing')
 parser.add_argument('--fps', dest='fps', type=int, default=60)
 parser.add_argument('--model', dest='model', type=str, default='RIFE')
 args = parser.parse_args()
@@ -58,8 +59,8 @@ while success:
         I1 = F.pad(I1, padding)
         p = (F.interpolate(I0, (16, 16), mode='bilinear', align_corners=False)
              - F.interpolate(I1, (16, 16), mode='bilinear', align_corners=False)).abs().mean()
-        if p < 0.01:
-            print("Warning: Your video has {} static frames, it may change the duration of the generated video.".format(cnt))
+        if p < 1e-3 and args.skip:
+            print("Warning: Your video has {} static frames, skipping them may change the duration of the generated video.".format(cnt))
             cnt += 1
             pbar.update(1)
             continue
