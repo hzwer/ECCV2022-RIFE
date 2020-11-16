@@ -5,7 +5,7 @@
 
 **Date of recent model update: 2020.11.16, v1.1**
 
-**You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate [the youtube demo](https://www.youtube.com/watch?v=lqtqmP46LaA&feature=youtu.be).**
+**You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the above youtube demo.**
 
 Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently our method supports 2X/4X interpolation for video, and multi-frame interpolation between a pair of images. Everyone is welcome to use this alpha version and make suggestions!
 
