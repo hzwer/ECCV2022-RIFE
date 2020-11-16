@@ -6,6 +6,7 @@
 
 <img src="demo/intro.png" alt="img" width=350 />
 
+**Date of recent model update: 2020.11.16, v1.1**
 **You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate [the youtube demo](https://www.youtube.com/watch?v=lqtqmP46LaA&feature=youtu.be).**
 
 Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently our method supports 2X/4X interpolation for video, and multi-frame interpolation between a pair of images. Everyone is welcome to use this alpha version and make suggestions!
@@ -27,9 +28,10 @@ $ pip3 install opencv-python
 ```
 ## Usage
 
-* Download the pretrained models from [here](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing).
+* Download the pretrained models from [here](https://drive.google.com/file/d/1zYc3PEN4t6GOUoVYJjvcXoMmM3kFDNGS/view?usp=sharing).
+We are optimizing the visual effects and will support animation in the future.
 
-(我们也提供了百度网盘链接: https://pan.baidu.com/s/17tHd-syovvRGP2C6UVPsIw 提取码: 5ha7，把压缩包解开后放在 train_log/\*.pkl)
+(我们也提供了百度网盘链接:https://pan.baidu.com/s/1YVUsusJFhZ2rWg1Zs5sOkQ  密码:88bu，把压缩包解开后放在 train_log/\*.pkl)
 * Unzip and move the pretrained parameters to train_log/\*.pkl
 
 The models under different setting is coming soon.
@@ -63,6 +65,7 @@ $ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -vf "split[s0][s1];[s0]p
 ```
 
 ## Evaluation
+[RIFE reported by our paper](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing)
 We will release our training and benchmark validation code soon.
 
 **Vimeo90K**
