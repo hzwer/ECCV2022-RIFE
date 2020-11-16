@@ -46,9 +46,9 @@ $ python3 inference_mp4_4x.py --video video.mp4 --fps=60
 ```
 (if you want 4x interpolation)
 ```
-$ python3 inference_mp4_2x.py --video video.mp4 --montage
+$ python3 inference_mp4_2x.py --video video.mp4 --montage --png
 ```
-(if you want to montage the origin video)
+(if you want to montage the origin video, and save the png format output)
 
 The warning info, 'Warning: Your video has *** static frames, it may change the duration of the generated video.' means that your video has changed the frame rate by adding static frames, it is common if you have processed 24FPS video to 30FPS.
 
