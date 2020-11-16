@@ -1,5 +1,8 @@
 # RIFE
-## [arXiv](https://arxiv.org/pdf/2011.06294.pdf) | [Youtube](https://www.youtube.com/watch?v=lqtqmP46LaA&feature=youtu.be) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/juv419/r_rife_15fps_to_60fps_video_frame_interpolation/)
+## [arXiv](https://arxiv.org/pdf/2011.06294.pdf) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/juv419/r_rife_15fps_to_60fps_video_frame_interpolation/)
+**[Youtube demo 24FPS->96FPS](https://www.youtube.com/watch?v=lqtqmP46LaA&feature=youtu.be)**
+
+**[Youtube demo 12FPS->48FPS](https://www.youtube.com/watch?v=SCJkFcL-wlw)**
 
 <img src="demo/intro.png" alt="img" width=350 />
 
