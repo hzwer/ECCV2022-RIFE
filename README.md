@@ -23,7 +23,8 @@ $ pip3 install numpy
 $ pip3 install opencv-python
 ```
 ## Usage
-* Download the pretrained models from [here](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing.
+
+* Download the pretrained models from [here](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing).
 
 (我们也提供了百度网盘链接: https://pan.baidu.com/s/17tHd-syovvRGP2C6UVPsIw 提取码: 5ha7，把压缩包解开后放在 train_log/\*.pkl)
 * Unzip and move the pretrained parameters to train_log/\*.pkl
@@ -31,6 +32,7 @@ $ pip3 install opencv-python
 The models under different setting is coming soon.
 
 **Video 2x Interpolation**
+
 You can use our [demo video](https://drive.google.com/file/d/1i3xlKb7ax7Y70khcTcuePi6E7crO_dFc/view?usp=sharing) or use your own video to run our model. 
 ```
 $ python3 inference_mp4_2x.py --video video.mp4 --fps=60
