@@ -44,7 +44,7 @@ padding = (0, pw - w, 0, ph - h)
 tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
 print('{}.mp4, {} frames in total, {}FPS to {}FPS'.format(args.video[:-4], tot_frame, fps, args.fps))
 pbar = tqdm(total=tot_frame)
-cnt = 0
+cnt = 1
 if args.montage:
     frame = frame[:, left: left + w]
 while success:
