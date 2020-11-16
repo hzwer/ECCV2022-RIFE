@@ -54,9 +54,14 @@ The warning info, 'Warning: Your video has *** static frames, it may change the 
 
 ```
 $ python3 inference_img.py --img img0.png img1.png --times=4
+```
 (2^4=16X interpolation results)
+After that, you can use pngs to generate mp4:
+```
 $ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -c:v libx264 -pix_fmt yuv420p output/slomo.mp4 -q:v 0 -q:a 0
-(generate a slomo mp4 video based on two input images)
+```
+You can also use pngs to generate gif:
+```
 $ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -vf "split[s0][s1];[s0]palettegen=stats_mode=single[p];[s1][p]paletteuse=new=1" output/slomo.gif
 ```
 
