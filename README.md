@@ -1,8 +1,6 @@
 # RIFE
 ## [arXiv](https://arxiv.org/pdf/2011.06294.pdf) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/juv419/r_rife_15fps_to_60fps_video_frame_interpolation/) | [YouTube(24fps->96fps)](https://youtu.be/kUQ7KK6MhHw)
 
-<img src="demo/intro.png" alt="img" width=350 />
-
 **Date of recent model update: 2020.11.16, v1.1**
 
 **You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the above youtube demo.**
@@ -75,6 +73,7 @@ $ python3 Vimeo90K_benchmark.py
 ```
 
 ## Citation
+<img src="demo/intro.png" alt="img" width=350 />
 
 ```
 @article{huang2020rife,
