@@ -60,7 +60,8 @@ while success:
         p = (F.interpolate(I0, (16, 16), mode='bilinear', align_corners=False)
              - F.interpolate(I1, (16, 16), mode='bilinear', align_corners=False)).abs().mean()
         if p < 1e-3 and args.skip:
-            print("Warning: Your video has {} static frames, skipping them may change the duration of the generated video.".format(cnt))
+            if cnt % 10 == 0:
+                print("Warning: Your video has {} static frames, skipping them may change the duration of the generated video.".format(cnt))
             cnt += 1
             pbar.update(1)
             continue
