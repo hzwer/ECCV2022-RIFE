@@ -1,7 +1,7 @@
 # RIFE
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/juv419/r_rife_15fps_to_60fps_video_frame_interpolation/) | [YouTube(24fps->96fps)](https://youtu.be/kUQ7KK6MhHw)
 
-**2020.11.17 News: Try our 4 road parallel to process video, expected 2x speedup!**
+**2020.11.17 News: Try our 4 road parallel to process video, got 100% speedup!**
 
 **Date of recent model update: 2020.11.16, v1.1**
 
@@ -48,7 +48,7 @@ $ python3 inference_mp4_4x.py --video video.mp4 --fps=60
 ```
 $ python3 inference_mp4_4x_parallel.py --video video.mp4 --fps=60
 ```
-(Try our parallel process to get 2x speedup!)
+(Try our parallel process to get 100% speedup!)
 ```
 $ python3 inference_mp4_2x.py --video video.mp4 --montage --png
 ```
