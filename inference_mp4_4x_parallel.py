@@ -87,8 +87,8 @@ while success:
         mid2 = model.inference(mid1, I1)
         mid0 = (((mid0 * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1))).astype('uint8')
         mid1 = (((mid1 * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1))).astype('uint8')
-        mid2 = (((mid2* 255.).cpu().detach().numpy().transpose(0, 2, 3, 1))).astype('uint8')
-        writeframe(p, mid0, mid1, mid)
+        mid2 = (((mid2 * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1))).astype('uint8')
+        writeframe(p, mid0, mid1, mid2)
         pbar.update(4)
         img_list = img_list[-1]
 pbar.close()
