@@ -1,5 +1,5 @@
 # RIFE
-## [arXiv](https://arxiv.org/pdf/2011.06294.pdf) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/juv419/r_rife_15fps_to_60fps_video_frame_interpolation/) | [YouTube(24fps->96fps)](https://youtu.be/kUQ7KK6MhHw)
+## [arXiv](https://arxiv.org/abs/2011.06294) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/juv419/r_rife_15fps_to_60fps_video_frame_interpolation/) | [YouTube(24fps->96fps)](https://youtu.be/kUQ7KK6MhHw)
 
 **Date of recent model update: 2020.11.16, v1.1**
 
