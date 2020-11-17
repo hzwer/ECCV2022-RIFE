@@ -2,6 +2,7 @@
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/juv419/r_rife_15fps_to_60fps_video_frame_interpolation/) | [YouTube(24fps->96fps)](https://youtu.be/kUQ7KK6MhHw)
 
 **2020.11.17 News: Try our 4 road parallel to process your video, expect 2x speedup!**
+
 **Date of recent model update: 2020.11.16, v1.1**
 
 **You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the above youtube demo.**
