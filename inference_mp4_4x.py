@@ -45,7 +45,7 @@ cnt = 0
 def writeframe(frame):
     global cnt
     if args.png:
-        cv2.imwrite('output/{}.png'.format(cnt), frame)
+        cv2.imwrite('output/{:0>8d}.png'.format(cnt), frame)
         cnt += 1
     else:
         output.write(frame)
