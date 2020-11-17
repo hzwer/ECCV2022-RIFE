@@ -60,7 +60,7 @@ def writeframe(I0, mid0, mid1, mid2, I1, p):
             cv2.imwrite('output/{:0>7d}.png'.format(cnt), mid2[i])
             cnt += 1
         else:
-            output.write(I0[i])
+            output.write(I0[i])            
             output.write(mid0[i])
             output.write(mid1[i])
             output.write(mid2[i])
@@ -86,11 +86,11 @@ while success:
         mid1 = model.inference(I0, I1)
         mid0 = model.inference(I0, mid1)
         mid2 = model.inference(mid1, I1)
-        I0 = (((I0 * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1))).astype('uint8')
-        I1 = (((I1 * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1))).astype('uint8')
-        mid0 = (((mid0 * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1))).astype('uint8')
-        mid1 = (((mid1 * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1))).astype('uint8')
-        mid2 = (((mid2 * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1))).astype('uint8')
+        I0 = (((I0[:, :, :h, :w] * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1))).astype('uint8')
+        I1 = (((I1[:, :, :h, :w] * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1))).astype('uint8')
+        mid0 = (((mid0[:, :, :h, :w] * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1))).astype('uint8')
+        mid1 = (((mid1[:, :, :h, :w] * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1))).astype('uint8')
+        mid2 = (((mid2[:, :, :h, :w] * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1))).astype('uint8')
         writeframe(I0, mid0, mid1, mid2, I1, p.mean(3).mean(2).mean(1))
         pbar.update(4)
         img_list = img_list[-1:]
