@@ -76,7 +76,7 @@ while success:
     success, frame = videoCapture.read()
     if success:
         img_list.append(frame)
-    if len(img_list) == 5 or not success:
+    if len(img_list) == 5 or (not success and len(img_list) > 1):
         I0 = torch.from_numpy(np.transpose(img_list[:-1], (0, 3, 1, 2)).astype("float32") / 255.).to(device)
         I1 = torch.from_numpy(np.transpose(img_list[1:], (0, 3, 1, 2)).astype("float32") / 255.).to(device)
         p = (F.interpolate(I0, (16, 16), mode='bilinear', align_corners=False)
