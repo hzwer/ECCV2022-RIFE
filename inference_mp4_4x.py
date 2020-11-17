@@ -36,7 +36,8 @@ if args.png:
     if not os.path.exists('output'):
         os.mkdir('output')
 else:
-    output = cv2.VideoWriter('{}_4x.{}'.format(args.video[:-4], args.ext), fourcc, args.fps, (w, h))
+    video_path_wo_ext, ext = os.path.splitext(args.video)
+    output = cv2.VideoWriter('{}_4x.{}'.format(video_path_wo_ext, args.ext), fourcc, args.fps, (w, h))
     
 cnt = 0
 def writeframe(frame):
@@ -53,7 +54,7 @@ ph = ((h - 1) // 32 + 1) * 32
 pw = ((w - 1) // 32 + 1) * 32
 padding = (0, pw - w, 0, ph - h)
 tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
-print('{}.{}, {} frames in total, {}FPS to {}FPS'.format(args.video[:-4], args.ext, tot_frame, fps, args.fps))
+print('{}.{}, {} frames in total, {}FPS to {}FPS'.format(video_path_wo_ext, args.ext, tot_frame, fps, args.fps))
 pbar = tqdm(total=tot_frame)
 skip_frame = 1
 if args.montage:
