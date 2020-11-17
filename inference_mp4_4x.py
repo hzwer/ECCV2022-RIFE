@@ -17,14 +17,10 @@ parser.add_argument('--video', dest='video', required=True)
 parser.add_argument('--montage', dest='montage', action='store_true', help='montage origin video')
 parser.add_argument('--skip', dest='skip', action='store_true', help='whether to remove static frames before processing')
 parser.add_argument('--fps', dest='fps', type=int, default=60)
-parser.add_argument('--model', dest='model', type=str, default='RIFE')
 parser.add_argument('--png', dest='png', action='store_true', help='whether to output png format outputs')
 args = parser.parse_args()
 
-if args.model == '2F':
-    from model.RIFE2F import Model
-else:
-    from model.RIFE import Model
+from model.RIFE import Model
 model = Model()
 model.load_model('./train_log')
 model.eval()
