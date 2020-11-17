@@ -1,6 +1,7 @@
 # RIFE
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/juv419/r_rife_15fps_to_60fps_video_frame_interpolation/) | [YouTube(24fps->96fps)](https://youtu.be/kUQ7KK6MhHw)
 
+**2020.11.17 News: Try our 4 road parallel to process your video, expect 2x speedup!**
 **Date of recent model update: 2020.11.16, v1.1**
 
 **You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the above youtube demo.**
@@ -44,9 +45,14 @@ $ python3 inference_mp4_4x.py --video video.mp4 --fps=60
 ```
 (if you want 4x interpolation)
 ```
+$ python3 inference_mp4_4x_parallel.py --video video.mp4 --fps=60
+```
+(Try our parallel process to get 2x speedup!)
+```
 $ python3 inference_mp4_2x.py --video video.mp4 --montage --png
 ```
 (if you want to montage the origin video, and save the png format output)
+```
 
 The warning info, 'Warning: Your video has *** static frames, it may change the duration of the generated video.' means that your video has changed the frame rate by adding static frames, it is common if you have processed 24FPS video to 30FPS.
 
