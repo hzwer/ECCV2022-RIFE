@@ -18,6 +18,7 @@ parser.add_argument('--montage', dest='montage', action='store_true', help='mont
 parser.add_argument('--skip', dest='skip', action='store_true', help='whether to remove static frames before processing')
 parser.add_argument('--fps', dest='fps', type=int, default=60)
 parser.add_argument('--png', dest='png', action='store_true', help='whether to output png format outputs')
+parser.add_argument('--ext', dest='ext', type=str, default='mp4', help='output video extension')
 args = parser.parse_args()
     
 from model.RIFE import Model
@@ -35,7 +36,7 @@ if args.png:
     if not os.path.exists('output'):
         os.mkdir('output')
 else:
-    output = cv2.VideoWriter('{}_2x.mp4'.format(args.video[:-4]), fourcc, args.fps, (w, h))
+    output = cv2.VideoWriter('{}_2x.{}'.format(args.video[:-4], args.ext), fourcc, args.fps, (w, h))
 
 cnt = 0
 def writeframe(frame):
@@ -53,7 +54,7 @@ ph = ((h - 1) // 32 + 1) * 32
 pw = ((w - 1) // 32 + 1) * 32
 padding = (0, pw - w, 0, ph - h)
 tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
-print('{}.mp4, {} frames in total, {}FPS to {}FPS'.format(args.video[:-4], tot_frame, fps, args.fps))
+print('{}.{}, {} frames in total, {}FPS to {}FPS'.format(args.video[:-4], args.ext, tot_frame, fps, args.fps))
 pbar = tqdm(total=tot_frame)
 skip_frame = 1
 if args.montage:
