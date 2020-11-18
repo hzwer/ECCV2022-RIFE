@@ -21,6 +21,8 @@ parser.add_argument('--png', dest='png', action='store_true', help='whether to o
 parser.add_argument('--ext', dest='ext', type=str, default='mp4', help='output video extension')
 parser.add_argument('--times', dest='times', type=int, default=1)
 args = parser.parse_args()
+assert (args.times == 1 or args.times == 2)
+args.times = 2 ** args.times
 
 from model.RIFE import Model
 model = Model()
@@ -31,7 +33,7 @@ model.device()
 videoCapture = cv2.VideoCapture(args.video)
 fps = np.round(videoCapture.get(cv2.CAP_PROP_FPS))
 if args.fps is None:
-    fps = args.fps * 2
+    fps = args.fps * args.times
 success, frame = videoCapture.read()
 h, w, _ = frame.shape
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
@@ -40,7 +42,7 @@ if args.png:
         os.mkdir('output')
 else:
     video_path_wo_ext, ext = os.path.splitext(args.video)
-    output = cv2.VideoWriter('{}_{}fps.{}'.format(video_path_wo_ext, args.fps, args.ext), fourcc, args.fps, (w, h))
+    output = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, args.times, args.fps, args.ext), fourcc, args.fps, (w, h))
     
 cnt = 0
 def writeframe(frame):
@@ -86,25 +88,25 @@ while success:
             mid2 = frame
         else:
             mid1 = model.inference(I0, I1)
-            if args.times == 2:
+            if args.times == 4:
                 mid = model.inference(torch.cat((I0, mid1), 0), torch.cat((mid1, I1), 0))
             mid1 = (((mid1[0] * 255.).cpu().detach().numpy().transpose(1, 2, 0))).astype('uint8')
-            if args.times == 2:
+            if args.times == 4:
                 mid0 = (((mid[0] * 255.).cpu().detach().numpy().transpose(1, 2, 0))).astype('uint8')
                 mid2 = (((mid[1]* 255.).cpu().detach().numpy().transpose(1, 2, 0))).astype('uint8')
         if args.montage:
             writeframe(np.concatenate((lastframe, lastframe), 1))
-            if args.times == 2:
+            if args.times == 4:
                 writeframe(np.concatenate((lastframe, mid0[:h, :w]), 1))
             writeframe(np.concatenate((lastframe, mid1[:h, :w]), 1))
-            if args.times == 2:
+            if args.times == 4:
                 writeframe(np.concatenate((lastframe, mid2[:h, :w]), 1))
         else:
             writeframe(lastframe)
-            if args.times == 2:
+            if args.times == 4:
                 writeframe(mid0[:h, :w])
             writeframe(mid1[:h, :w])
-            if args.times == 2:
+            if args.times == 4:
                 writeframe(mid2[:h, :w])
         pbar.update(1)
 if args.montage:
