@@ -1,9 +1,9 @@
 # RIFE
-## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/juv419/r_rife_15fps_to_60fps_video_frame_interpolation/) | [YouTube(24fps->96fps)](https://youtu.be/kUQ7KK6MhHw)
+## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/juv419/r_rife_15fps_to_60fps_video_frame_interpolation/) | [YouTube](https://youtu.be/kUQ7KK6MhHw)
 
-**2020.11.17 News: Try our 4 road parallel to process video, got 100% speedup!**
+**11.18 News: Try our 4 road GPU parallel to process video, got 100% speedup for 2X and 4X interpolation!**
 
-**Date of recent model update: 2020.11.16, v1.1**
+Date of recent model update: 2020.11.16, v1.1
 
 **You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the above youtube demo.**
 
@@ -36,29 +36,29 @@ The models under different setting is coming soon.
 
 **Video 2x Interpolation**
 
-You can use our [demo video](https://drive.google.com/file/d/1i3xlKb7ax7Y70khcTcuePi6E7crO_dFc/view?usp=sharing) or use your own video to run our model. 
+You can use our [demo video](https://drive.google.com/file/d/1i3xlKb7ax7Y70khcTcuePi6E7crO_dFc/view?usp=sharing) or use your own video to process. 
 ```
-$ python3 inference_video.py --times=1 --video video.mp4 
+$ python3 inference_video.py --times=1 --video=video.mp4 
 ```
-(generate video_2X_xxfps.mp4, you can use this script recursively)
+(generate video_2X_xxfps.mp4, you can use this script repeatly to get 4X, 8X...)
 ```
-$ python3 inference_video.py --times=2 --video video.mp4
+$ python3 inference_video.py --times=2 --video=video.mp4
 ```
-(if you want 4X interpolation)
+(we specificly support times=2 for 4X interpolation)
 ```
-$ python3 inference_video.py --times=2 --video video.mp4 --fps=60
+$ python3 inference_video.py --times=2 --video=video.mp4 --fps=60
 ```
 (add slomo effect)
 ```
-$ python3 inference_video.py --video video.mp4 --montage --png
+$ python3 inference_video.py --video=video.mp4 --montage --png
 ```
 (if you want to montage the origin video, and save the png format output)
 ```
-$ python3 inference_video_parallel.py --times=2 --video video.mp4
+$ python3 inference_video_parallel.py --times=2 --video=video.mp4
 ```
 (Try our parallel process to get 100% speedup!)
 
-The warning info, 'Warning: Your video has *** static frames, it may change the duration of the generated video.' means that your video has changed the frame rate by adding static frames, it is common if you have processed 24FPS video to 30FPS.
+The warning info, 'Warning: Your video has *** static frames, it may change the duration of the generated video.' means that your video has changed the frame rate by adding static frames, it is common if you have processed 25FPS video to 30FPS.
 
 **Image Interpolation**
 
