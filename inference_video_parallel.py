@@ -34,7 +34,7 @@ fps = np.round(videoCapture.get(cv2.CAP_PROP_FPS))
 success, frame = videoCapture.read()
 h, w, _ = frame.shape
 if args.fps is None:
-    fps = args.fps * args.times
+    args.fps = fps * args.times
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
 if args.png:
     if not os.path.exists('output'):
@@ -110,7 +110,7 @@ while success:
         else:
             mid0, mid2 = None, None
         writeframe(I0, mid0, mid1, mid2, I1, p.mean(3).mean(2).mean(1))
-        pbar.update(args.times)
+        pbar.update(4)
         img_list = img_list[-1:]
 pbar.close()
 output.release()

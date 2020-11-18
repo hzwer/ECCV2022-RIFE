@@ -33,7 +33,7 @@ model.device()
 videoCapture = cv2.VideoCapture(args.video)
 fps = np.round(videoCapture.get(cv2.CAP_PROP_FPS))
 if args.fps is None:
-    fps = args.fps * args.times
+    args.fps = fps * args.times
 success, frame = videoCapture.read()
 h, w, _ = frame.shape
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
