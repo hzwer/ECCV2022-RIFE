@@ -74,15 +74,15 @@ class ContextNet(nn.Module):
         f1 = warp(x, flow)
         x = self.conv2(x)
         flow = F.interpolate(flow, scale_factor=0.5, mode="bilinear",
-                             align_corners=False, recompute_scale_factor=False) * 0.5
+                             align_corners=False) * 0.5
         f2 = warp(x, flow)
         x = self.conv3(x)
         flow = F.interpolate(flow, scale_factor=0.5, mode="bilinear",
-                             align_corners=False, recompute_scale_factor=False) * 0.5
+                             align_corners=False) * 0.5
         f3 = warp(x, flow)
         x = self.conv4(x)
         flow = F.interpolate(flow, scale_factor=0.5, mode="bilinear",
-                             align_corners=False, recompute_scale_factor=False) * 0.5
+                             align_corners=False) * 0.5
         f4 = warp(x, flow)
         return [f1, f2, f3, f4]
 
@@ -185,7 +185,7 @@ class Model:
         img0 = imgs[:, :3]
         img1 = imgs[:, 3:]
         flow = F.interpolate(flow, scale_factor=2.0, mode="bilinear",
-	                     align_corners=False, recompute_scale_factor=False) * 2.0
+	                     align_corners=False) * 2.0
         c0 = self.contextnet(img0, flow)
         c1 = self.contextnet(img1, -flow)
         refine_output, warped_img0, warped_img1, warped_img0_gt, warped_img1_gt = self.fusionnet(

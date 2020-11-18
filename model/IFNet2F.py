@@ -67,7 +67,7 @@ class IFBlock(nn.Module):
     def forward(self, x):
         if self.scale != 1:
             x = F.interpolate(x, scale_factor=1. / self.scale, mode="bilinear",
-                              align_corners=False, recompute_scale_factor=False)
+                              align_corners=False)
         x = self.conv0(x)
         x = self.res0(x)
         x = self.res1(x)
@@ -79,7 +79,7 @@ class IFBlock(nn.Module):
         flow = x # self.up(x)
         if self.scale != 1:
             flow = F.interpolate(flow, scale_factor=self.scale, mode="bilinear",
-                                 align_corners=False, recompute_scale_factor=False)
+                                 align_corners=False)
         return flow
 
 
@@ -92,7 +92,7 @@ class IFNet(nn.Module):
 
     def forward(self, x):
         x = F.interpolate(x, scale_factor=0.5, mode="bilinear",
-                          align_corners=False, recompute_scale_factor=False)
+                          align_corners=False)
         flow0 = self.block0(x)
         F1 = flow0
         warped_img0 = warp(x[:, :3], F1)
