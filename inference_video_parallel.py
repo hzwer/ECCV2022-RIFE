@@ -54,7 +54,7 @@ def writeframe(I0, mid0, mid1, mid2, I1, p):
             mid1[i] = I0[i]
             if args.times == 4:
                 mid2[i] = I1[i]
-        if p[i] < 1e-3 and args.skip:
+        if p[i] < 2e-3 and args.skip:
             if skip_frame % 100 == 0:
                 print("Warning: Your video has {} static frames, skipping them may change the duration of the generated video.".format(skip_frame))
             skip_frame += 1
