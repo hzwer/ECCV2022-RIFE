@@ -42,7 +42,7 @@ if args.png:
         os.mkdir('output')
 else:
     video_path_wo_ext, ext = os.path.splitext(args.video)
-    output = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, args.times, args.fps, args.ext), fourcc, args.fps, (w, h))
+    output = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, args.times, int(np.round(args.fps)), args.ext), fourcc, args.fps, (w, h))
     
 cnt = 0
 def writeframe(frame):
