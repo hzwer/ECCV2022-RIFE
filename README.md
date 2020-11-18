@@ -38,22 +38,25 @@ The models under different setting is coming soon.
 
 You can use our [demo video](https://drive.google.com/file/d/1i3xlKb7ax7Y70khcTcuePi6E7crO_dFc/view?usp=sharing) or use your own video to run our model. 
 ```
-$ python3 inference_mp4_2x.py --video video.mp4 --fps=60
+$ python3 inference_video.py --times=1 --video video.mp4 
 ```
-(generate video_2x.mp4, you can use this script recursively)
+(generate video_2X_xxfps.mp4, you can use this script recursively)
 ```
-$ python3 inference_mp4_4x.py --video video.mp4 --fps=60
+$ python3 inference_video.py --times=2 --video video.mp4
 ```
-(if you want 4x interpolation)
+(if you want 4X interpolation)
 ```
-$ python3 inference_mp4_4x_parallel.py --video video.mp4 --fps=60
+$ python3 inference_video_parallel.py --times=2 --video video.mp4
 ```
 (Try our parallel process to get 100% speedup!)
 ```
-$ python3 inference_mp4_2x.py --video video.mp4 --montage --png
+$ python3 inference_video_parallel.py --times=2 --video video.mp4 --fps=60
+```
+(add slomo effect)
+```
+$ python3 inference_video.py --video video.mp4 --montage --png
 ```
 (if you want to montage the origin video, and save the png format output)
-```
 
 The warning info, 'Warning: Your video has *** static frames, it may change the duration of the generated video.' means that your video has changed the frame rate by adding static frames, it is common if you have processed 24FPS video to 30FPS.
 
