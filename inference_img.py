@@ -9,7 +9,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 parser = argparse.ArgumentParser(description='Interpolation for a pair of images')
 parser.add_argument('--img', dest='img', nargs=2, required=True)
-parser.add_argument('--times', default=4, type=int)
+parser.add_argument('--exponent', default=4, type=int)
 args = parser.parse_args()
 
 model = Model()
@@ -30,7 +30,7 @@ img0 = F.pad(img0, padding)
 img1 = F.pad(img1, padding)
 
 img_list = [img0, img1]
-for i in range(args.times):
+for i in range(args.exponent):
     tmp = []
     for j in range(len(img_list) - 1):
         mid = model.inference(img_list[j], img_list[j + 1])
