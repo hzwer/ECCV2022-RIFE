@@ -3,7 +3,7 @@
 
 **11.18 News: Try our 4 road GPU parallel to process video, got 100% speedup for 2X and 4X interpolation!**
 
-Date of recent model update: 2020.11.16, v1.1
+Date of recent model update: 2020.11.19, v1.2
 
 **You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the above youtube demo.**
 
