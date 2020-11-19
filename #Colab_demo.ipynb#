@@ -77,7 +77,7 @@
       },
       "source": [
         "!nvidia-smi\n",
-        "!python3 inference_video.py --exp=2 --video=demo.mp4 --montage --skip"
+        "!python3 inference_video.py --Colab_demo.ipynb=2 --video=demo.mp4 --montage --skip"
       ],
       "execution_count": null,
       "outputs": []
@@ -90,7 +90,7 @@
       "source": [
         "Our demo.mp4 is 25FPS. You can adjust the parameters for your own perference.\n",
         "For example: \n",
-        "--fps=60 --exp=1 --video=mydemo.avi --png"
+        "--fps=60 --Colab_demo.ipynb=1 --video=mydemo.avi --png"
       ]
     },
     {
@@ -100,7 +100,7 @@
       },
       "source": [
         "!nvidia-smi\n",
-        "!python3 inference_video_parallel.py --exp=1 --video=demo.mp4 --skip"
+        "!python3 inference_video_parallel.py --Colab_demo.ipynb=1 --video=demo.mp4 --skip"
       ],
       "execution_count": null,
       "outputs": []
