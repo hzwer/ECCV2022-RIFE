@@ -18,10 +18,10 @@ parser.add_argument('--skip', dest='skip', action='store_true', help='whether to
 parser.add_argument('--fps', dest='fps', type=int, default=None)
 parser.add_argument('--png', dest='png', action='store_true', help='whether to output png format outputs')
 parser.add_argument('--ext', dest='ext', type=str, default='mp4', help='output video extension')
-parser.add_argument('--exp', dest='exp', type=int, default=1)
+parser.add_argument('--times', dest='times', type=int, default=1)
 args = parser.parse_args()
-assert (args.exp == 1 or args.exp == 2)
-args.exp = 2 ** args.exp
+assert (args.times == 1 or args.times == 2)
+args.times = 2 ** args.times
 
 from model.RIFE import Model
 model = Model()
@@ -34,14 +34,14 @@ fps = np.round(videoCapture.get(cv2.CAP_PROP_FPS))
 success, frame = videoCapture.read()
 h, w, _ = frame.shape
 if args.fps is None:
-    args.fps = fps * args.exp
+    args.fps = fps * args.times
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
 if args.png:
     if not os.path.exists('output'):
         os.mkdir('output')
 else:
     video_path_wo_ext, ext = os.path.splitext(args.video)
-    output = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, args.exp, int(np.round(args.fps)), args.ext), fourcc, args.fps, (w, h))
+    output = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, args.times, int(np.round(args.fps)), args.ext), fourcc, args.fps, (w, h))
     
 cnt = 0
 skip_frame = 1
@@ -49,10 +49,10 @@ def writeframe(I0, mid0, mid1, mid2, I1, p):
     global cnt, skip_frame, args
     for i in range(I0.shape[0]):
         if p[i] > 0.2:
-            if args.exp == 4:
+            if args.times == 4:
                 mid0[i] = I0[i]
             mid1[i] = I0[i]
-            if args.exp == 4:
+            if args.times == 4:
                 mid2[i] = I1[i]
         if p[i] < 2e-3 and args.skip:
             if skip_frame % 100 == 0:
@@ -60,22 +60,22 @@ def writeframe(I0, mid0, mid1, mid2, I1, p):
             skip_frame += 1
             continue
         if args.png:
-            cv2.imwrite('output/{:0>7d}.png'.format(cnt), I0[i])        
+            cv2.imwrite('output/{:0>7d}.png'.format(cnt), I0[i])
             cnt += 1
-            if args.exp == 4:
+            if args.times == 4:
                 cv2.imwrite('output/{:0>7d}.png'.format(cnt), mid0[i])
                 cnt += 1
             cv2.imwrite('output/{:0>7d}.png'.format(cnt), mid1[i])
             cnt += 1
-            if args.exp == 4:
+            if args.times == 4:
                 cv2.imwrite('output/{:0>7d}.png'.format(cnt), mid2[i])
                 cnt += 1
         else:
             output.write(I0[i])
-            if args.exp == 4:
+            if args.times == 4:
                 output.write(mid0[i])
             output.write(mid1[i])
-            if args.exp == 4:
+            if args.times == 4:
                 output.write(mid2[i])
 
 
@@ -98,13 +98,13 @@ while success:
         I0 = F.pad(I0, padding)
         I1 = F.pad(I1, padding)
         mid1 = model.inference(I0, I1)
-        if args.exp == 4:
+        if args.times == 4:
             mid0 = model.inference(I0, mid1)
             mid2 = model.inference(mid1, I1)
         I0 = ((I0[:, :, :h, :w] * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1)).astype('uint8')
         I1 = ((I1[:, :, :h, :w] * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1)).astype('uint8')
         mid1 = ((mid1[:, :, :h, :w] * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1)).astype('uint8')
-        if args.exp == 4:
+        if args.times == 4:
             mid0 = ((mid0[:, :, :h, :w] * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1)).astype('uint8')
             mid2 = ((mid2[:, :, :h, :w] * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1)).astype('uint8')
         else:
@@ -113,4 +113,3 @@ while success:
         pbar.update(4)
         img_list = img_list[-1:]
 pbar.close()
-output.release()
