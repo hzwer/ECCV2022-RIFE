@@ -38,15 +38,15 @@ The models under different setting is coming soon.
 
 You can use our [demo video](https://drive.google.com/file/d/1i3xlKb7ax7Y70khcTcuePi6E7crO_dFc/view?usp=sharing) or use your own video to process. 
 ```
-$ python3 inference_video.py --exponent=1 --video=video.mp4 
+$ python3 inference_video.py --exp=1 --video=video.mp4 
 ```
 (generate video_2X_xxfps.mp4, you can use this script repeatly to get 4X, 8X...)
 ```
-$ python3 inference_video.py --exponent=2 --video=video.mp4
+$ python3 inference_video.py --exp=2 --video=video.mp4
 ```
-(we specificly support exponent=2 for 4X interpolation)
+(we specificly support exp=2 for 4X interpolation)
 ```
-$ python3 inference_video.py --exponent=2 --video=video.mp4 --fps=60
+$ python3 inference_video.py --exp=2 --video=video.mp4 --fps=60
 ```
 (add slomo effect)
 ```
@@ -54,7 +54,7 @@ $ python3 inference_video.py --video=video.mp4 --montage --png
 ```
 (if you want to montage the origin video, and save the png format output)
 ```
-$ python3 inference_video_parallel.py --exponent=2 --video=video.mp4
+$ python3 inference_video_parallel.py --exp=2 --video=video.mp4
 ```
 (Try our parallel process to get 100% speedup!)
 
@@ -63,7 +63,7 @@ The warning info, 'Warning: Your video has *** static frames, it may change the 
 **Image Interpolation**
 
 ```
-$ python3 inference_img.py --img img0.png img1.png --exponent=4
+$ python3 inference_img.py --img img0.png img1.png --exp=4
 ```
 (2^4=16X interpolation results)
 After that, you can use pngs to generate mp4:
