@@ -61,7 +61,7 @@ def write_frame(vid_out, i0, infs, i1, p, user_args):
                 infs = [i0[i] for _ in range(len(infs))]
         
         # Result was too similar to previous frame, skip if given.
-        if p[i] < 2e-3 and user_args.skip:
+        if p[i] < 5e-3 and user_args.skip:
             if skip_frame % 100 == 0:
                 print("Warning: Your video has {} static frames, "
                       "skipping them may change the duration of the generated video.".format(skip_frame))
