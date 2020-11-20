@@ -13,7 +13,6 @@ if torch.cuda.is_available():
     torch.set_grad_enabled(False)
     torch.backends.cudnn.enabled = True
     torch.backends.cudnn.benchmark = True
-    torch.set_num_threads(4)
 
 parser = argparse.ArgumentParser(description='Interpolation for a pair of images')
 parser.add_argument('--video', dest='video', required=True)
