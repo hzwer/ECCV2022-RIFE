@@ -6,6 +6,7 @@ import numpy as np
 from tqdm import tqdm
 from torch.nn import functional as F
 import warnings
+import _thread
 warnings.filterwarnings("ignore")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -19,8 +20,8 @@ parser.add_argument('--video', dest='video', required=True)
 parser.add_argument('--montage', dest='montage', action='store_true', help='montage origin video')
 parser.add_argument('--skip', dest='skip', action='store_true', help='whether to remove static frames before processing')
 parser.add_argument('--fps', dest='fps', type=int, default=None)
-parser.add_argument('--png', dest='png', action='store_true', help='whether to output png format outputs')
-parser.add_argument('--ext', dest='ext', type=str, default='mp4', help='output video extension')
+parser.add_argument('--png', dest='png', action='store_true', help='whether to vid_out png format vid_outs')
+parser.add_argument('--ext', dest='ext', type=str, default='mp4', help='vid_out video extension')
 parser.add_argument('--exp', dest='exp', type=int, default=1)
 args = parser.parse_args()
 assert (args.exp == 1 or args.exp == 2)
@@ -39,21 +40,24 @@ if args.fps is None:
 success, frame = videoCapture.read()
 h, w, _ = frame.shape
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
+buffer = []
 if args.png:
-    if not os.path.exists('output'):
-        os.mkdir('output')
+    if not os.path.exists('vid_out'):
+        os.mkdir('vid_out')
 else:
     video_path_wo_ext, ext = os.path.splitext(args.video)
-    output = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, args.exp, int(np.round(args.fps)), args.ext), fourcc, args.fps, (w, h))
+    vid_out = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, args.exp, int(np.round(args.fps)), args.ext), fourcc, args.fps, (w, h))
     
 cnt = 0
-def writeframe(frame):
+def clear_buffer(user_args, buffer):
     global cnt
-    if args.png:
-        cv2.imwrite('output/{:0>7d}.png'.format(cnt), frame)
-        cnt += 1
-    else:
-        output.write(frame)
+    for i in buffer:
+        if user_args.png:
+            cv2.imwrite('vid_out/{:0>7d}.png'.format(cnt), i)
+            cnt += i
+        else:
+            vid_out.write(i)
+            
 if args.montage:
     left = w // 4
     w = w // 2
@@ -97,23 +101,27 @@ while success:
                 mid0 = (((mid[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
                 mid2 = (((mid[1] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
         if args.montage:
-            writeframe(np.concatenate((lastframe, lastframe), 1))
+            buffer.append(np.concatenate((lastframe, lastframe), 1))
             if args.exp == 4:
-                writeframe(np.concatenate((lastframe, mid0[:h, :w]), 1))
-            writeframe(np.concatenate((lastframe, mid1[:h, :w]), 1))
+                buffer.append(np.concatenate((lastframe, mid0[:h, :w]), 1))
+            buffer.append(np.concatenate((lastframe, mid1[:h, :w]), 1))
             if args.exp == 4:
-                writeframe(np.concatenate((lastframe, mid2[:h, :w]), 1))
+                buffer.append(np.concatenate((lastframe, mid2[:h, :w]), 1))
         else:
-            writeframe(lastframe)
+            buffer.append(lastframe)
             if args.exp == 4:
-                writeframe(mid0[:h, :w])
-            writeframe(mid1[:h, :w])
+                buffer.append(mid0[:h, :w])
+            buffer.append(mid1[:h, :w])
             if args.exp == 4:
-                writeframe(mid2[:h, :w])
+                buffer.append(mid2[:h, :w])
         pbar.update(1)
+        if len(buffer) > 100:
+            _thread.start_new_thread(clear_buffer, (args, buffer))
+            buffer = []
 if args.montage:
-    writeframe(np.concatenate((lastframe, lastframe), 1))
+    buffer.append(np.concatenate((lastframe, lastframe), 1))
 else:
-    writeframe(lastframe)
+    buffer.append(lastframe)
+_thread.start_new_thread(clear_buffer, (args, buffer))
 pbar.close()
-output.release()
+vid_out.release()
