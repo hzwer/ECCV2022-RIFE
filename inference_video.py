@@ -73,8 +73,8 @@ while success:
     if success:
         if args.montage:
             frame = frame[:, left: left + w]
-        I0 = torch.from_numpy(np.transpose(lastframe, (2,0,1)).astype('float32') / 255.).to(device, non_blocking=True).unsqueeze(0)
-        I1 = torch.from_numpy(np.transpose(frame, (2,0,1)).astype('float32') / 255.).to(device, non_blocking=True).unsqueeze(0)
+        I0 = torch.from_numpy(np.transpose(lastframe, (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.
+        I1 = torch.from_numpy(np.transpose(frame, (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.
         I0 = F.pad(I0, padding)
         I1 = F.pad(I1, padding)
         p = (F.interpolate(I0, (16, 16), mode='bilinear', align_corners=False)
