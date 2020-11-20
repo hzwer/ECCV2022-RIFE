@@ -1,7 +1,7 @@
-# RIFE
-## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/juv419/r_rife_15fps_to_60fps_video_frame_interpolation/) | [YouTube_v1.2](https://youtu.be/kUQ7KK6MhHw)
+# RIFE Video Frame Interpolation
+## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/juv419/r_rife_15fps_to_60fps_video_frame_interpolation/) | [YouTube_v1.2](https://youtu.be/LE2Dzl0oMHI)
 
-**11.18 News: Try our 4 road GPU parallel to process video, got 100% speedup for 2X and 4X interpolation!**
+**11.18 News: Try our batchsize = 4 parallel processing, got 100% speedup for 2X and 4X video frame interpolation!**
 
 Date of recent model update: 2020.11.19, v1.2
 
