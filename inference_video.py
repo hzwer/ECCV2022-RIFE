@@ -54,7 +54,7 @@ def clear_buffer(user_args, buffer):
     for i in buffer:
         if user_args.png:
             cv2.imwrite('vid_out/{:0>7d}.png'.format(cnt), i)
-            cnt += i
+            cnt += 1
         else:
             vid_out.write(i)
             
