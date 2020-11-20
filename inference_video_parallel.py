@@ -105,8 +105,9 @@ while success:
     if success:
         img_list.append(frame)
     if len(img_list) == 5 or (not success and len(img_list) > 1):
-        I0 = torch.from_numpy(np.transpose(img_list[:-1], (0, 3, 1, 2)).astype('float32') / 255.).to(device, non_blocking=True)
-        I1 = torch.from_numpy(np.transpose(img_list[1:], (0, 3, 1, 2)).astype('float32') / 255.).to(device, non_blocking=True)
+        imgs = torch.from_numpy(np.transpose(img_list, (0, 3, 1, 2))).to(device, non_blocking=True).float() / 255.
+        I0 = imgs[:-1]
+        I1 = imgs[1:]
         p = (F.interpolate(I0, (16, 16), mode='bilinear', align_corners=False)
              - F.interpolate(I1, (16, 16), mode='bilinear', align_corners=False)).abs()
         I0 = F.pad(I0, padding)
