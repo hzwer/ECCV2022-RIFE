@@ -92,10 +92,10 @@ while success:
             mid1 = model.inference(I0, I1)
             if args.exp == 4:
                 mid = model.inference(torch.cat((I0, mid1), 0), torch.cat((mid1, I1), 0))
-            mid1 = (((mid1[0] * 255.).cpu().detach().numpy().transpose(1, 2, 0))).astype('uint8')
+            mid1 = (((mid1[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
             if args.exp == 4:
-                mid0 = (((mid[0] * 255.).cpu().detach().numpy().transpose(1, 2, 0))).astype('uint8')
-                mid2 = (((mid[1]* 255.).cpu().detach().numpy().transpose(1, 2, 0))).astype('uint8')
+                mid0 = (((mid[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
+                mid2 = (((mid[1] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
         if args.montage:
             writeframe(np.concatenate((lastframe, lastframe), 1))
             if args.exp == 4:
