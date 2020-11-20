@@ -13,6 +13,7 @@ if torch.cuda.is_available():
     torch.set_grad_enabled(False)
     torch.backends.cudnn.enabled = True
     torch.backends.cudnn.benchmark = True
+    torch.set_num_threads(4)
 
 parser = argparse.ArgumentParser(description='Interpolation for a pair of images')
 parser.add_argument('--video', dest='video', required=True)
@@ -72,8 +73,8 @@ while success:
     if success:
         if args.montage:
             frame = frame[:, left: left + w]
-        I0 = torch.from_numpy(np.transpose(lastframe, (2,0,1)).astype("float32") / 255.).to(device).unsqueeze(0)
-        I1 = torch.from_numpy(np.transpose(frame, (2,0,1)).astype("float32") / 255.).to(device).unsqueeze(0)
+        I0 = torch.from_numpy(np.transpose(lastframe, (2,0,1)).astype('float32') / 255.).to(device, non_blocking=True).unsqueeze(0)
+        I1 = torch.from_numpy(np.transpose(frame, (2,0,1)).astype('float32') / 255.).to(device, non_blocking=True).unsqueeze(0)
         I0 = F.pad(I0, padding)
         I1 = F.pad(I1, padding)
         p = (F.interpolate(I0, (16, 16), mode='bilinear', align_corners=False)
