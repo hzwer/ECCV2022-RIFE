@@ -124,4 +124,5 @@ else:
     buffer.append(lastframe)
 _thread.start_new_thread(clear_buffer, (args, buffer))
 pbar.close()
-vid_out.release()
+if not vid_out is None:
+    vid_out.release()
