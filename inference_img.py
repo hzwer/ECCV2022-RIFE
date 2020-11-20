@@ -4,6 +4,8 @@ import torch
 import argparse
 from torch.nn import functional as F
 from model.RIFE import Model
+import warnings
+warnings.filterwarnings("ignore")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

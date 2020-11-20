@@ -5,6 +5,8 @@ import argparse
 import numpy as np
 from tqdm import tqdm
 from torch.nn import functional as F
+import warnings
+warnings.filterwarnings("ignore")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 if torch.cuda.is_available():
