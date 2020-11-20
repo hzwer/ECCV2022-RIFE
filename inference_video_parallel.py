@@ -112,9 +112,9 @@ while success:
         I1 = F.pad(I1, padding)
         inferences = make_inference(model, I0, I1, exp=args.exp)
         
-        I0 = ((I0[:, :, :h, :w] * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1)).astype('uint8')
-        I1 = ((I1[:, :, :h, :w] * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1)).astype('uint8')
-        inferences = list(map(lambda x: ((x[:, :, :h, :w] * 255.).cpu().detach().numpy().transpose(0, 2, 3, 1)).astype('uint8'), inferences))
+        I0 = ((I0[:, :, :h, :w] * 255.).byte().cpu().detach().numpy().transpose(0, 2, 3, 1))
+        I1 = ((I1[:, :, :h, :w] * 255.).byte().cpu().detach().numpy().transpose(0, 2, 3, 1))
+        inferences = list(map(lambda x: ((x[:, :, :h, :w] * 255.).byte().cpu().detach().numpy().transpose(0, 2, 3, 1)), inferences))
         
         write_frame(vid_out, I0, inferences, I1, p.mean(3).mean(2).mean(1), args)
         pbar.update(4)
