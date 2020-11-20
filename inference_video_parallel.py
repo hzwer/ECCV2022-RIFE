@@ -20,7 +20,7 @@ parser.add_argument('--skip', dest='skip', action='store_true', help='whether to
 parser.add_argument('--fps', dest='fps', type=int, default=None)
 parser.add_argument('--png', dest='png', action='store_true', help='whether to output png format outputs')
 parser.add_argument('--ext', dest='ext', type=str, default='mp4', help='output video extension')
-parser.add_argument('--exp', dest='exp', type=int, default=1, help='interpolation exponent (base 2)')
+parser.add_argument('--exp', dest='exp', type=int, default=1, help='interpolation exponent (default: 1)')
 args = parser.parse_args()
 assert (args.exp in [1, 2, 3])
 args.times = 2 ** args.exp
@@ -54,7 +54,7 @@ def write_frame(vid_out, i0, infs, i1, p, user_args):
     global skip_frame, cnt
     
     for i in range(i0.shape[0]):
-        # Result was not good enough to write, use previous frames.
+        # A video transition occurs.
         if p[i] > 0.2:
             if user_args.exp > 1:
                 infs = [i0[i] for _ in range(len(infs) - 1)]
