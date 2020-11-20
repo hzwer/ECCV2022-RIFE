@@ -1,7 +1,7 @@
 # RIFE Video Frame Interpolation
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/MachineLearning/comments/juv419/r_rife_15fps_to_60fps_video_frame_interpolation/) | [YouTube_v1.2](https://youtu.be/LE2Dzl0oMHI)
 
-**11.20 News: Try our fixed batchsize = 4 parallel processing, got 100% speedup for 2X and 4X video frame interpolation!**
+**11.20 News: I wrote the parallel processing, but now the performance bottleneck seems to be on the cpu.
 
 Date of recent model update: 2020.11.19, v1.2
 
@@ -56,7 +56,7 @@ $ python3 inference_video.py --video=video.mp4 --montage --png
 ```
 $ python3 inference_video_parallel.py --exp=2 --video=video.mp4
 ```
-(Try our parallel process to get 100% speedup!)
+(Try our parallel process, may be useful on your device.)
 
 The warning info, 'Warning: Your video has *** static frames, it may change the duration of the generated video.' means that your video has changed the frame rate by adding static frames, it is common if you have processed 25FPS video to 30FPS.
 
