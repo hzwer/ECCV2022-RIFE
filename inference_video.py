@@ -55,7 +55,7 @@ def clear_buffer(user_args):
     cnt = 0
     while True:
         try:
-            item = buffer.get(timeout=2)
+            item = buffer.get(timeout=1)
         except Empty:
             return
         if user_args.png:
