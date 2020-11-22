@@ -7,6 +7,7 @@ from tqdm import tqdm
 from torch.nn import functional as F
 import warnings
 import _thread
+import skvideo.io
 from queue import Queue
 
 warnings.filterwarnings("ignore")
@@ -36,6 +37,7 @@ model.device()
 
 videoCapture = cv2.VideoCapture(args.video)
 fps = np.round(videoCapture.get(cv2.CAP_PROP_FPS))
+videogen = skvideo.io.vreader(args.video)
 success, frame = videoCapture.read()
 h, w, _ = frame.shape
 if args.fps is None:
@@ -54,15 +56,13 @@ skip_frame = 1
 buffer = Queue()
 
 def write_frame(i0, infs, i1, p, user_args):
-    global skip_frame, cnt    
+    global skip_frame, cnt
     for i in range(i0.shape[0]):
+        l = len(infs)
         # A video transition occurs.
         if p[i] > 0.2:
-            if user_args.exp > 1:
-                infs = [i0[i] for _ in range(len(infs) - 1)]
-                infs[-1] = i1[-1]
-            else:
-                infs = [i0[i] for _ in range(len(infs))]
+            for j in range(len(infs)):
+                infs[j][i] = i0[i]
         
         # Result was too similar to previous frame, skip if given.
         if p[i] < 5e-3 and user_args.skip:
@@ -72,22 +72,23 @@ def write_frame(i0, infs, i1, p, user_args):
             skip_frame += 1
             continue
         
-        # Write results.        
+        # Write results.      
         buffer.put(i0[i])
         for inf in infs:
             buffer.put(inf[i])
+            print('inf', inf.shape, len(infs), p[i])
 
-def clear_buffer(user_args, buffer):    
+def clear_buffer(user_args):    
     global cnt
     while True:
         item = buffer.get()
         if item is None:
             break
         if user_args.png:
-            cv2.imwrite('output/{:0>7d}.png'.format(cnt), item)
+            cv2.imwrite('output/{:0>7d}.png'.format(cnt), item[:, :, ::-1])
             cnt += 1
         else:
-            vid_out.write(item)
+            vid_out.write(item[:, :, ::-1])
 
 def make_inference(model, I0, I1, exp):
     middle = model.inference(I0, I1)
@@ -104,12 +105,10 @@ padding = (0, pw - w, 0, ph - h)
 tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
 print('{}.{}, {} frames in total, {}FPS to {}FPS'.format(video_path_wo_ext, args.ext, tot_frame, fps, args.fps))
 pbar = tqdm(total=tot_frame)
-img_list = [frame]
-_thread.start_new_thread(clear_buffer, (args, buffer))
-while success:
-    success, frame = videoCapture.read()
-    if success:
-        img_list.append(frame)
+img_list = []
+_thread.start_new_thread(clear_buffer, (args, ))
+for frame in videogen:
+    img_list.append(frame)
     if len(img_list) == 5 or (not success and len(img_list) > 1):
         imgs = torch.from_numpy(np.transpose(img_list, (0, 3, 1, 2))).to(device, non_blocking=True).float() / 255.
         I0 = imgs[:-1]
@@ -119,7 +118,6 @@ while success:
         I0 = F.pad(I0, padding)
         I1 = F.pad(I1, padding)
         inferences = make_inference(model, I0, I1, exp=args.exp)
-
         I0 = np.array(img_list[:-1])
         I1 = np.array(img_list[1:])
         inferences = list(map(lambda x: ((x[:, :, :h, :w] * 255.).byte().cpu().detach().numpy().transpose(0, 2, 3, 1)), inferences))
@@ -127,6 +125,7 @@ while success:
         write_frame(I0, inferences, I1, p.mean(3).mean(2).mean(1), args)
         pbar.update(4)
         img_list = img_list[-1:]
+buffer.put(img_list[0])
 import time
 while(not buffer.empty()):
     time.sleep(0.1)

@@ -22,6 +22,7 @@ We propose RIFE, a Real-time Intermediate Flow Estimation algorithm for Video Fr
 ## Dependencies
 ```
 $ pip3 install tqdm
+$ pip3 install sk-video
 $ pip3 install torch
 $ pip3 install numpy
 $ pip3 install opencv-python
