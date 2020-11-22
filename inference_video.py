@@ -74,7 +74,7 @@ print('{}.{}, {} frames in total, {}FPS to {}FPS'.format(video_path_wo_ext, args
 pbar = tqdm(total=tot_frame)
 skip_frame = 1
 if args.montage:
-    frame = frame[:, left: left + w]
+    lastframe = lastframe[:, left: left + w]
 buffer = Queue()
 _thread.start_new_thread(clear_buffer, (args, buffer))
 for frame in videogen:
