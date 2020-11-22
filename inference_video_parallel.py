@@ -8,7 +8,7 @@ from torch.nn import functional as F
 import warnings
 import _thread
 import skvideo.io
-from queue import Queue
+from queue import Queue, Empty
 
 warnings.filterwarnings("ignore")
 
@@ -80,9 +80,10 @@ def write_frame(i0, infs, i1, p, user_args):
 def clear_buffer(user_args):    
     global cnt
     while True:
-        item = buffer.get()
-        if item is None:
-            break
+        try:
+            item = buffer.get(timeout=2)
+        except Empty:
+            return
         if user_args.png:
             cv2.imwrite('output/{:0>7d}.png'.format(cnt), item[:, :, ::-1])
             cnt += 1
@@ -125,9 +126,6 @@ for frame in videogen:
         pbar.update(4)
         img_list = img_list[-1:]
 buffer.put(img_list[0])
-import time
-while(not buffer.empty()):
-    time.sleep(0.1)
 pbar.close()
 if not vid_out is None:
     vid_out.release()
