@@ -74,6 +74,7 @@ skip_frame = 1
 if args.montage:
     frame = frame[:, left: left + w]
 buffer = Queue()
+_thread.start_new_thread(clear_buffer, (args, buffer))
 while success:
     lastframe = frame
     success, frame = videoCapture.read()
@@ -119,14 +120,10 @@ while success:
             if args.exp == 4:
                 buffer.put(mid2[:h, :w])
         pbar.update(1)
-        if buffer.qsize() > 100:
-            _thread.start_new_thread(clear_buffer, (args, buffer))
-            buffer.clear()
 if args.montage:
     buffer.put(np.concatenate((lastframe, lastframe), 1))
 else:
     buffer.put(lastframe)
-_thread.start_new_thread(clear_buffer, (args, buffer))
 pbar.close()
 if not vid_out is None:
     vid_out.release()
