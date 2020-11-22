@@ -127,6 +127,9 @@ while success:
         write_frame(I0, inferences, I1, p.mean(3).mean(2).mean(1), args)
         pbar.update(4)
         img_list = img_list[-1:]
+import time
+while(not buffer.empty()):
+    time.sleep(0.1)
 pbar.close()
 if not vid_out is None:
     vid_out.release()

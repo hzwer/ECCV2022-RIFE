@@ -124,6 +124,9 @@ if args.montage:
     buffer.put(np.concatenate((lastframe, lastframe), 1))
 else:
     buffer.put(lastframe)
+import time
+while(not buffer.empty()):
+    time.sleep(0.1)
 pbar.close()
 if not vid_out is None:
     vid_out.release()
