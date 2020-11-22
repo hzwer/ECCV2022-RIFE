@@ -76,7 +76,6 @@ def write_frame(i0, infs, i1, p, user_args):
         buffer.put(i0[i])
         for inf in infs:
             buffer.put(inf[i])
-            print('inf', inf.shape, len(infs), p[i])
 
 def clear_buffer(user_args):    
     global cnt
