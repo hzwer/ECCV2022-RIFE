@@ -1,7 +1,7 @@
 # RIFE Video Frame Interpolation
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube_v1.2](https://youtu.be/LE2Dzl0oMHI)
 
-**11.22 News: We notice an windows app is trying to integrate RIFE, we hope everyone will try and help improve. You can download [Flowframes](https://nmkd.itch.io/flowframes) for free.**
+**11.22 News: We notice a new windows app is trying to integrate RIFE, we hope everyone to try and help them improve. You can download [Flowframes](https://nmkd.itch.io/flowframes) for free.**
 
 **11.20 News: I optimize the parallel processing, get 60% speedup!**
 
@@ -62,6 +62,8 @@ $ python3 inference_video_parallel.py --exp=2 --video=video.mp4
 (Try our parallel process, may be useful on your device.)
 
 The warning info, 'Warning: Your video has *** static frames, it may change the duration of the generated video.' means that your video has changed the frame rate by adding static frames, it is common if you have processed 25FPS video to 30FPS.
+
+**To combine the video and audio, please check [this issue](https://github.com/hzwer/arXiv2020-RIFE/issues/12#issuecomment-731715507).**
 
 **Image Interpolation**
 
