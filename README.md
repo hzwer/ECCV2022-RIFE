@@ -1,6 +1,8 @@
 # RIFE Video Frame Interpolation
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube_v1.2](https://youtu.be/LE2Dzl0oMHI)
 
+**11.22 News: We notice an windows app is trying to integrate our methods, we hope everyone will try and help improve. See [Flowframes](https://nmkd.itch.io/flowframes).**
+
 **11.20 News: I optimize the parallel processing, get 60% speedup!**
 
 Date of recent model update: 2020.11.19, v1.2
