@@ -55,7 +55,7 @@ else:
 def clear_buffer(user_args, buffer):
     cnt = 0
     while True:
-        item = buffer.get(timeout=1)
+        item = buffer.get()
         if item is None:
             break
         if user_args.png:
@@ -124,6 +124,9 @@ if args.montage:
     buffer.put(np.concatenate((lastframe, lastframe), 1))
 else:
     buffer.put(lastframe)
+import time
+while(not buffer.empty()):
+    time.sleep(0.1)
 pbar.close()
 if not vid_out is None:
     vid_out.release()
