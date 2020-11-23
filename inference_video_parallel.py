@@ -37,6 +37,7 @@ model.device()
 
 videoCapture = cv2.VideoCapture(args.video)
 fps = np.round(videoCapture.get(cv2.CAP_PROP_FPS))
+tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
 videoCapture.release()
 videogen = skvideo.io.vreader(args.video)
 frame = next(videogen)
@@ -103,7 +104,6 @@ def make_inference(model, I0, I1, exp):
 ph = ((h - 1) // 32 + 1) * 32
 pw = ((w - 1) // 32 + 1) * 32
 padding = (0, pw - w, 0, ph - h)
-tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
 print('{}.{}, {} frames in total, {}FPS to {}FPS'.format(video_path_wo_ext, args.ext, tot_frame, fps, args.fps))
 pbar = tqdm(total=tot_frame)
 img_list = []
