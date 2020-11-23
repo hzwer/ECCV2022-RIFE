@@ -108,9 +108,11 @@ print('{}.{}, {} frames in total, {}FPS to {}FPS'.format(video_path_wo_ext, args
 pbar = tqdm(total=tot_frame)
 img_list = []
 _thread.start_new_thread(clear_buffer, (args, ))
+tot_frame -= 1
 for frame in videogen:
+    tot_frame -= 1
     img_list.append(frame)
-    if len(img_list) == 5 or (not success and len(img_list) > 1):
+    if len(img_list) == 5 or tot_frame == 0:
         imgs = torch.from_numpy(np.transpose(img_list, (0, 3, 1, 2))).to(device, non_blocking=True).float() / 255.
         I0 = imgs[:-1]
         I1 = imgs[1:]
