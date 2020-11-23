@@ -39,7 +39,7 @@ videoCapture = cv2.VideoCapture(args.video)
 fps = np.round(videoCapture.get(cv2.CAP_PROP_FPS))
 videoCapture.release()
 videogen = skvideo.io.vreader(args.video)
-success, frame = videoCapture.read()
+frame = next(videogen)
 h, w, _ = frame.shape
 if args.fps is None:
     args.fps = fps * args.times
@@ -55,7 +55,7 @@ else:
 cnt = 0
 skip_frame = 1
 buffer = Queue()
-
+buffer.put(frame)
 def write_frame(i0, infs, i1, p, user_args):
     global skip_frame, cnt
     for i in range(i0.shape[0]):
