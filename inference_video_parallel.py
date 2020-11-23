@@ -36,7 +36,7 @@ model.eval()
 model.device()
 
 videoCapture = cv2.VideoCapture(args.video)
-fps = np.round(videoCapture.get(cv2.CAP_PROP_FPS))
+fps = videoCapture.get(cv2.CAP_PROP_FPS)
 tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
 videoCapture.release()
 videogen = skvideo.io.vreader(args.video)
