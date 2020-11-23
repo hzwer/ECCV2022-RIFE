@@ -3,6 +3,8 @@
 
 **11.22 News: We notice a new windows app is trying to integrate RIFE, we hope everyone to try and help them improve. You can download [Flowframes](https://nmkd.itch.io/flowframes) for free.**
 
+**There is [a tutorial of RIFE](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title) on Youtube.**
+
 **11.20 News: I optimize the parallel processing, get 60% speedup!**
 
 Date of recent model update: 2020.11.19, v1.2
