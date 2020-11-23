@@ -82,7 +82,7 @@ def write_frame(i0, infs, i1, p, user_args):
 def clear_buffer(user_args, buffer):    
     global cnt
     while True:
-        item = buffer.get(timeout=1)
+        item = buffer.get()
         if item is None:
             break
         if user_args.png:
@@ -128,6 +128,9 @@ for frame in videogen:
         pbar.update(4)
         img_list = img_list[-1:]
 buffer.put(img_list[0])
+import time
+while(not buffer.empty()):
+    time.sleep(0.1)
 pbar.close()
 if not vid_out is None:
     vid_out.release()
