@@ -9,7 +9,7 @@
 
 Date of recent model update: 2020.11.19, v1.2
 
-**Our model is currently not suitable for 2d animation.**
+**Our model is currently not very suitable for 2d animation.**
 
 **You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the [our youtube demo](https://www.youtube.com/watch?v=LE2Dzl0oMHI).**
 
@@ -36,7 +36,7 @@ $ pip3 install opencv-python
 * Download the pretrained models from [here](https://drive.google.com/file/d/1zYc3PEN4t6GOUoVYJjvcXoMmM3kFDNGS/view?usp=sharing).
 We are optimizing the visual effects and will support animation in the future.
 
-(我们也提供了百度网盘链接:https://pan.baidu.com/s/1YVUsusJFhZ2rWg1Zs5sOkQ  密码:88bu，把压缩包解开后放在 train_log/\*.pkl)
+(我们也提供了百度网盘链接:https://pan.baidu.com/s/17mK2oTZUCMtMgmAdoifLGA  密码:h0cl，把压缩包解开后放在 train_log/\*.pkl)
 * Unzip and move the pretrained parameters to train_log/\*.pkl
 
 The models under different setting is coming soon.
