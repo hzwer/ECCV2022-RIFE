@@ -79,7 +79,7 @@ def write_frame(i0, infs, i1, p, user_args):
         for inf in infs:
             buffer.put(inf[i])
 
-def clear_buffer(user_args):    
+def clear_buffer(user_args, buffer):    
     global cnt
     while True:
         try:
@@ -107,7 +107,7 @@ padding = (0, pw - w, 0, ph - h)
 print('{}.{}, {} frames in total, {}FPS to {}FPS'.format(video_path_wo_ext, args.ext, tot_frame, fps, args.fps))
 pbar = tqdm(total=tot_frame)
 img_list = []
-_thread.start_new_thread(clear_buffer, (args, ))
+_thread.start_new_thread(clear_buffer, (args, buffer))
 tot_frame -= 1
 for frame in videogen:
     tot_frame -= 1

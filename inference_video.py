@@ -52,7 +52,7 @@ else:
     video_path_wo_ext, ext = os.path.splitext(args.video)
     vid_out = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, args.exp, int(np.round(args.fps)), args.ext), fourcc, args.fps, (w, h))
     
-def clear_buffer(user_args):
+def clear_buffer(user_args, buffer):
     cnt = 0
     while True:
         try:
@@ -77,7 +77,7 @@ skip_frame = 1
 if args.montage:
     lastframe = lastframe[:, left: left + w]
 buffer = Queue()
-_thread.start_new_thread(clear_buffer, (args, ))
+_thread.start_new_thread(clear_buffer, (args, buffer))
 for frame in videogen:
     if args.montage:
         frame = frame[:, left: left + w]
