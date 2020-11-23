@@ -1,13 +1,17 @@
 # RIFE Video Frame Interpolation
-## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube_v1.2](https://youtu.be/LE2Dzl0oMHI)
+## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube_v1.2](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be)
 
 **11.22 News: We notice a new windows app is trying to integrate RIFE, we hope everyone to try and help them improve. You can download [Flowframes](https://nmkd.itch.io/flowframes) for free.**
+
+**We find [a tutorial of RIFE](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title) on Youtube.**
 
 **11.20 News: I optimize the parallel processing, get 60% speedup!**
 
 Date of recent model update: 2020.11.19, v1.2
 
-**You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the above youtube demo.**
+**Our model is currently not very suitable for 2d animation.**
+
+**You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the [our youtube demo](https://www.youtube.com/watch?v=LE2Dzl0oMHI).**
 
 Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently our method supports 2X,4X,8X interpolation for 1080p video, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
 
@@ -32,7 +36,7 @@ $ pip3 install opencv-python
 * Download the pretrained models from [here](https://drive.google.com/file/d/1zYc3PEN4t6GOUoVYJjvcXoMmM3kFDNGS/view?usp=sharing).
 We are optimizing the visual effects and will support animation in the future.
 
-(我们也提供了百度网盘链接:https://pan.baidu.com/s/1YVUsusJFhZ2rWg1Zs5sOkQ  密码:88bu，把压缩包解开后放在 train_log/\*.pkl)
+(我们也提供了百度网盘链接:https://pan.baidu.com/s/17mK2oTZUCMtMgmAdoifLGA  密码:h0cl，把压缩包解开后放在 train_log/\*.pkl)
 * Unzip and move the pretrained parameters to train_log/\*.pkl
 
 The models under different setting is coming soon.
@@ -43,11 +47,11 @@ You can use our [demo video](https://drive.google.com/file/d/1i3xlKb7ax7Y70khcTc
 ```
 $ python3 inference_video.py --exp=1 --video=video.mp4 
 ```
-(generate video_2X_xxfps.mp4, you can use this script repeatly to get 4X, 8X...)
+(generate video_2X_xxfps.mp4)
 ```
 $ python3 inference_video.py --exp=2 --video=video.mp4
 ```
-(we specificly support exp=2 for 4X interpolation)
+(for 4X interpolation)
 ```
 $ python3 inference_video.py --exp=2 --video=video.mp4 --fps=60
 ```
