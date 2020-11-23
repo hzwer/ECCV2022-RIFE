@@ -11,7 +11,7 @@ Date of recent model update: 2020.11.19, v1.2
 
 **Our model is currently not suitable for 2d animation.**
 
-**You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the above youtube demo.**
+**You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the [our youtube demo](https://www.youtube.com/watch?v=LE2Dzl0oMHI).**
 
 Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently our method supports 2X,4X,8X interpolation for 1080p video, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
 
@@ -47,11 +47,11 @@ You can use our [demo video](https://drive.google.com/file/d/1i3xlKb7ax7Y70khcTc
 ```
 $ python3 inference_video.py --exp=1 --video=video.mp4 
 ```
-(generate video_2X_xxfps.mp4, you can use this script repeatly to get 4X, 8X...)
+(generate video_2X_xxfps.mp4)
 ```
 $ python3 inference_video.py --exp=2 --video=video.mp4
 ```
-(we specificly support exp=2 for 4X interpolation)
+(for 4X interpolation)
 ```
 $ python3 inference_video.py --exp=2 --video=video.mp4 --fps=60
 ```
