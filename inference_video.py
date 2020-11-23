@@ -55,10 +55,9 @@ else:
 def clear_buffer(user_args, buffer):
     cnt = 0
     while True:
-        try:
-            item = buffer.get(timeout=1)
-        except Empty:
-            return
+        item = buffer.get(timeout=1)
+        if item is None:
+            break
         if user_args.png:
             cv2.imwrite('vid_out/{:0>7d}.png'.format(cnt), item[:, :, ::-1])
             cnt += 1

@@ -82,10 +82,9 @@ def write_frame(i0, infs, i1, p, user_args):
 def clear_buffer(user_args, buffer):    
     global cnt
     while True:
-        try:
-            item = buffer.get(timeout=1)
-        except Empty:
-            return
+        item = buffer.get(timeout=1)
+        if item is None:
+            break
         if user_args.png:
             cv2.imwrite('output/{:0>7d}.png'.format(cnt), item[:, :, ::-1])
             cnt += 1
