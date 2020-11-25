@@ -67,8 +67,6 @@ $ python3 inference_video_parallel.py --exp=2 --video=video.mp4
 
 The warning info, 'Warning: Your video has *** static frames, it may change the duration of the generated video.' means that your video has changed the frame rate by adding static frames, it is common if you have processed 25FPS video to 30FPS.
 
-**To combine the video and audio, please check [this issue](https://github.com/hzwer/arXiv2020-RIFE/issues/12#issuecomment-731715507).**
-
 **Image Interpolation**
 
 ```
