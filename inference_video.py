@@ -9,6 +9,48 @@ import warnings
 import _thread
 import skvideo.io
 from queue import Queue, Empty
+import moviepy.editor
+import shutil
+
+def transferAudio(sourceVideo, targetVideo):
+
+    tempAudioFileName = "./temp/audio.mp3"
+
+    try:
+        # split audio from original video file and store in "temp" directory
+        if True:
+
+            # extract audio from video
+            if True:
+                video = moviepy.editor.VideoFileClip(sourceVideo)
+                audio = video.audio
+
+            # clear old "temp" directory if it exits
+            if os.path.isdir("temp"):
+                # remove temp directory
+                shutil.rmtree("temp")
+
+            # create new "temp" directory
+            os.makedirs("temp")
+
+            # write audio file to "temp" directory
+            audio.write_audiofile(tempAudioFileName)
+
+            os.rename(targetVideo, "noAudio_"+targetVideo)
+
+        # combine audio file and new video file
+        os.system("ffmpeg -y -i " + "noAudio_"+targetVideo + " -i " + tempAudioFileName + " -c copy " + targetVideo)
+
+        # remove audio-less video
+        os.remove("noAudio_"+targetVideo)
+    except:
+        pass
+
+    # remove temp directory
+    shutil.rmtree("temp")
+
+
+
 warnings.filterwarnings("ignore")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -40,7 +82,10 @@ fps = videoCapture.get(cv2.CAP_PROP_FPS)
 tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
 videoCapture.release()
 if args.fps is None:
+    fpsNotAssigned = True
     args.fps = fps * args.exp
+else:
+    fpsNotAssigned = False
 videogen = skvideo.io.vreader(args.video)
 lastframe = next(videogen)
 h, w, _ = lastframe.shape
@@ -130,3 +175,8 @@ while(not buffer.empty()):
 pbar.close()
 if not vid_out is None:
     vid_out.release()
+
+# move audio to new video file if appropriate
+if args.png == False and fpsNotAssigned == True:
+    outputVideoFileName = '{}_{}X_{}fps.{}'.format(video_path_wo_ext, args.exp, int(np.round(args.fps)), args.ext)
+    transferAudio(video_path_wo_ext + "." + args.ext, outputVideoFileName)
