@@ -23,15 +23,16 @@ Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently ou
 ## Abstract
 We propose RIFE, a Real-time Intermediate Flow Estimation algorithm for Video Frame Interpolation (VFI). Most existing methods first estimate the bi-directional optical flows and then linearly combine them to approximate intermediate flows, leading to artifacts on motion boundaries. RIFE uses a neural network named IFNet that can directly estimate the intermediate flows from images. With the more precise flows and our simplified fusion process, RIFE can improve interpolation quality and have much better speed. Based on our proposed leakage distillation loss, RIFE can be trained in an end-to-end fashion. Experiments demonstrate that our method is significantly faster than existing VFI methods and can achieve state-of-the-art performance on public benchmarks. 
 
-## Dependencies
-```
-$ pip3 install tqdm
-$ pip3 install sk-video
-$ pip3 install torch
-$ pip3 install numpy
-$ pip3 install opencv-python
-```
 ## Usage
+
+### Installation
+
+```
+git clone git@github.com:hzwer/arXiv2020-RIFE.git
+cd arXiv2020-RIFE
+
+pip install -r requirements.txt
+```
 
 * Download the pretrained models from [here](https://drive.google.com/file/d/1zYc3PEN4t6GOUoVYJjvcXoMmM3kFDNGS/view?usp=sharing).
 We are optimizing the visual effects and will support animation in the future.
@@ -40,6 +41,8 @@ We are optimizing the visual effects and will support animation in the future.
 * Unzip and move the pretrained parameters to train_log/\*.pkl
 
 The models under different setting is coming soon.
+
+### Run
 
 **Video 2x Interpolation**
 
