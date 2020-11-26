@@ -44,7 +44,7 @@ The models under different setting is coming soon.
 
 ### Run
 
-**Video 2x Interpolation**
+**Video Frame Interpolation**
 
 You can use our [demo video](https://drive.google.com/file/d/1i3xlKb7ax7Y70khcTcuePi6E7crO_dFc/view?usp=sharing) or use your own video to process. 
 ```
@@ -58,7 +58,7 @@ $ python3 inference_video.py --exp=2 --video=video.mp4
 ```
 $ python3 inference_video.py --exp=2 --video=video.mp4 --fps=60
 ```
-(add slomo effect)
+(add slomo effect, the audio will be removed)
 ```
 $ python3 inference_video.py --video=video.mp4 --montage --png
 ```
@@ -111,7 +111,7 @@ $ python3 Vimeo90K_benchmark.py
 
 ## Reference
 Optical Flow:
-[ARFlow](https://github.com/lliuz/ARFlow)  [pytorch-liteflownet](https://github.com/sniklaus/pytorch-liteflownet)  [RAFT](https://github.com/princeton-vl/RAFT)
+[ARFlow](https://github.com/lliuz/ARFlow)  [pytorch-liteflownet](https://github.com/sniklaus/pytorch-liteflownet)  [RAFT](https://github.com/princeton-vl/RAFT)  [pytorch-PWCNet](https://github.com/sniklaus/pytorch-pwc)
 
 Video Interpolation:
-[DAIN](https://github.com/baowenbo/DAIN)  [CAIN](https://github.com/myungsub/CAIN)   [AdaCoF-pytorch](https://github.com/HyeongminLEE/AdaCoF-pytorch)
+[DAIN](https://github.com/baowenbo/DAIN)  [CAIN](https://github.com/myungsub/CAIN)  [AdaCoF-pytorch](https://github.com/HyeongminLEE/AdaCoF-pytorch) 
