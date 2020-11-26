@@ -90,11 +90,13 @@ First you should download [RIFE model reported by our paper](https://drive.googl
 
 We will release our training and benchmark validation code soon.
 
-**Vimeo90K**
-Download [Vimeo90K dataset](http://toflow.csail.mit.edu/) at ./vimeo_interp_test
+**Vimeo90K**: Download [Vimeo90K dataset](http://toflow.csail.mit.edu/) at ./vimeo_interp_test
+**MiddleBury**: Download [MiddleBury OTHER dataset](https://vision.middlebury.edu/flow/data/) at ./other-data and ./other-gt-interp
 ```
-$ python3 benchmark/Vimeo90K_benchmark.py
+$ python3 benchmark/Vimeo90K.py
 (Final result: "Avg PSNR: 35.695 SSIM: 0.9788")
+$ python3 benchmark/MiddelBury_Other.py
+(Final result: "2.058")
 ```
 
 ## Citation
