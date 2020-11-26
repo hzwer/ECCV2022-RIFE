@@ -1,4 +1,6 @@
 import os
+import sys
+sys.path.append('.')
 import cv2
 import math
 import torch
@@ -7,7 +9,6 @@ import numpy as np
 from torch.nn import functional as F
 from pytorch_msssim import ssim_matlab
 from model.RIFE import Model
-
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 model = Model()
