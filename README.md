@@ -7,7 +7,7 @@
 
 **11.20 News: I optimize the parallel processing, get 60% speedup!**
 
-Date of recent model update: 2020.11.19, v1.2
+Date of recent model update: 2020.11.27, v1.3
 
 **Our model is currently not very suitable for 2d animation.**
 
@@ -37,7 +37,7 @@ pip install -r requirements.txt
 * Download the pretrained models from [here](https://drive.google.com/file/d/1zYc3PEN4t6GOUoVYJjvcXoMmM3kFDNGS/view?usp=sharing).
 We are optimizing the visual effects and will support animation in the future.
 
-(我们也提供了百度网盘链接:https://pan.baidu.com/s/17mK2oTZUCMtMgmAdoifLGA  密码:h0cl，把压缩包解开后放在 train_log/\*.pkl)
+(我们也提供了百度网盘链接:https://pan.baidu.com/s/17Gy0gX8axvXeCZMp001KJw  密码:r3rr，把压缩包解开后放在 train_log/\*.pkl)
 * Unzip and move the pretrained parameters to train_log/\*.pkl
 
 The models under different setting is coming soon.
