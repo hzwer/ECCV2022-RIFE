@@ -1,11 +1,9 @@
 # RIFE Video Frame Interpolation v1.4
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be)
 
-**11.30 News: We have updated the v1.4 model to greatly reduce the patch artifacts when the camera moves vigorously.**
+**11.30 News: We have updated the v1.4 model to greatly reduce the patch artifacts when the camera moves vigorously. Please check our [update log](https://github.com/hzwer/arXiv2020-RIFE/issues/41).**
 
 **11.22 News: We notice a new windows app is trying to integrate RIFE, we hope everyone to try and help them improve. You can download [Flowframes](https://nmkd.itch.io/flowframes) for free.**
-
-Date of recent model update: 2020.11.30. Please check the [update log](https://github.com/hzwer/arXiv2020-RIFE/issues/41).
 
 **There is [a tutorial of RIFE](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title) on Youtube.**
 
