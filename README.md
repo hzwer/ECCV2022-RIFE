@@ -5,9 +5,7 @@
 
 **11.22 News: We notice a new windows app is trying to integrate RIFE, we hope everyone to try and help them improve. You can download [Flowframes](https://nmkd.itch.io/flowframes) for free.**
 
-[Date of recent model update: 2020.11.30. Our model is being updated weekly.](https://github.com/hzwer/arXiv2020-RIFE/issues/40)
-
-**Our model is currently not very suitable for 2d animation.**
+Date of recent model update: 2020.11.30. Please check the [update log](https://github.com/hzwer/arXiv2020-RIFE/issues/41).
 
 **There is [a tutorial of RIFE](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title) on Youtube.**
 
