@@ -3,13 +3,11 @@
 
 **11.22 News: We notice a new windows app is trying to integrate RIFE, we hope everyone to try and help them improve. You can download [Flowframes](https://nmkd.itch.io/flowframes) for free.**
 
-**We find [a tutorial of RIFE](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title) on Youtube.**
-
-**11.20 News: I optimize the parallel processing, get 60% speedup!**
-
-Date of recent model update: 2020.11.30, v1.4
+Date of recent model update: 2020.11.30, v1.4. Our model is being updated weekly. 
 
 **Our model is currently not very suitable for 2d animation.**
+
+**There is [a tutorial of RIFE](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title) on Youtube.**
 
 **You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the [our youtube demo](https://www.youtube.com/watch?v=LE2Dzl0oMHI).**
 
