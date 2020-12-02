@@ -1,6 +1,4 @@
 # RIFE Video Frame Interpolation v1.4
-<img src="demo/intro.png" alt="img" width=350 />
-
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be)
 
 **11.30 News: We have updated the v1.4 model to greatly reduce the patch artifacts when the camera moves vigorously. Please check our [update log](https://github.com/hzwer/arXiv2020-RIFE/issues/41).**
@@ -19,7 +17,9 @@ Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, o
 ![Demo](./demo/I2_slomo_clipped.gif)
 
 ## Abstract
-We propose RIFE, a Real-time Intermediate Flow Estimation algorithm for Video Frame Interpolation (VFI). Most existing methods first estimate the bi-directional optical flows and then linearly combine them to approximate intermediate flows, leading to artifacts on motion boundaries. RIFE uses a neural network named IFNet that can directly estimate the intermediate flows from images. With the more precise flows and our simplified fusion process, RIFE can improve interpolation quality and have much better speed. Based on our proposed leakage distillation loss, RIFE can be trained in an end-to-end fashion. Experiments demonstrate that our method is significantly faster than existing VFI methods and can achieve state-of-the-art performance on public benchmarks. 
+We propose RIFE, a Real-time Intermediate Flow Estimation algorithm for Video Frame Interpolation (VFI). Most existing methods first estimate the bi-directional optical flows and then linearly combine them to approximate intermediate flows, leading to artifacts on motion boundaries. RIFE uses a neural network named IFNet that can directly estimate the intermediate flows from images. With the more precise flows and our simplified fusion process, RIFE can improve interpolation quality and have much better speed...
+
+<img src="demo/intro.png" alt="img" width=350 />
 
 ## Usage
 
@@ -42,7 +42,7 @@ We are optimizing the visual effects and will support animation in the future.
 
 **Video Frame Interpolation**
 
-You can use our [demo video](https://drive.google.com/file/d/1i3xlKb7ax7Y70khcTcuePi6E7crO_dFc/view?usp=sharing) or use your own video to process. 
+You can use our [demo video](https://drive.google.com/file/d/1i3xlKb7ax7Y70khcTcuePi6E7crO_dFc/view?usp=sharing) or your own video. 
 ```
 python3 inference_video.py --exp=1 --video=video.mp4 
 ```
