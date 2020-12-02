@@ -16,11 +16,6 @@ Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, o
 ![Demo](./demo/I0_slomo_clipped.gif)
 ![Demo](./demo/I2_slomo_clipped.gif)
 
-## Abstract
-We propose RIFE, a Real-time Intermediate Flow Estimation algorithm for Video Frame Interpolation (VFI). Most existing methods first estimate the bi-directional optical flows and then linearly combine them to approximate intermediate flows, leading to artifacts on motion boundaries. RIFE uses a neural network named IFNet that can directly estimate the intermediate flows from images. With the more precise flows and our simplified fusion process, RIFE can improve interpolation quality and have much better speed...
-
-<img src="demo/intro.png" alt="img" width=350 />
-
 ## Usage
 
 ### Installation
@@ -116,6 +111,8 @@ python3 -m torch.distributed.launch --nproc_per_node=4 train.py
 ```
 
 ## Reference
+<img src="demo/intro.png" alt="img" width=350 />
+
 Optical Flow:
 [ARFlow](https://github.com/lliuz/ARFlow)  [pytorch-liteflownet](https://github.com/sniklaus/pytorch-liteflownet)  [RAFT](https://github.com/princeton-vl/RAFT)  [pytorch-PWCNet](https://github.com/sniklaus/pytorch-pwc)
 
