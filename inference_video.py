@@ -60,7 +60,7 @@ args.exp = 2 ** args.exp
 
 from model.RIFE import Model
 model = Model()
-model.load_model('./train_log')
+model.load_model('./train_log', -1)
 model.eval()
 model.device()
 

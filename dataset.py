@@ -5,7 +5,6 @@ import ujson as json
 import nori2 as nori
 import numpy as np
 import random
-# import imgaug.augmenters as iaa
 from torch.utils.data import DataLoader, Dataset
 
 cv2.setNumThreads(1)
@@ -13,10 +12,9 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 class VimeoDataset(Dataset):
     def __init__(self, dataset_name, batch_size=32):
         self.batch_size = batch_size
-        self.path = 'XXX'
+        self.path = './dataset/'
         self.dataset_name = dataset_name
         self.load_data()
-        self.nf = nori.Fetcher()
         self.h = 256
         self.w = 448
         xx = np.arange(0, self.w).reshape(1,-1).repeat(self.h,0)
@@ -27,9 +25,17 @@ class VimeoDataset(Dataset):
         return len(self.meta_data)
 
     def load_data(self):
-        self.train_data = XXX
-        self.flow_data = XXX
-        self.val_data = XXX
+        self.train_data = []
+        self.flow_data = []
+        self.val_data = []
+        for i in range(500):
+            f = np.load('dataset/{}.npz'.format(i))
+            if i < 400:
+                self.train_data.append(f['i0i1gt'])
+                self.flow_data.append(f['ft0ft1'])
+            else:
+                self.val_data.append(f['i0i1gt'])
+                self.flow_data.append(f['ft0ft1']) # can not be used for training!
         if self.dataset_name == 'train':
             self.meta_data = self.train_data
         else:
@@ -48,37 +54,15 @@ class VimeoDataset(Dataset):
 
     def getimg(self, index):
         data = self.meta_data[index]
-        img0 = np.frombuffer(data[0], dtype='uint8').reshape(256, 448, 3)
-        gt = np.frombuffer(data[1], dtype='uint8').reshape(256, 448, 3)
-        img1 = np.frombuffer(data[2], dtype='uint8').reshape(256, 448, 3)
-        flow_gt = np.frombuffer(self.nf.get(self.flow_data[index]), dtype='float32').reshape(256, 448, 4)
+        img0 = data[0:3].transpose(1, 2, 0)
+        img1 = data[3:6].transpose(1, 2, 0)
+        gt = data[6:9].transpose(1, 2, 0)
+        flow_gt = (self.flow_data[index]).transpose(1, 2, 0)
         return img0, gt, img1, flow_gt
             
     def __getitem__(self, index):        
         img0, gt, img1, flow_gt = self.getimg(index)
         if self.dataset_name == 'train':
-            '''
-            if random.uniform(0, 1) < 0.5:
-                aug = iaa.Sequential([
-                    iaa.MultiplyHue((0.8, 1.5)),
-                    iaa.MultiplyBrightness((0.8, 1.5)),
-                    iaa.LinearContrast((0.8, 1.5)),
-                ]).to_deterministic()
-                img0 = aug(image=img0)
-                img1 = aug(image=img1)
-                gt = aug(image=gt)
-            p1 = random.uniform(1, 1.25)
-            p2 = random.uniform(1, 1.25)
-            h, w = int(256 * p1), int(448 * p2)
-            p1 = h / 256
-            p2 = w / 448
-            img0 = cv2.resize(img0, (w, h), interpolation=cv2.INTER_LINEAR)
-            img1 = cv2.resize(img1, (w, h), interpolation=cv2.INTER_LINEAR)
-            gt = cv2.resize(gt, (w, h), interpolation=cv2.INTER_LINEAR)
-            flow_gt = cv2.resize(flow_gt, (w, h), interpolation=cv2.INTER_LINEAR)
-            flow_gt[:, :, 0] *= p2
-            flow_gt[:, :, 1] *= p1
-            '''
             img0, gt, img1, flow_gt = self.aug(img0, gt, img1, flow_gt, 224, 224)
             flow_gt = torch.from_numpy(flow_gt.copy()).permute(2, 0, 1)
             img0 = torch.from_numpy(img0.copy()).permute(2, 0, 1)

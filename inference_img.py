@@ -15,7 +15,7 @@ parser.add_argument('--exp', default=4, type=int)
 args = parser.parse_args()
 
 model = Model()
-model.load_model('./train_log')
+model.load_model('./train_log', -1)
 model.eval()
 model.device()
     

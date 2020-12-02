@@ -19,11 +19,10 @@ torch.manual_seed(seed)
 torch.cuda.manual_seed_all(seed)
 torch.backends.cudnn.benchmark = True
 
-from model import Model
+from model.RIFE import Model
 from dataset import *
 from torch.utils.data import DataLoader, Dataset
 from torch.utils.tensorboard import SummaryWriter
-from util import *
 from torch.utils.data.distributed import DistributedSampler
 
 log_path = 'train_log'
@@ -38,6 +37,16 @@ def get_learning_rate(step):
         mul = np.cos((step - 2000) / (args.epoch * args.step_per_epoch - 2000.) * math.pi) * 0.5 + 0.5
     return  5e-4 * mul
 
+def flow2rgb(flow_map_np):
+    h, w, _ = flow_map_np.shape
+    rgb_map = np.ones((h, w, 3)).astype(np.float32)
+    normalized_flow_map = flow_map_np / (np.abs(flow_map_np).max())
+    
+    rgb_map[:, :, 0] += normalized_flow_map[:, :, 0]
+    rgb_map[:, :, 1] -= 0.5 * (normalized_flow_map[:, :, 0] + normalized_flow_map[:, :, 1])
+    rgb_map[:, :, 2] += normalized_flow_map[:, :, 1]
+    return rgb_map.clip(0, 1)
+
 def train(model):
     step = 0
     nr_eval = 0
@@ -49,7 +58,6 @@ def train(model):
     val_data = DataLoader(dataset_val, batch_size=16, pin_memory=True, num_workers=8)
     evaluate(model, val_data, nr_eval)
     model.save_model(log_path, local_rank)
-    model.load_model(log_path, local_rank)
     print('training...')
     time_stamp = time.time()
     for epoch in range(args.epoch):

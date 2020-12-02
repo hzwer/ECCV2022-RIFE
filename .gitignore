@@ -8,3 +8,4 @@ output/*
 
 test/
 .idea/
+*.npz

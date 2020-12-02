@@ -158,13 +158,16 @@ class Model:
         self.contextnet.to(device)
         self.fusionnet.to(device)
 
-    def load_model(self, path, rank=0):
+    def load_model(self, path, rank):
         def convert(param):
-            return {
-                k.replace("module.", ""): v
-                for k, v in param.items()
-                if "module." in k
-            }
+            if rank == -1:
+                return {
+                    k.replace("module.", ""): v
+                    for k, v in param.items()
+                    if "module." in k
+                }
+            else:
+                return param
         if rank == 0:
             self.flownet.load_state_dict(
                 convert(torch.load('{}/flownet.pkl'.format(path), map_location=device)))
@@ -173,12 +176,10 @@ class Model:
             self.fusionnet.load_state_dict(
                 convert(torch.load('{}/unet.pkl'.format(path), map_location=device)))
 
-    def save_model(self, path, rank=0):
+    def save_model(self, path, rank):
         if rank == 0:
-            torch.save(self.flownet.state_dict(),
-                       '{}/flownet.pkl'.format(path))
-            torch.save(self.contextnet.state_dict(),
-                       '{}/contextnet.pkl'.format(path))
+            torch.save(self.flownet.state_dict(), '{}/flownet.pkl'.format(path))
+            torch.save(self.contextnet.state_dict(), '{}/contextnet.pkl'.format(path))
             torch.save(self.fusionnet.state_dict(), '{}/unet.pkl'.format(path))
 
     def predict(self, imgs, flow, training=True, flow_gt=None):
