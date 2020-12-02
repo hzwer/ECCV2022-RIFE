@@ -1,4 +1,6 @@
 # RIFE Video Frame Interpolation v1.4
+<img src="demo/intro.png" alt="img" width=350 />
+
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be)
 
 **11.30 News: We have updated the v1.4 model to greatly reduce the patch artifacts when the camera moves vigorously. Please check our [update log](https://github.com/hzwer/arXiv2020-RIFE/issues/41).**
@@ -42,19 +44,19 @@ We are optimizing the visual effects and will support animation in the future.
 
 You can use our [demo video](https://drive.google.com/file/d/1i3xlKb7ax7Y70khcTcuePi6E7crO_dFc/view?usp=sharing) or use your own video to process. 
 ```
-$ python3 inference_video.py --exp=1 --video=video.mp4 
+python3 inference_video.py --exp=1 --video=video.mp4 
 ```
 (generate video_2X_xxfps.mp4)
 ```
-$ python3 inference_video.py --exp=2 --video=video.mp4
+python3 inference_video.py --exp=2 --video=video.mp4
 ```
 (for 4X interpolation)
 ```
-$ python3 inference_video.py --exp=2 --video=video.mp4 --fps=60
+python3 inference_video.py --exp=2 --video=video.mp4 --fps=60
 ```
 (add slomo effect, the audio will be removed)
 ```
-$ python3 inference_video.py --video=video.mp4 --montage --png
+python3 inference_video.py --video=video.mp4 --montage --png
 ```
 (if you want to montage the origin video, and save the png format output)
 
@@ -63,16 +65,16 @@ The warning info, 'Warning: Your video has *** static frames, it may change the 
 **Image Interpolation**
 
 ```
-$ python3 inference_img.py --img img0.png img1.png --exp=4
+python3 inference_img.py --img img0.png img1.png --exp=4
 ```
 (2^4=16X interpolation results)
 After that, you can use pngs to generate mp4:
 ```
-$ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -c:v libx264 -pix_fmt yuv420p output/slomo.mp4 -q:v 0 -q:a 0
+ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -c:v libx264 -pix_fmt yuv420p output/slomo.mp4 -q:v 0 -q:a 0
 ```
 You can also use pngs to generate gif:
 ```
-$ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -vf "split[s0][s1];[s0]palettegen=stats_mode=single[p];[s1][p]paletteuse=new=1" output/slomo.gif
+ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -vf "split[s0][s1];[s0]palettegen=stats_mode=single[p];[s1][p]paletteuse=new=1" output/slomo.gif
 ```
 
 ## Evaluation
@@ -84,13 +86,13 @@ We will release our training and benchmark validation code soon.
 
 **MiddleBury**: Download [MiddleBury OTHER dataset](https://vision.middlebury.edu/flow/data/) at ./other-data and ./other-gt-interp
 ```
-$ python3 benchmark/Vimeo90K.py
-(Final result: "Avg PSNR: 35.695 SSIM: 0.9788")
-$ python3 benchmark/MiddelBury_Other.py
-(Final result: "2.058")
+python3 benchmark/Vimeo90K.py
+# (Final result: "Avg PSNR: 35.695 SSIM: 0.9788")
+python3 benchmark/MiddelBury_Other.py
+# (Final result: "2.058")
 ```
 
-## Training & Reproduce
+## Training
 Because Vimeo90K dataset and the corresponding optical flow labels are too large, we cannot provide a complete dataset download link. We provide you with [a subset containing 100 samples](https://drive.google.com/file/d/1_MQmFWqaptBuEbsV2tmbqFsxmxMIqYDU/view?usp=sharing) for testing the pipeline. Please unzip it at ./dataset
 
 For origin images, you can download them from [Vimeo90K dataset](http://toflow.csail.mit.edu/).
@@ -103,7 +105,6 @@ python3 -m torch.distributed.launch --nproc_per_node=4 train.py
 ```
 
 ## Citation
-<img src="demo/intro.png" alt="img" width=350 />
 
 ```
 @article{huang2020rife,
