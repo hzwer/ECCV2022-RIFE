@@ -9,7 +9,7 @@
 
 **You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the [our youtube demo](https://www.youtube.com/watch?v=LE2Dzl0oMHI).**
 
-Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently our method supports 2X,4X,8X interpolation for 1080p video, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
+Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently our method supports 2X,4X interpolation for 1080p video, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
 
 16X interpolation results from two input images: 
 
@@ -59,10 +59,6 @@ $ python3 inference_video.py --exp=2 --video=video.mp4 --fps=60
 $ python3 inference_video.py --video=video.mp4 --montage --png
 ```
 (if you want to montage the origin video, and save the png format output)
-```
-$ python3 inference_video_parallel.py --exp=2 --video=video.mp4
-```
-(Try our parallel process, may be useful on your device.)
 
 The warning info, 'Warning: Your video has *** static frames, it may change the duration of the generated video.' means that your video has changed the frame rate by adding static frames, it is common if you have processed 25FPS video to 30FPS.
 

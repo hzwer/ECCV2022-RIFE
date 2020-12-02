@@ -11,47 +11,34 @@ import skvideo.io
 from queue import Queue, Empty
 import moviepy.editor
 import shutil
+warnings.filterwarnings("ignore")
 
 def transferAudio(sourceVideo, targetVideo):
-
     tempAudioFileName = "./temp/audio.mp3"
-
     try:
         # split audio from original video file and store in "temp" directory
         if True:
-
             # extract audio from video
             if True:
                 video = moviepy.editor.VideoFileClip(sourceVideo)
                 audio = video.audio
-
             # clear old "temp" directory if it exits
             if os.path.isdir("temp"):
                 # remove temp directory
                 shutil.rmtree("temp")
-
             # create new "temp" directory
             os.makedirs("temp")
-
             # write audio file to "temp" directory
             audio.write_audiofile(tempAudioFileName)
-
             os.rename(targetVideo, "noAudio_"+targetVideo)
-
         # combine audio file and new video file
         os.system("ffmpeg -y -i " + "noAudio_"+targetVideo + " -i " + tempAudioFileName + " -c copy " + targetVideo)
-
         # remove audio-less video
         os.remove("noAudio_"+targetVideo)
     except:
         pass
-
     # remove temp directory
     shutil.rmtree("temp")
-
-
-
-warnings.filterwarnings("ignore")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 if torch.cuda.is_available():
@@ -169,6 +156,7 @@ if args.montage:
     buffer.put(np.concatenate((lastframe, lastframe), 1))
 else:
     buffer.put(lastframe)
+    
 import time
 while(not buffer.empty()):
     time.sleep(0.1)
