@@ -9,7 +9,7 @@
 
 **You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the [our youtube demo](https://www.youtube.com/watch?v=LE2Dzl0oMHI).**
 
-Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently our method supports 2X,4X interpolation for 1080p video, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
+Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, our method supports 2X,4X interpolation for 1080p video, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
 
 16X interpolation results from two input images: 
 
@@ -35,8 +35,6 @@ We are optimizing the visual effects and will support animation in the future.
 
 (我们也提供了百度网盘链接:https://pan.baidu.com/s/1TniBk2Ld2O6XXgr-AY9DMQ  密码:ub97，把压缩包解开后放在 train_log/\*.pkl)
 * Unzip and move the pretrained parameters to train_log/\*.pkl
-
-The models under different setting is coming soon.
 
 ### Run
 
@@ -78,7 +76,7 @@ $ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -vf "split[s0][s1];[s0]p
 ```
 
 ## Evaluation
-First you should download [RIFE model reported by our paper](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing).
+First, you should download [RIFE model reported by our paper](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing).
 
 We will release our training and benchmark validation code soon.
 
@@ -90,6 +88,18 @@ $ python3 benchmark/Vimeo90K.py
 (Final result: "Avg PSNR: 35.695 SSIM: 0.9788")
 $ python3 benchmark/MiddelBury_Other.py
 (Final result: "2.058")
+```
+
+## Training & Reproduce
+Because Vimeo90K dataset and the corresponding optical flow labels are too large, we cannot provide a complete dataset download link. We provide you with [a subset containing 100 samples](https://drive.google.com/file/d/1_MQmFWqaptBuEbsV2tmbqFsxmxMIqYDU/view?usp=sharing) for testing the pipeline. Please unzip it at ./dataset
+
+For origin images, you can download them from [Vimeo90K dataset](http://toflow.csail.mit.edu/).
+
+For generating optical flow labels, our paper use [pytorch-liteflownet](https://github.com/sniklaus/pytorch-liteflownet). We also recommend [RAFT](https://github.com/princeton-vl/RAFT) because it's easier to configure. We recommend generating optical flow labels on 2X size images for higher quality. You can also generate labels during training, or finetune the optical flow network on the training set. The final impact of the above operations on Vimeo90K PSNR is expected to be within 0.3.
+
+We use 16 CPUs, 4 GPUs and 20G memory for training: 
+```
+python3 -m torch.distributed.launch --nproc_per_node=4 train.py
 ```
 
 ## Citation
