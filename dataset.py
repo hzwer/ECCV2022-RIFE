@@ -28,9 +28,9 @@ class VimeoDataset(Dataset):
         self.train_data = []
         self.flow_data = []
         self.val_data = []
-        for i in range(500):
+        for i in range(100):
             f = np.load('dataset/{}.npz'.format(i))
-            if i < 400:
+            if i < 80:
                 self.train_data.append(f['i0i1gt'])
                 self.flow_data.append(f['ft0ft1'])
             else:
