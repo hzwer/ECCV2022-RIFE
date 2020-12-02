@@ -23,14 +23,12 @@ Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, o
 ```
 git clone git@github.com:hzwer/arXiv2020-RIFE.git
 cd arXiv2020-RIFE
-
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 * Download the pretrained models from [here](https://drive.google.com/file/d/1zYc3PEN4t6GOUoVYJjvcXoMmM3kFDNGS/view?usp=sharing).
-We are optimizing the visual effects and will support animation in the future.
+We are optimizing the visual effects and will support animation in the future. (百度网盘链接:https://pan.baidu.com/s/1TniBk2Ld2O6XXgr-AY9DMQ  密码:ub97，把压缩包解开后放在 train_log/\*.pkl)
 
-(我们也提供了百度网盘链接:https://pan.baidu.com/s/1TniBk2Ld2O6XXgr-AY9DMQ  密码:ub97，把压缩包解开后放在 train_log/\*.pkl)
 * Unzip and move the pretrained parameters to train_log/\*.pkl
 
 ### Run
