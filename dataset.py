@@ -35,7 +35,6 @@ class VimeoDataset(Dataset):
                 self.flow_data.append(f['ft0ft1'])
             else:
                 self.val_data.append(f['i0i1gt'])
-                self.flow_data.append(f['ft0ft1']) # can not be used for training!
         if self.dataset_name == 'train':
             self.meta_data = self.train_data
         else:
@@ -91,7 +90,7 @@ class VimeoDataset(Dataset):
                 img0 = tmp
                 flow_gt = np.concatenate((flow_gt[:, :, 2:4], flow_gt[:, :, 0:2]), 2)
         else:
-            flow_gt = np.zeros((224, 224, 4))
+            flow_gt = np.zeros((256, 448, 4))
         flow_gt = torch.from_numpy(flow_gt.copy()).permute(2, 0, 1)
         img0 = torch.from_numpy(img0.copy()).permute(2, 0, 1)
         img1 = torch.from_numpy(img1.copy()).permute(2, 0, 1)
