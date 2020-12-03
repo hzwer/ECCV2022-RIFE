@@ -157,7 +157,7 @@ for frame in videogen:
     if p > 0.2:
         output = []
         for i in range((2 ** args.exp) - 1):
-            output.append(lastframe.unsqueeze(0))
+            output.append(I0)
     else:
         output = make_inference(I0, I1, args.exp)
     if args.montage:
