@@ -45,6 +45,10 @@ python3 inference_video.py --exp=2 --video=video.mp4
 ```
 (for 4X interpolation)
 ```
+python3 inference_video.py --exp=2 --img=input/
+```
+(to read video from pngs, like input/0.png ... input/612.png, ensure that the png names are numbers)
+```
 python3 inference_video.py --exp=2 --video=video.mp4 --fps=60
 ```
 (add slomo effect, the audio will be removed)

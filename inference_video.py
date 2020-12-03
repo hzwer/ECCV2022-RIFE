@@ -48,7 +48,8 @@ if torch.cuda.is_available():
     torch.backends.cudnn.benchmark = True
 
 parser = argparse.ArgumentParser(description='Interpolation for a pair of images')
-parser.add_argument('--video', dest='video', required=True)
+parser.add_argument('--video', dest='video', type=str, default=None)
+parser.add_argument('--img', dest='img', type=str, default=None)
 parser.add_argument('--montage', dest='montage', action='store_true', help='montage origin video')
 parser.add_argument('--skip', dest='skip', action='store_true', help='whether to remove static frames before processing')
 parser.add_argument('--fps', dest='fps', type=int, default=None)
@@ -57,6 +58,9 @@ parser.add_argument('--ext', dest='ext', type=str, default='mp4', help='vid_out 
 parser.add_argument('--exp', dest='exp', type=int, default=1)
 args = parser.parse_args()
 assert (args.exp == 1 or args.exp == 2)
+assert (not args.video is None or not args.img is None)
+if not args.img is None:
+    args.png = True
 args.exp = 2 ** args.exp
 
 from model.RIFE_HD import Model
@@ -65,20 +69,32 @@ model.load_model('./train_log', -1)
 model.eval()
 model.device()
 
-videoCapture = cv2.VideoCapture(args.video)
-fps = videoCapture.get(cv2.CAP_PROP_FPS)
-tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
-videoCapture.release()
-if args.fps is None:
-    fpsNotAssigned = True
-    args.fps = fps * args.exp
+if not args.video is None:
+    videoCapture = cv2.VideoCapture(args.video)
+    fps = videoCapture.get(cv2.CAP_PROP_FPS)
+    tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
+    videoCapture.release()
+    if args.fps is None:
+        fpsNotAssigned = True
+        args.fps = fps * args.exp
+    else:
+        fpsNotAssigned = False
+    videogen = skvideo.io.vreader(args.video)
+    lastframe = next(videogen)
+    fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
+    video_path_wo_ext, ext = os.path.splitext(args.video)
+    print('{}.{}, {} frames in total, {}FPS to {}FPS'.format(video_path_wo_ext, args.ext, tot_frame, fps, args.fps))
 else:
-    fpsNotAssigned = False
-videogen = skvideo.io.vreader(args.video)
-lastframe = next(videogen)
+    videogen = []
+    for f in os.listdir(args.img):
+        if 'png' in f:
+            videogen.append(f)
+    tot_frame = len(videogen)
+    videogen.sort(key= lambda x:int(x[:-4]))
+    lastframe = cv2.imread(os.path.join(args.img, videogen[0]))[:, :, ::-1].copy()
+    videogen = videogen[1:]    
 h, w, _ = lastframe.shape
-fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-video_path_wo_ext, ext = os.path.splitext(args.video)
+vid_out = None
 if args.png:
     if not os.path.exists('vid_out'):
         os.mkdir('vid_out')
@@ -103,14 +119,17 @@ if args.montage:
 ph = ((h - 1) // 32 + 1) * 32
 pw = ((w - 1) // 32 + 1) * 32
 padding = (0, pw - w, 0, ph - h)
-print('{}.{}, {} frames in total, {}FPS to {}FPS'.format(video_path_wo_ext, args.ext, tot_frame, fps, args.fps))
 pbar = tqdm(total=tot_frame)
 skip_frame = 1
 if args.montage:
     lastframe = lastframe[:, left: left + w]
 buffer = Queue()
 _thread.start_new_thread(clear_buffer, (args, buffer))
+
 for frame in videogen:
+    if not args.img is None:
+        print(frame)
+        frame = cv2.imread(os.path.join(args.img, frame))[:, :, ::-1].copy()
     if args.montage:
         frame = frame[:, left: left + w]
     I0 = torch.from_numpy(np.transpose(lastframe, (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.
