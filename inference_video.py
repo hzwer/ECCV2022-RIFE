@@ -170,6 +170,6 @@ if not vid_out is None:
     vid_out.release()
 
 # move audio to new video file if appropriate
-if args.png == False and fpsNotAssigned == True:
+if args.png == False and fpsNotAssigned == True and not args.skip:
     outputVideoFileName = '{}_{}X_{}fps.{}'.format(video_path_wo_ext, args.exp, int(np.round(args.fps)), args.ext)
     transferAudio(video_path_wo_ext + "." + args.ext, outputVideoFileName)
