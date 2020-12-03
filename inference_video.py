@@ -128,7 +128,6 @@ _thread.start_new_thread(clear_buffer, (args, buffer))
 
 for frame in videogen:
     if not args.img is None:
-        print(frame)
         frame = cv2.imread(os.path.join(args.img, frame))[:, :, ::-1].copy()
     if args.montage:
         frame = frame[:, left: left + w]
