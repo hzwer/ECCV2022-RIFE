@@ -168,7 +168,7 @@ class Model:
                 }
             else:
                 return param
-        if rank == 0:
+        if rank <= 0:
             self.flownet.load_state_dict(
                 convert(torch.load('{}/flownet.pkl'.format(path), map_location=device)))
             self.contextnet.load_state_dict(
