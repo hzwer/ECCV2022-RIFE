@@ -9,3 +9,5 @@ output/*
 test/
 .idea/
 *.npz
+
+*.zip

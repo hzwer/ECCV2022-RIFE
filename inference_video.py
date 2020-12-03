@@ -59,7 +59,7 @@ args = parser.parse_args()
 assert (args.exp == 1 or args.exp == 2)
 args.exp = 2 ** args.exp
 
-from model.RIFE import Model
+from model.RIFE_HD import Model
 model = Model()
 model.load_model('./train_log', -1)
 model.eval()

@@ -3,7 +3,7 @@ import cv2
 import torch
 import argparse
 from torch.nn import functional as F
-from model.RIFE import Model
+from model.RIFE_HD import Model
 import warnings
 warnings.filterwarnings("ignore")
 
