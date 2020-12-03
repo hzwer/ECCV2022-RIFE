@@ -9,11 +9,11 @@ import warnings
 import _thread
 import skvideo.io
 from queue import Queue, Empty
-import moviepy.editor
-import shutil
 warnings.filterwarnings("ignore")
 
-def transferAudio(sourceVideo, targetVideo):
+def transferAudio(sourceVideo, targetVideo):    
+    import shutil
+    import moviepy.editor
     tempAudioFileName = "./temp/audio.mp3"
     try:
         # split audio from original video file and store in "temp" directory
@@ -84,6 +84,10 @@ if not args.video is None:
     fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
     video_path_wo_ext, ext = os.path.splitext(args.video)
     print('{}.{}, {} frames in total, {}FPS to {}FPS'.format(video_path_wo_ext, args.ext, tot_frame, fps, args.fps))
+    if args.png == False and fpsNotAssigned == True and not args.skip:
+        print("The audio will be merged after interpolation process")
+    else:
+        print("Will not merge audio because using png, fps or skip flag!")
 else:
     videogen = []
     for f in os.listdir(args.img):
@@ -188,6 +192,6 @@ if not vid_out is None:
     vid_out.release()
 
 # move audio to new video file if appropriate
-if args.png == False and fpsNotAssigned == True and not args.skip:
+if args.png == False and fpsNotAssigned == True and not args.skip and not args.video is None:
     outputVideoFileName = '{}_{}X_{}fps.{}'.format(video_path_wo_ext, args.exp, int(np.round(args.fps)), args.ext)
     transferAudio(video_path_wo_ext + "." + args.ext, outputVideoFileName)
