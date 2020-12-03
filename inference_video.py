@@ -78,11 +78,11 @@ videogen = skvideo.io.vreader(args.video)
 lastframe = next(videogen)
 h, w, _ = lastframe.shape
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
+video_path_wo_ext, ext = os.path.splitext(args.video)
 if args.png:
     if not os.path.exists('vid_out'):
         os.mkdir('vid_out')
 else:
-    video_path_wo_ext, ext = os.path.splitext(args.video)
     vid_out = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, args.exp, int(np.round(args.fps)), args.ext), fourcc, args.fps, (w, h))
     
 def clear_buffer(user_args, buffer):
