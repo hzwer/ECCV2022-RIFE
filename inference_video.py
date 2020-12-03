@@ -57,11 +57,9 @@ parser.add_argument('--png', dest='png', action='store_true', help='whether to v
 parser.add_argument('--ext', dest='ext', type=str, default='mp4', help='vid_out video extension')
 parser.add_argument('--exp', dest='exp', type=int, default=1)
 args = parser.parse_args()
-assert (args.exp == 1 or args.exp == 2)
 assert (not args.video is None or not args.img is None)
 if not args.img is None:
     args.png = True
-args.exp = 2 ** args.exp
 
 from model.RIFE_HD import Model
 model = Model()
@@ -76,7 +74,7 @@ if not args.video is None:
     videoCapture.release()
     if args.fps is None:
         fpsNotAssigned = True
-        args.fps = fps * args.exp
+        args.fps = fps * (2 ** args.exp)
     else:
         fpsNotAssigned = False
     videogen = skvideo.io.vreader(args.video)
@@ -116,6 +114,15 @@ def clear_buffer(user_args, buffer):
             cnt += 1
         else:
             vid_out.write(item[:, :, ::-1])
+
+def make_inference(I0, I1, exp):
+    global model
+    middle = model.inference(I0, I1)
+    if exp == 1:
+        return [middle]
+    first_half = make_inference(I0, middle, exp=exp - 1)
+    second_half = make_inference(middle, I1, exp=exp - 1)
+    return [*first_half, middle, *second_half]
             
 if args.montage:
     left = w // 4
@@ -147,37 +154,22 @@ for frame in videogen:
         skip_frame += 1
         pbar.update(1)
         continue
-    if p > 0.2:             
-        mid1 = lastframe
-        mid0 = lastframe
-        mid2 = lastframe
+    if p > 0.2:
+        output = []
+        for i in range((2 ** args.exp) - 1):
+            output.append(lastframe)
     else:
-        if args.exp == 4:
-            mid1 = model.inference(I0, I1)
-            mid0 = model.inference(I0, mid1)
-            mid2 = model.inference(mid1, I1)
-            mid0 = (((mid0[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
-            mid1 = (((mid1[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
-            mid2 = (((mid2[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
-        else:
-            mid1 = model.inference(I0, I1)
-            mid1 = (((mid1[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
+        output = make_inference(I0, I1, args.exp)
     if args.montage:
         buffer.put(np.concatenate((lastframe, lastframe), 1))
-        if args.exp == 4:            
-            buffer.put(np.concatenate((lastframe, mid0[:h, :w]), 1))
-            buffer.put(np.concatenate((lastframe, mid1[:h, :w]), 1))
-            buffer.put(np.concatenate((lastframe, mid2[:h, :w]), 1))
-        else:            
-            buffer.put(np.concatenate((lastframe, mid1[:h, :w]), 1))
+        for mid in output:
+            mid = (((mid[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
+            buffer.put(np.concatenate((lastframe, mid[:h, :w]), 1))
     else:
         buffer.put(lastframe)
-        if args.exp == 4:
-            buffer.put(mid0[:h, :w])
-            buffer.put(mid1[:h, :w])
-            buffer.put(mid2[:h, :w])
-        else:
-            buffer.put(mid1[:h, :w])
+        for mid in output:
+            mid = (((mid[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
+            buffer.put(mid[:h, :w])
     pbar.update(1)
     lastframe = frame
 if args.montage:
