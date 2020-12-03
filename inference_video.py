@@ -40,6 +40,7 @@ def transferAudio(sourceVideo, targetVideo):
     # remove temp directory
     shutil.rmtree("temp")
 
+    
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 if torch.cuda.is_available():
     torch.set_grad_enabled(False)
@@ -127,36 +128,40 @@ for frame in videogen:
     if p > 0.2:             
         mid1 = lastframe
         mid0 = lastframe
-        mid2 = frame
+        mid2 = lastframe
     else:
-        mid1 = model.inference(I0, I1)
         if args.exp == 4:
-            mid = model.inference(torch.cat((I0, mid1), 0), torch.cat((mid1, I1), 0))
-        mid1 = (((mid1[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
-        if args.exp == 4:
-            mid0 = (((mid[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
-            mid2 = (((mid[1] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
+            mid1 = model.inference(I0, I1)
+            mid0 = model.inference(I0, mid1)
+            mid2 = model.inference(mid1, I1)
+            mid0 = (((mid0 * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
+            mid1 = (((mid1[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
+            mid2 = (((mid2 * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
+        else:
+            mid1 = model.inference(I0, I1)
+            mid1 = (((mid1[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
     if args.montage:
         buffer.put(np.concatenate((lastframe, lastframe), 1))
-        if args.exp == 4:
+        if args.exp == 4:            
             buffer.put(np.concatenate((lastframe, mid0[:h, :w]), 1))
-        buffer.put(np.concatenate((lastframe, mid1[:h, :w]), 1))
-        if args.exp == 4:
+            buffer.put(np.concatenate((lastframe, mid1[:h, :w]), 1))
             buffer.put(np.concatenate((lastframe, mid2[:h, :w]), 1))
+        else:            
+            buffer.put(np.concatenate((lastframe, mid1[:h, :w]), 1))
     else:
         buffer.put(lastframe)
         if args.exp == 4:
             buffer.put(mid0[:h, :w])
-        buffer.put(mid1[:h, :w])
-        if args.exp == 4:
+            buffer.put(mid1[:h, :w])
             buffer.put(mid2[:h, :w])
+        else:
+            buffer.put(mid1[:h, :w])
     pbar.update(1)
     lastframe = frame
 if args.montage:
     buffer.put(np.concatenate((lastframe, lastframe), 1))
 else:
     buffer.put(lastframe)
-    
 import time
 while(not buffer.empty()):
     time.sleep(0.1)
