@@ -134,9 +134,9 @@ for frame in videogen:
             mid1 = model.inference(I0, I1)
             mid0 = model.inference(I0, mid1)
             mid2 = model.inference(mid1, I1)
-            mid0 = (((mid0 * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
+            mid0 = (((mid0[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
             mid1 = (((mid1[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
-            mid2 = (((mid2 * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
+            mid2 = (((mid2[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
         else:
             mid1 = model.inference(I0, I1)
             mid1 = (((mid1[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
