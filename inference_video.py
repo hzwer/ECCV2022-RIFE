@@ -101,7 +101,7 @@ if args.png:
     if not os.path.exists('vid_out'):
         os.mkdir('vid_out')
 else:
-    vid_out = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, args.exp, int(np.round(args.fps)), args.ext), fourcc, args.fps, (w, h))
+    vid_out = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, (2**args.exp), int(np.round(args.fps)), args.ext), fourcc, args.fps, (w, h))
     
 def clear_write_buffer(user_args, write_buffer):
     cnt = 0
