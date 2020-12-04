@@ -101,7 +101,7 @@ if args.png:
     if not os.path.exists('vid_out'):
         os.mkdir('vid_out')
 else:
-    vid_out = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, (2**args.exp), int(np.round(args.fps)), args.ext), fourcc, args.fps, (w, h))
+    vid_out = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, (2 ** args.exp), int(np.round(args.fps)), args.ext), fourcc, args.fps, (w, h))
     
 def clear_write_buffer(user_args, write_buffer):
     cnt = 0
@@ -143,8 +143,8 @@ pbar = tqdm(total=tot_frame)
 skip_frame = 1
 if args.montage:
     lastframe = lastframe[:, left: left + w]
-write_buffer = Queue(maxsize=100)
-read_buffer = Queue(maxsize=100)
+write_buffer = Queue(maxsize=500)
+read_buffer = Queue(maxsize=500)
 _thread.start_new_thread(build_read_buffer, (args, read_buffer, videogen))
 _thread.start_new_thread(clear_write_buffer, (args, write_buffer))
 
