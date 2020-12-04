@@ -103,10 +103,10 @@ if args.png:
 else:
     vid_out = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, args.exp, int(np.round(args.fps)), args.ext), fourcc, args.fps, (w, h))
     
-def clear_buffer(user_args, buffer):
+def clear_write_buffer(user_args, write_buffer):
     cnt = 0
     while True:
-        item = buffer.get()
+        item = write_buffer.get()
         if item is None:
             break
         if user_args.png:
@@ -114,6 +114,15 @@ def clear_buffer(user_args, buffer):
             cnt += 1
         else:
             vid_out.write(item[:, :, ::-1])
+
+def build_read_buffer(user_args, read_buffer, videogen):
+    for frame in videogen:
+        if not user_args.img is None:
+            frame = cv2.imread(os.path.join(user_args.img, frame))[:, :, ::-1].copy()
+        if user_args.montage:
+            frame = frame[:, left: left + w]
+        read_buffer.put(frame)
+    read_buffer.put(None)
 
 def make_inference(I0, I1, exp):
     global model
@@ -134,14 +143,15 @@ pbar = tqdm(total=tot_frame)
 skip_frame = 1
 if args.montage:
     lastframe = lastframe[:, left: left + w]
-buffer = Queue()
-_thread.start_new_thread(clear_buffer, (args, buffer))
+write_buffer = Queue(maxsize=100)
+read_buffer = Queue(maxsize=100)
+_thread.start_new_thread(build_read_buffer, (args, read_buffer, videogen))
+_thread.start_new_thread(clear_write_buffer, (args, write_buffer))
 
-for frame in videogen:
-    if not args.img is None:
-        frame = cv2.imread(os.path.join(args.img, frame))[:, :, ::-1].copy()
-    if args.montage:
-        frame = frame[:, left: left + w]
+while True:
+    frame = read_buffer.get()
+    if frame is None:
+        break
     I0 = torch.from_numpy(np.transpose(lastframe, (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.
     I1 = torch.from_numpy(np.transpose(frame, (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.
     I0 = F.pad(I0, padding)
@@ -161,23 +171,23 @@ for frame in videogen:
     else:
         output = make_inference(I0, I1, args.exp)
     if args.montage:
-        buffer.put(np.concatenate((lastframe, lastframe), 1))
+        write_buffer.put(np.concatenate((lastframe, lastframe), 1))
         for mid in output:
             mid = (((mid[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
-            buffer.put(np.concatenate((lastframe, mid[:h, :w]), 1))
+            write_buffer.put(np.concatenate((lastframe, mid[:h, :w]), 1))
     else:
-        buffer.put(lastframe)
+        write_buffer.put(lastframe)
         for mid in output:
             mid = (((mid[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
-            buffer.put(mid[:h, :w])
+            write_buffer.put(mid[:h, :w])
     pbar.update(1)
     lastframe = frame
 if args.montage:
-    buffer.put(np.concatenate((lastframe, lastframe), 1))
+    write_buffer.put(np.concatenate((lastframe, lastframe), 1))
 else:
-    buffer.put(lastframe)
+    write_buffer.put(lastframe)
 import time
-while(not buffer.empty()):
+while(not write_buffer.empty()):
     time.sleep(0.1)
 pbar.close()
 if not vid_out is None:
