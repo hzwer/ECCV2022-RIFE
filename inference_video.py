@@ -148,13 +148,14 @@ read_buffer = Queue(maxsize=500)
 _thread.start_new_thread(build_read_buffer, (args, read_buffer, videogen))
 _thread.start_new_thread(clear_write_buffer, (args, write_buffer))
 
+I1 = torch.from_numpy(np.transpose(lastframe, (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.
+I1 = F.pad(I1, padding)
 while True:
     frame = read_buffer.get()
     if frame is None:
         break
-    I0 = torch.from_numpy(np.transpose(lastframe, (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.
+    I0 = I1
     I1 = torch.from_numpy(np.transpose(frame, (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.
-    I0 = F.pad(I0, padding)
     I1 = F.pad(I1, padding)
     p = (F.interpolate(I0, (16, 16), mode='bilinear', align_corners=False)
          - F.interpolate(I1, (16, 16), mode='bilinear', align_corners=False)).abs().mean()
