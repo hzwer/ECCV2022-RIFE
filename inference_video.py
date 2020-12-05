@@ -174,12 +174,12 @@ while True:
     if args.montage:
         write_buffer.put(np.concatenate((lastframe, lastframe), 1))
         for mid in output:
-            mid = (((mid[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
+            mid = (((mid[0] * 255.).byte().cpu().numpy().transpose(1, 2, 0)))
             write_buffer.put(np.concatenate((lastframe, mid[:h, :w]), 1))
     else:
         write_buffer.put(lastframe)
         for mid in output:
-            mid = (((mid[0] * 255.).byte().cpu().detach().numpy().transpose(1, 2, 0)))
+            mid = (((mid[0] * 255.).byte().cpu().numpy().transpose(1, 2, 0)))
             write_buffer.put(mid[:h, :w])
     pbar.update(1)
     lastframe = frame

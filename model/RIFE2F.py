@@ -204,7 +204,7 @@ class Model:
         with torch.no_grad():
             imgs = torch.cat((img0, img1), 1)
             flow, _ = self.flownet(imgs)
-        return self.predict(imgs, flow, training=False).detach()
+        return self.predict(imgs, flow, training=False)
 
     def update(self, imgs, gt, learning_rate=0, mul=1, training=True, flow_gt=None):
         for param_group in self.optimG.param_groups:
