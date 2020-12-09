@@ -18,6 +18,9 @@ Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, o
 ![Demo](./demo/I0_slomo_clipped.gif)
 ![Demo](./demo/I2_slomo_clipped.gif)
 
+## Reference Docs
+https://docs.contour.so/hzwer/arXiv2020-RIFE/getting-started
+
 ## Usage
 
 ### Installation
