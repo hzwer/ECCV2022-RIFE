@@ -51,6 +51,7 @@ parser = argparse.ArgumentParser(description='Interpolation for a pair of images
 parser.add_argument('--video', dest='video', type=str, default=None)
 parser.add_argument('--img', dest='img', type=str, default=None)
 parser.add_argument('--montage', dest='montage', action='store_true', help='montage origin video')
+parser.add_argument('--UHD', dest='UHD', action='store_true', help='support 4k video')
 parser.add_argument('--skip', dest='skip', action='store_true', help='whether to remove static frames before processing')
 parser.add_argument('--fps', dest='fps', type=int, default=None)
 parser.add_argument('--png', dest='png', action='store_true', help='whether to vid_out png format vid_outs')
@@ -126,7 +127,7 @@ def build_read_buffer(user_args, read_buffer, videogen):
 
 def make_inference(I0, I1, exp):
     global model
-    middle = model.inference(I0, I1)
+    middle = model.inference(I0, I1, args.UHD)
     if exp == 1:
         return [middle]
     first_half = make_inference(I0, middle, exp=exp - 1)
@@ -136,8 +137,12 @@ def make_inference(I0, I1, exp):
 if args.montage:
     left = w // 4
     w = w // 2
-ph = ((h - 1) // 32 + 1) * 32
-pw = ((w - 1) // 32 + 1) * 32
+if args.UHD:
+    ph = ((h - 1) // 64 + 1) * 64
+    pw = ((w - 1) // 64 + 1) * 64
+else:
+    ph = ((h - 1) // 32 + 1) * 32
+    pw = ((w - 1) // 32 + 1) * 32
 padding = (0, pw - w, 0, ph - h)
 pbar = tqdm(total=tot_frame)
 skip_frame = 1

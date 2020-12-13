@@ -91,9 +91,12 @@ class IFNet(nn.Module):
         self.block2 = IFBlock(8, scale=2, c=96)
         self.block3 = IFBlock(8, scale=1, c=48)
 
-    def forward(self, x):
-        x = F.interpolate(x, scale_factor=0.5, mode="bilinear",
-                          align_corners=False)
+    def forward(self, x, UHD=False):
+        if UHD:
+            x = F.interpolate(x, scale_factor=0.25, mode="bilinear", align_corners=False)
+        else:
+            x = F.interpolate(x, scale_factor=0.5, mode="bilinear",
+                              align_corners=False)
         flow0 = self.block0(x)
         F1 = flow0
         warped_img0 = warp(x[:, :3], F1)
