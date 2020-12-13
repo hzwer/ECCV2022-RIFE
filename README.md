@@ -1,6 +1,8 @@
 # RIFE Video Frame Interpolation v1.6
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be) | [Bilibili](https://www.bilibili.com/video/BV1K541157te?from=search&seid=5131698847373645765)
 
+**12.13 News: We have updated the v1.6 model and support UHD mode. **
+
 **12.5 News: We have optimized the inference code and got 20% speedup!**
 
 **12.3 News: We have updated the v1.5 model optimized for 1080p video. The performance improvement is incredible! Please check our [update log](https://github.com/hzwer/arXiv2020-RIFE/issues/41#issuecomment-737651979).**
@@ -46,6 +48,10 @@ python3 inference_video.py --exp=1 --video=video.mp4
 python3 inference_video.py --exp=2 --video=video.mp4
 ```
 (for 4X interpolation)
+```
+python3 inference_video.py --exp=1 --video=video.mp4 --UHD
+```
+(If your video has very high resolution such as 2K and 4K, we recommend to use UHD mode.)
 ```
 python3 inference_video.py --exp=2 --img=input/
 ```
