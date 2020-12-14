@@ -8,27 +8,11 @@ import random
 import argparse
 import torch.distributed as dist
 
-torch.distributed.init_process_group(backend="nccl", world_size=4)
-local_rank = torch.distributed.get_rank()
-torch.cuda.set_device(local_rank)
-device = torch.device("cuda", local_rank)
-seed = 1234
-random.seed(seed)
-np.random.seed(seed)
-torch.manual_seed(seed)
-torch.cuda.manual_seed_all(seed)
-torch.backends.cudnn.benchmark = True
-
 from model.RIFE import Model
 from dataset import *
 from torch.utils.data import DataLoader, Dataset
 from torch.utils.tensorboard import SummaryWriter
 from torch.utils.data.distributed import DistributedSampler
-
-log_path = 'train_log'
-if local_rank == 0:
-    writer = SummaryWriter(log_path + '/train')
-    writer_val = SummaryWriter(log_path + '/validate')
 
 def get_learning_rate(step):
     if step < 2000:
@@ -47,7 +31,13 @@ def flow2rgb(flow_map_np):
     rgb_map[:, :, 2] += normalized_flow_map[:, :, 1]
     return rgb_map.clip(0, 1)
 
-def train(model):
+def train(model, local_rank):
+    log_path = 'train_log'
+    if local_rank == 0:
+        writer = SummaryWriter(log_path + '/train')
+        writer_val = SummaryWriter(log_path + '/validate')
+    else:
+        writer, writer_val = None, None
     step = 0
     nr_eval = 0
     dataset = VimeoDataset('train')
@@ -150,7 +140,17 @@ if __name__ == "__main__":
     parser.add_argument('--epoch', default=300, type=int)
     parser.add_argument('--batch_size', default=16, type=int, help='minibatch size')
     parser.add_argument('--local_rank', default=0, type=int, help='local rank')
+    parser.add_argument('--world_size', default=4, type=int, help='world size')
     args = parser.parse_args()
     model = Model(args.local_rank)
-    train(model)
+    torch.distributed.init_process_group(backend="nccl", world_size=4)
+    torch.cuda.set_device(args.local_rank)
+    device = torch.device("cuda", args.local_rank)
+    seed = 1234
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.benchmark = True
+    train(model, args.local_rank)
         
