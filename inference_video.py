@@ -14,22 +14,19 @@ warnings.filterwarnings("ignore")
 def transferAudio(sourceVideo, targetVideo):    
     import shutil
     import moviepy.editor
-    tempAudioFileName = "./temp/audio.mp3"
+    tempAudioFileName = "./temp/audio.mkv"
 
     # split audio from original video file and store in "temp" directory
     if True:
-        # extract audio from video
-        if True:
-            video = moviepy.editor.VideoFileClip(sourceVideo)
-            audio = video.audio
+        
         # clear old "temp" directory if it exits
         if os.path.isdir("temp"):
             # remove temp directory
             shutil.rmtree("temp")
         # create new "temp" directory
         os.makedirs("temp")
-        # write audio file to "temp" directory
-        audio.write_audiofile(tempAudioFileName)
+        # extract audio from video
+        os.system("ffmpeg -y -i " + sourceVideo + " -c:a copy -vn " + tempAudioFileName)
         
     os.rename(targetVideo, "noAudio_"+targetVideo)
     # combine audio file and new video file
