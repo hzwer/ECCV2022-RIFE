@@ -1,8 +1,6 @@
 import cv2
 import ast
 import torch
-import ujson as json
-import nori2 as nori
 import numpy as np
 import random
 from torch.utils.data import DataLoader, Dataset
