@@ -209,4 +209,5 @@ if args.png == False and fpsNotAssigned == True and not args.skip and not args.v
     try:
         transferAudio(args.video, outputVideoFileName)
     except:
+        os.rename("noAudio_"+outputVideoFileName, outputVideoFileName)
         print("Audio transfer failed. Interpolated video will have no audio")
