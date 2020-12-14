@@ -143,7 +143,7 @@ if __name__ == "__main__":
     parser.add_argument('--world_size', default=4, type=int, help='world size')
     args = parser.parse_args()
     model = Model(args.local_rank)
-    torch.distributed.init_process_group(backend="nccl", world_size=4)
+    torch.distributed.init_process_group(backend="nccl", world_size=args.world_size)
     torch.cuda.set_device(args.local_rank)
     device = torch.device("cuda", args.local_rank)
     seed = 1234
