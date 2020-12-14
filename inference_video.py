@@ -31,6 +31,13 @@ def transferAudio(sourceVideo, targetVideo):
     os.rename(targetVideo, "noAudio_"+targetVideo)
     # combine audio file and new video file
     os.system("ffmpeg -y -i " + "noAudio_"+targetVideo + " -i " + tempAudioFileName + " -c copy " + targetVideo)
+    
+    if os.path.getsize(targetVideo) == 0: # if ffmpeg failed to merge the video and audio together try converting the audio to mp3
+        tempAudioFileName = "./temp/audio.mp3"
+        os.system("ffmpeg -y -i " + sourceVideo + " -c:a mp3 -vn " + tempAudioFileName)
+        os.system("ffmpeg -y -i " + "noAudio_"+targetVideo + " -i " + tempAudioFileName + " -c copy " + targetVideo)
+        print("Lossless audio transfer failed. Audio was transcoded to mp3 instead.")
+    
     # remove audio-less video
     os.remove("noAudio_"+targetVideo)
 
