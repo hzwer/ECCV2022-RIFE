@@ -8,6 +8,10 @@ import warnings
 warnings.filterwarnings("ignore")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+if torch.cuda.is_available():
+    torch.set_grad_enabled(False)
+    torch.backends.cudnn.enabled = True
+    torch.backends.cudnn.benchmark = True
 
 parser = argparse.ArgumentParser(description='Interpolation for a pair of images')
 parser.add_argument('--img', dest='img', nargs=2, required=True)
