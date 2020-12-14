@@ -36,10 +36,16 @@ def transferAudio(sourceVideo, targetVideo):
         tempAudioFileName = "./temp/audio.mp3"
         os.system("ffmpeg -y -i " + sourceVideo + " -c:a mp3 -vn " + tempAudioFileName)
         os.system("ffmpeg -y -i " + "noAudio_"+targetVideo + " -i " + tempAudioFileName + " -c copy " + targetVideo)
-        print("Lossless audio transfer failed. Audio was transcoded to mp3 instead.")
+        if (os.path.getsize(targetVideo) == 0): # if mp3 not supported by selected format
+            os.rename("noAudio_"+targetVideo, targetVideo)
+            print("Audio transfer failed. Interpolated video will have no audio")
+        else:
+            print("Lossless audio transfer failed. Audio was transcoded to mp3 instead.")
     
-    # remove audio-less video
-    os.remove("noAudio_"+targetVideo)
+            # remove audio-less video
+            os.remove("noAudio_"+targetVideo)
+    else:
+        os.remove("noAudio_"+targetVideo)
 
     # remove temp directory
     shutil.rmtree("temp")
@@ -210,3 +216,4 @@ if args.png == False and fpsNotAssigned == True and not args.skip and not args.v
         transferAudio(args.video, outputVideoFileName)
     except:
         print("Audio transfer failed. Interpolated video will have no audio")
+        os.rename("noAudio_"+outputVideoFileName, outputVideoFileName)
