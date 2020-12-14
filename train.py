@@ -46,7 +46,7 @@ def train(model, local_rank):
     args.step_per_epoch = train_data.__len__()
     dataset_val = VimeoDataset('validation')
     val_data = DataLoader(dataset_val, batch_size=16, pin_memory=True, num_workers=8)
-    evaluate(model, val_data, nr_eval, local_rank)
+    evaluate(model, val_data, nr_eval, local_rank, writer_val)
     model.save_model(log_path, local_rank)
     print('training...')
     time_stamp = time.time()
@@ -90,11 +90,11 @@ def train(model, local_rank):
             step += 1
         nr_eval += 1
         if nr_eval % 5 == 0:
-            evaluate(model, val_data, step)
+            evaluate(model, val_data, step, local_rank, writer_val)
         model.save_model(log_path, local_rank)    
         dist.barrier()
 
-def evaluate(model, val_data, nr_eval, local_rank):
+def evaluate(model, val_data, nr_eval, local_rank, writer_val):
     loss_l1_list = []
     loss_cons_list = []
     loss_ter_list = []
