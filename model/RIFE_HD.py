@@ -209,10 +209,10 @@ class Model:
         else:
             return pred
 
-    def inference(self, img0, img1, K=False):
+    def inference(self, img0, img1, UHD=False):
         imgs = torch.cat((img0, img1), 1)
-        flow, _ = self.flownet(imgs)
-        return self.predict(imgs, flow, training=False)
+        flow, _ = self.flownet(imgs, UHD)
+        return self.predict(imgs, flow, training=False, UHD=UHD)
 
     def update(self, imgs, gt, learning_rate=0, mul=1, training=True, flow_gt=None):
         for param_group in self.optimG.param_groups:
