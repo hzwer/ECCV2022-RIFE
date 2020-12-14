@@ -1,7 +1,7 @@
 # RIFE Video Frame Interpolation v1.6
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be) | [Bilibili](https://www.bilibili.com/video/BV1K541157te?from=search&seid=5131698847373645765)
 
-**12.13 News: We have updated the v1.6 model and support UHD mode. **
+**12.13 News: We have updated the v1.6 model and support UHD mode.**
 
 **12.5 News: We have optimized the inference code and got 20% speedup!**
 
@@ -106,7 +106,7 @@ For generating optical flow labels, our paper use [pytorch-liteflownet](https://
 
 We use 16 CPUs, 4 GPUs and 20G memory for training: 
 ```
-python3 -m torch.distributed.launch --nproc_per_node=4 train.py
+python3 -m torch.distributed.launch --nproc_per_node=4 train.py --world_size=4
 ```
 
 ## Citation
