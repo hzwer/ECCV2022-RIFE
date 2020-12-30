@@ -180,7 +180,7 @@ while True:
         skip_frame += 1
         pbar.update(1)
         continue
-    if diff.mean() > 0.2:
+    if diff.mean() > 0.15:
         output = []
         for i in range((2 ** args.exp) - 1):
             output.append(I0)
