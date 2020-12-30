@@ -1,11 +1,9 @@
-# RIFE Video Frame Interpolation v1.6
+# RIFE Video Frame Interpolation v1.7
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be) | [Bilibili](https://www.bilibili.com/video/BV1K541157te?from=search&seid=5131698847373645765)
 
-**12.13 News: We have updated the v1.6 model and support UHD mode.**
+**12.30 News: We have updated the v1.7 model optimized for 2D animation.**
 
-**12.5 News: We have optimized the inference code and got 20% speedup!**
-
-**12.3 News: We have updated the v1.5 model optimized for 1080p video. The performance improvement is incredible! Please check our [update log](https://github.com/hzwer/arXiv2020-RIFE/issues/41#issuecomment-737651979).**
+**12.13 News: We have updated the v1.6 model and support UHD mode. Please check our [update log](https://github.com/hzwer/arXiv2020-RIFE/issues/41#issuecomment-737651979).**
 
 **11.22 News: We notice a new windows app is trying to integrate RIFE, we hope everyone to try and help them improve. You can download [Flowframes](https://nmkd.itch.io/flowframes) for free.**
 
@@ -31,7 +29,7 @@ pip3 install -r requirements.txt
 ```
 
 * Download the pretrained **HD** models from [here](https://drive.google.com/file/d/11l8zknO1V5hapv2-Ke4DG9mHyBomS0Fc/view?usp=sharing).
-We are optimizing the visual effects and will support animation in the future. (百度网盘链接:https://pan.baidu.com/s/1Sc4o50NPlXQ5a1fdfffkgw  密码:1fne，把压缩包解开后放在 train_log/\*.pkl)
+We are optimizing the visual effects and will support animation in the future. (百度网盘链接:https://pan.baidu.com/s/1mqp-PrnfFV8WiVtcPjW5oQ  密码:ocmp，把压缩包解开后放在 train_log/\*.pkl)
 
 * Unzip and move the pretrained parameters to train_log/\*.pkl
 
