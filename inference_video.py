@@ -52,8 +52,8 @@ def transferAudio(sourceVideo, targetVideo):
 
     
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+torch.set_grad_enabled(False)
 if torch.cuda.is_available():
-    torch.set_grad_enabled(False)
     torch.backends.cudnn.enabled = True
     torch.backends.cudnn.benchmark = True
 
