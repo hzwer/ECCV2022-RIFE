@@ -25,8 +25,8 @@ def imgint(img1, img2):
     model.eval()
     model.device()
         
-    img0 = cv2.imread(args.img[0])
-    img1 = cv2.imread(args.img[1])
+    img0 = img1
+    img1 = img2
 
     img0 = (torch.tensor(img0.transpose(2, 0, 1)).to(device) / 255.).unsqueeze(0)
     img1 = (torch.tensor(img1.transpose(2, 0, 1)).to(device) / 255.).unsqueeze(0)
@@ -47,7 +47,8 @@ def imgint(img1, img2):
         tmp.append(img1)
         img_list = tmp
 
-    if not os.path.exists('output'):
-        os.mkdir('output')
-    for i in range(len(img_list)):
-        cv2.imwrite('output/img{}.png'.format(i), (img_list[i][0] * 255).byte().cpu().numpy().transpose(1, 2, 0)[:h, :w])
+    # if not os.path.exists('output'):
+    #     os.mkdir('output')
+    return img_list
+    # for i in range(len(img_list)):
+    #     cv2.imwrite('output/img{}.png'.format(i), (img_list[i][0] * 255).byte().cpu().numpy().transpose(1, 2, 0)[:h, :w])
