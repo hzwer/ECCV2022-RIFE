@@ -55,6 +55,6 @@ def imgint(img1, img2):
 
     # if not os.path.exists('output'):
     #     os.mkdir('output')
-    return img_list
+    return img_list, h, w
     # for i in range(len(img_list)):
     #     cv2.imwrite('output/img{}.png'.format(i), (img_list[i][0] * 255).byte().cpu().numpy().transpose(1, 2, 0)[:h, :w])
