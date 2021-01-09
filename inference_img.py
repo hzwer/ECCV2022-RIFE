@@ -44,7 +44,7 @@ def imgint(img1, img2):
     img1 = F.pad(img1, padding)
 
     img_list = [img0, img1]
-    for i in range(args.exp):
+    for i in range(4):
         tmp = []
         for j in range(len(img_list) - 1):
             mid = model.inference(img_list[j], img_list[j + 1])
