@@ -5,6 +5,7 @@ import argparse
 from torch.nn import functional as F
 from model.RIFE_HD import Model
 import warnings
+import numpy as np
 
 def imgint(img1, img2):
     warnings.filterwarnings("ignore")
@@ -24,9 +25,14 @@ def imgint(img1, img2):
     model.load_model('./train_log', -1)
     model.eval()
     model.device()
-        
-    img0 = img1
-    img1 = img2
+    open_cv_image1 = np.array(img1) 
+    # Convert RGB to BGR 
+    open_cv_image1 = open_cv_image1[:, :, ::-1].copy() 
+    open_cv_image2 = np.array(img2) 
+    # Convert RGB to BGR 
+    open_cv_image2 = open_cv_image2[:, :, ::-1].copy() 
+    img0 = open_cv_image1
+    img1 = open_cv_image2
 
     img0 = (torch.tensor(img0.transpose(2, 0, 1)).to(device) / 255.).unsqueeze(0)
     img1 = (torch.tensor(img1.transpose(2, 0, 1)).to(device) / 255.).unsqueeze(0)
