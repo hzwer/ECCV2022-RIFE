@@ -8,5 +8,6 @@ build_steps:
   - apt-get update
   - apt-get install -y libboost-all-dev
   - apt-get install -y cmake
-  - apt-get install ffmpeg libsm6 libxext6  -y
+  - apt-get install ffmpeg libsm6 libxext6 unzip  -y
   - pip install -r requirements.txt
+  - mkdir ./train_log/ && gdown https://drive.google.com/uc?id=11l8zknO1V5hapv2-Ke4DG9mHyBomS0Fc && unzip RIFE_trained_model_HD.zip -d ./train_log/
