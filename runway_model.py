@@ -11,7 +11,7 @@ from inference_img import imgint
 def translate(learn, inputs):
     listimg = imgint(inputs['source_imgs'], inputs['target'])
     i = inputs['amount']
-    return listimg[i][0] * 255).byte().cpu().numpy().transpose(1, 2, 0)[:h, :w]
+    return (listimg[i][0] * 255).byte().cpu().numpy().transpose(1, 2, 0)[:h, :w]
 
 
 if __name__ == '__main__':
