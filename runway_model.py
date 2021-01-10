@@ -22,7 +22,7 @@ def translate(learn, inputs):
     'amount': runway.number(min=0, max=len(listimg), default=0)
     }
     inputs=sample_inputs
-    i = inputs['amount']
+    i = int(inputs['amount'])
     cvimg = (listimg[i][0] * 255).byte().cpu().numpy().transpose(1, 2, 0)[:h, :w]
     img = cv2.cvtColor(cvimg, cv2.COLOR_BGR2RGB)
     im_pil = Image.fromarray(img)
