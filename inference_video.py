@@ -32,15 +32,15 @@ def transferAudio(sourceVideo, targetVideo):
     # combine audio file and new video file
     os.system("ffmpeg -y -i " + "noAudio_"+targetVideo + " -i " + tempAudioFileName + " -c copy " + targetVideo)
     
-    if os.path.getsize(targetVideo) == 0: # if ffmpeg failed to merge the video and audio together try converting the audio to mp3
-        tempAudioFileName = "./temp/audio.mp3"
-        os.system("ffmpeg -y -i " + sourceVideo + " -c:a mp3 -vn " + tempAudioFileName)
+    if os.path.getsize(targetVideo) == 0: # if ffmpeg failed to merge the video and audio together try converting the audio to aac
+        tempAudioFileName = "./temp/audio.m4a"
+        os.system("ffmpeg -y -i " + sourceVideo + " -c:a aac -b:a 160k -vn " + tempAudioFileName)
         os.system("ffmpeg -y -i " + "noAudio_"+targetVideo + " -i " + tempAudioFileName + " -c copy " + targetVideo)
-        if (os.path.getsize(targetVideo) == 0): # if mp3 not supported by selected format
+        if (os.path.getsize(targetVideo) == 0): # if aac is not supported by selected format
             os.rename("noAudio_"+targetVideo, targetVideo)
             print("Audio transfer failed. Interpolated video will have no audio")
         else:
-            print("Lossless audio transfer failed. Audio was transcoded to mp3 instead.")
+            print("Lossless audio transfer failed. Audio was transcoded to AAC (M4A) instead.")
     
             # remove audio-less video
             os.remove("noAudio_"+targetVideo)
