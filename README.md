@@ -90,7 +90,10 @@ docker build -t rife -f docker/Dockerfile .
 
 Running the container:
 ```
-docker run --rm -it -v $PWD:/host rife:latest --exp=1 --video=untitled.mp4 --output=untitled_rife.mp4
+docker run --rm -it -v $PWD:/host rife:latest inference_video --exp=1 --video=untitled.mp4 --output=untitled_rife.mp4
+```
+```
+docker run --rm -it -v $PWD:/host rife:latest inference_img --img img0.png img1.png --exp=4
 ```
 
 ## Evaluation

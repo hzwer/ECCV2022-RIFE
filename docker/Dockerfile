@@ -9,13 +9,15 @@ WORKDIR /rife
 COPY . .
 RUN pip3 install -r requirements.txt
 
-ADD docker/rife.sh /usr/local/bin/rife
-RUN chmod +x /usr/local/bin/rife
+ADD docker/inference_img /usr/local/bin/inference_img
+RUN chmod +x /usr/local/bin/inference_img
+ADD docker/inference_video /usr/local/bin/inference_video
+RUN chmod +x /usr/local/bin/inference_video
 
 # add pre-trained models
 COPY docker/pretrained_models /rife/train_log
 
 WORKDIR /host
-ENTRYPOINT ["rife"]
+ENTRYPOINT ["/bin/bash"]
 
 ENV NVIDIA_DRIVER_CAPABILITIES all
