@@ -81,7 +81,7 @@ ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -vf "split[s0][s1];[s0]pal
 ```
 
 ### Run in docker
-Place the pre-trained models in the `./docker/pretrained_models directory`
+Place the pre-trained models in `train_log/\*.pkl` (as above)
 
 Building the container:
 ```

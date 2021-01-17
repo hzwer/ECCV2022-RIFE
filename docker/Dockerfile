@@ -15,7 +15,7 @@ ADD docker/inference_video /usr/local/bin/inference_video
 RUN chmod +x /usr/local/bin/inference_video
 
 # add pre-trained models
-COPY docker/pretrained_models /rife/train_log
+COPY train_log /rife/train_log
 
 WORKDIR /host
 ENTRYPOINT ["/bin/bash"]
