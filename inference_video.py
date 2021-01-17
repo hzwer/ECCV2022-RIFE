@@ -59,6 +59,7 @@ if torch.cuda.is_available():
 
 parser = argparse.ArgumentParser(description='Interpolation for a pair of images')
 parser.add_argument('--video', dest='video', type=str, default=None)
+parser.add_argument('--output', dest='output', type=str, default=None)
 parser.add_argument('--img', dest='img', type=str, default=None)
 parser.add_argument('--montage', dest='montage', action='store_true', help='montage origin video')
 parser.add_argument('--UHD', dest='UHD', action='store_true', help='support 4k video')
@@ -74,7 +75,7 @@ if not args.img is None:
 
 from model.RIFE_HD import Model
 model = Model()
-model.load_model('./train_log', -1)
+model.load_model(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'train_log'), -1)
 model.eval()
 model.device()
 
@@ -107,12 +108,17 @@ else:
     lastframe = cv2.imread(os.path.join(args.img, videogen[0]))[:, :, ::-1].copy()
     videogen = videogen[1:]    
 h, w, _ = lastframe.shape
+vid_out_name = None
 vid_out = None
 if args.png:
     if not os.path.exists('vid_out'):
         os.mkdir('vid_out')
 else:
-    vid_out = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, (2 ** args.exp), int(np.round(args.fps)), args.ext), fourcc, args.fps, (w, h))
+    if args.output is not None:
+        vid_out_name = args.output
+    else:
+        vid_out_name = '{}_{}X_{}fps.{}'.format(video_path_wo_ext, (2 ** args.exp), int(np.round(args.fps)), args.ext)
+    vid_out = cv2.VideoWriter(vid_out_name, fourcc, args.fps, (w, h))
     
 def clear_write_buffer(user_args, write_buffer):
     cnt = 0
@@ -211,9 +217,8 @@ if not vid_out is None:
 
 # move audio to new video file if appropriate
 if args.png == False and fpsNotAssigned == True and not args.skip and not args.video is None:
-    outputVideoFileName = '{}_{}X_{}fps.{}'.format(video_path_wo_ext, 2 ** args.exp, int(np.round(args.fps)), args.ext)
     try:
-        transferAudio(args.video, outputVideoFileName)
+        transferAudio(args.video, vid_out_name)
     except:
         print("Audio transfer failed. Interpolated video will have no audio")
-        os.rename("noAudio_"+outputVideoFileName, outputVideoFileName)
+        os.rename("noAudio_"+vid_out_name, vid_out_name)

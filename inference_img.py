@@ -19,7 +19,7 @@ parser.add_argument('--exp', default=4, type=int)
 args = parser.parse_args()
 
 model = Model()
-model.load_model('./train_log', -1)
+model.load_model(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'train_log'), -1)
 model.eval()
 model.device()
 
