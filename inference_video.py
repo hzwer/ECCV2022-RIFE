@@ -9,9 +9,11 @@ import warnings
 import _thread
 import skvideo.io
 from queue import Queue, Empty
+from benchmark.pytorch_msssim import ssim_matlab
+
 warnings.filterwarnings("ignore")
 
-def transferAudio(sourceVideo, targetVideo):    
+def transferAudio(sourceVideo, targetVideo):
     import shutil
     import moviepy.editor
     tempAudioFileName = "./temp/audio.mkv"
@@ -107,7 +109,7 @@ else:
     tot_frame = len(videogen)
     videogen.sort(key= lambda x:int(x[:-4]))
     lastframe = cv2.imread(os.path.join(args.img, videogen[0]))[:, :, ::-1].copy()
-    videogen = videogen[1:]    
+    videogen = videogen[1:]
 h, w, _ = lastframe.shape
 vid_out_name = None
 vid_out = None
@@ -179,15 +181,16 @@ while True:
     I0 = I1
     I1 = torch.from_numpy(np.transpose(frame, (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.
     I1 = F.pad(I1, padding)
-    diff = (F.interpolate(I0, (16, 16), mode='bilinear', align_corners=False)
-         - F.interpolate(I1, (16, 16), mode='bilinear', align_corners=False)).abs()
-    if diff.max() < 2e-3 and args.skip:
+    I0_small = F.interpolate(I0, (32, 32), mode='bilinear', align_corners=False)
+    I1_small = F.interpolate(I1, (32, 32), mode='bilinear', align_corners=False)
+    ssim = ssim_matlab(I0_small, I1_small)
+    if ssim > 0.995 and args.skip:
         if skip_frame % 100 == 0:
             print("Warning: Your video has {} static frames, skipping them may change the duration of the generated video.".format(skip_frame))
         skip_frame += 1
         pbar.update(1)
         continue
-    if diff.mean() > 0.15:
+    if ssim < 0.5:
         output = []
         for i in range((2 ** args.exp) - 1):
             output.append(I0)
