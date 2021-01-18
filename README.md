@@ -80,6 +80,27 @@ You can also use pngs to generate gif:
 ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -vf "split[s0][s1];[s0]palettegen=stats_mode=single[p];[s1][p]paletteuse=new=1" output/slomo.gif
 ```
 
+### Run in docker
+Place the pre-trained models in `train_log/\*.pkl` (as above)
+
+Building the container:
+```
+docker build -t rife -f docker/Dockerfile .
+```
+
+Running the container:
+```
+docker run --rm -it -v $PWD:/host rife:latest inference_video --exp=1 --video=untitled.mp4 --output=untitled_rife.mp4
+```
+```
+docker run --rm -it -v $PWD:/host rife:latest inference_img --img img0.png img1.png --exp=4
+```
+
+Using gpu acceleration (requires proper gpu drivers for docker):
+```
+docker run --rm -it --gpus all -v /dev/dri:/dev/dri -v $PWD:/host rife:latest inference_video --exp=1 --video=untitled.mp4 --output=untitled_rife.mp4
+```
+
 ## Evaluation
 Download [RIFE model](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing) or [RIFE2F1.5C model](https://drive.google.com/file/d/1ve9w-cRWotdvvbU1KcgtsSm12l-JUkeT/view?usp=sharing) reported by our paper.
 

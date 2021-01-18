@@ -1,0 +1,2 @@
+#!/bin/sh
+python3 /rife/inference_img.py $@
