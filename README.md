@@ -1,4 +1,5 @@
 # RIFE Video Frame Interpolation v1.8
+**Our paper has not been officially published yet, and our method and experimental results are under improvement.**
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be) | [Bilibili](https://www.bilibili.com/video/BV1K541157te?from=search&seid=5131698847373645765)
 
 **1.4 News: We have updated the v1.8 model optimized for 2D animation.**
@@ -32,6 +33,8 @@ pip3 install -r requirements.txt
 We are optimizing the visual effects and will support animation in the future. (百度网盘链接:https://pan.baidu.com/s/1wow1nSOe76VDA0e2RTCBNA  密码:bhjl，把压缩包解开后放在 train_log/\*.pkl)
 
 * Unzip and move the pretrained parameters to train_log/\*.pkl
+
+**This model is designed to provide better visual effects for users and should not be used for benchmarking.**
 
 ### Run
 
