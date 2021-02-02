@@ -19,15 +19,22 @@ parser.add_argument('--exp', default=4, type=int)
 args = parser.parse_args()
 
 model = Model()
-model.load_model('./train_log', -1)
+model.load_model(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'train_log'), -1)
 model.eval()
 model.device()
-    
-img0 = cv2.imread(args.img[0])
-img1 = cv2.imread(args.img[1])
 
-img0 = (torch.tensor(img0.transpose(2, 0, 1)).to(device) / 255.).unsqueeze(0)
-img1 = (torch.tensor(img1.transpose(2, 0, 1)).to(device) / 255.).unsqueeze(0)
+if args.img[0].endswith('.exr') and args.img[1].endswith('.exr'):
+    img0 = cv2.imread(args.img[0], cv2.IMREAD_COLOR | cv2.IMREAD_ANYDEPTH)
+    img1 = cv2.imread(args.img[1], cv2.IMREAD_COLOR | cv2.IMREAD_ANYDEPTH)
+    img0 = (torch.tensor(img0.transpose(2, 0, 1)).to(device)).unsqueeze(0)
+    img1 = (torch.tensor(img1.transpose(2, 0, 1)).to(device)).unsqueeze(0)
+
+else:
+    img0 = cv2.imread(args.img[0])
+    img1 = cv2.imread(args.img[1])
+    img0 = (torch.tensor(img0.transpose(2, 0, 1)).to(device) / 255.).unsqueeze(0)
+    img1 = (torch.tensor(img1.transpose(2, 0, 1)).to(device) / 255.).unsqueeze(0)
+
 n, c, h, w = img0.shape
 ph = ((h - 1) // 32 + 1) * 32
 pw = ((w - 1) // 32 + 1) * 32
@@ -48,4 +55,7 @@ for i in range(args.exp):
 if not os.path.exists('output'):
     os.mkdir('output')
 for i in range(len(img_list)):
-    cv2.imwrite('output/img{}.png'.format(i), (img_list[i][0] * 255).byte().cpu().numpy().transpose(1, 2, 0)[:h, :w])
+    if args.img[0].endswith('.exr') and args.img[1].endswith('.exr'):
+        cv2.imwrite('output/img{}.exr'.format(i), (img_list[i][0]).cpu().numpy().transpose(1, 2, 0)[:h, :w], [cv2.IMWRITE_EXR_TYPE, cv2.IMWRITE_EXR_TYPE_HALF])
+    else:
+        cv2.imwrite('output/img{}.png'.format(i), (img_list[i][0] * 255).byte().cpu().numpy().transpose(1, 2, 0)[:h, :w])

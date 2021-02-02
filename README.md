@@ -1,15 +1,16 @@
 # RIFE Video Frame Interpolation v1.8
+**Our paper has not been officially published yet, and our method and experimental results are under improvement. Due to the incorrect data reference, the latency measurement of Sepconv and TOFlow in our arxiv paper needs to be modified.**
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be) | [Bilibili](https://www.bilibili.com/video/BV1K541157te?from=search&seid=5131698847373645765)
 
-**1.4 News: We have updated the v1.8 model optimized for 2D animation.**
+1.4 News: We have updated the v1.8 model optimized for 2D animation.
 
-**12.13 News: We have updated the v1.6 model and support UHD mode. Please check our [update log](https://github.com/hzwer/arXiv2020-RIFE/issues/41#issuecomment-737651979).**
+12.13 News: We have updated the v1.6 model and support UHD mode. Please check our [update log](https://github.com/hzwer/arXiv2020-RIFE/issues/41#issuecomment-737651979).
 
-**11.22 News: We notice a new windows app is trying to integrate RIFE, we hope everyone to try and help them improve. You can download [Flowframes](https://nmkd.itch.io/flowframes) for free.**
+11.22 News: We notice a new windows app is trying to integrate RIFE, we hope everyone to try and help them improve. You can download [Flowframes](https://nmkd.itch.io/flowframes) for free.
 
-**There is [a tutorial of RIFE](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title) on Youtube.**
+There is [a tutorial of RIFE](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title) on Youtube.
 
-**You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the [our youtube demo](https://www.youtube.com/watch?v=LE2Dzl0oMHI).**
+You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the [our youtube demo](https://www.youtube.com/watch?v=LE2Dzl0oMHI).
 
 Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, our method supports 2X,4X,8X... interpolation for 1080p video, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
 
@@ -32,6 +33,8 @@ pip3 install -r requirements.txt
 We are optimizing the visual effects and will support animation in the future. (百度网盘链接:https://pan.baidu.com/s/1wow1nSOe76VDA0e2RTCBNA  密码:bhjl，把压缩包解开后放在 train_log/\*.pkl)
 
 * Unzip and move the pretrained parameters to train_log/\*.pkl
+
+**This model is designed to provide better visual effects for users and should not be used for benchmarking.**
 
 ### Run
 
@@ -80,6 +83,27 @@ You can also use pngs to generate gif:
 ffmpeg -r 10 -f image2 -i output/img%d.png -s 448x256 -vf "split[s0][s1];[s0]palettegen=stats_mode=single[p];[s1][p]paletteuse=new=1" output/slomo.gif
 ```
 
+### Run in docker
+Place the pre-trained models in `train_log/\*.pkl` (as above)
+
+Building the container:
+```
+docker build -t rife -f docker/Dockerfile .
+```
+
+Running the container:
+```
+docker run --rm -it -v $PWD:/host rife:latest inference_video --exp=1 --video=untitled.mp4 --output=untitled_rife.mp4
+```
+```
+docker run --rm -it -v $PWD:/host rife:latest inference_img --img img0.png img1.png --exp=4
+```
+
+Using gpu acceleration (requires proper gpu drivers for docker):
+```
+docker run --rm -it --gpus all -v /dev/dri:/dev/dri -v $PWD:/host rife:latest inference_video --exp=1 --video=untitled.mp4 --output=untitled_rife.mp4
+```
+
 ## Evaluation
 Download [RIFE model](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing) or [RIFE2F1.5C model](https://drive.google.com/file/d/1ve9w-cRWotdvvbU1KcgtsSm12l-JUkeT/view?usp=sharing) reported by our paper.
 
@@ -119,7 +143,6 @@ python3 -m torch.distributed.launch --nproc_per_node=4 train.py --world_size=4
 ```
 
 ## Reference
-<img src="demo/intro.png" alt="img" width=350 />
 
 Optical Flow:
 [ARFlow](https://github.com/lliuz/ARFlow)  [pytorch-liteflownet](https://github.com/sniklaus/pytorch-liteflownet)  [RAFT](https://github.com/princeton-vl/RAFT)  [pytorch-PWCNet](https://github.com/sniklaus/pytorch-pwc)

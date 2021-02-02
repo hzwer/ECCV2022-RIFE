@@ -9,9 +9,11 @@ import warnings
 import _thread
 import skvideo.io
 from queue import Queue, Empty
+from benchmark.pytorch_msssim import ssim_matlab
+
 warnings.filterwarnings("ignore")
 
-def transferAudio(sourceVideo, targetVideo):    
+def transferAudio(sourceVideo, targetVideo):
     import shutil
     import moviepy.editor
     tempAudioFileName = "./temp/audio.mkv"
@@ -27,25 +29,26 @@ def transferAudio(sourceVideo, targetVideo):
         os.makedirs("temp")
         # extract audio from video
         os.system("ffmpeg -y -i " + sourceVideo + " -c:a copy -vn " + tempAudioFileName)
-        
-    os.rename(targetVideo, "noAudio_"+targetVideo)
-    # combine audio file and new video file
-    os.system("ffmpeg -y -i " + "noAudio_"+targetVideo + " -i " + tempAudioFileName + " -c copy " + targetVideo)
     
-    if os.path.getsize(targetVideo) == 0: # if ffmpeg failed to merge the video and audio together try converting the audio to mp3
-        tempAudioFileName = "./temp/audio.mp3"
-        os.system("ffmpeg -y -i " + sourceVideo + " -c:a mp3 -vn " + tempAudioFileName)
-        os.system("ffmpeg -y -i " + "noAudio_"+targetVideo + " -i " + tempAudioFileName + " -c copy " + targetVideo)
-        if (os.path.getsize(targetVideo) == 0): # if mp3 not supported by selected format
-            os.rename("noAudio_"+targetVideo, targetVideo)
+    targetNoAudio = os.path.splitext(targetVideo)[0] + "_noaudio" + os.path.splitext(targetVideo)[1]
+    os.rename(targetVideo, targetNoAudio)
+    # combine audio file and new video file
+    os.system("ffmpeg -y -i " + targetNoAudio + " -i " + tempAudioFileName + " -c copy " + targetVideo)
+    
+    if os.path.getsize(targetVideo) == 0: # if ffmpeg failed to merge the video and audio together try converting the audio to aac
+        tempAudioFileName = "./temp/audio.m4a"
+        os.system("ffmpeg -y -i " + sourceVideo + " -c:a aac -b:a 160k -vn " + tempAudioFileName)
+        os.system("ffmpeg -y -i " + targetNoAudio + " -i " + tempAudioFileName + " -c copy " + targetVideo)
+        if (os.path.getsize(targetVideo) == 0): # if aac is not supported by selected format
+            os.rename(targetNoAudio, targetVideo)
             print("Audio transfer failed. Interpolated video will have no audio")
         else:
-            print("Lossless audio transfer failed. Audio was transcoded to mp3 instead.")
+            print("Lossless audio transfer failed. Audio was transcoded to AAC (M4A) instead.")
     
             # remove audio-less video
-            os.remove("noAudio_"+targetVideo)
+            os.remove(targetNoAudio)
     else:
-        os.remove("noAudio_"+targetVideo)
+        os.remove(targetNoAudio)
 
     # remove temp directory
     shutil.rmtree("temp")
@@ -59,6 +62,7 @@ if torch.cuda.is_available():
 
 parser = argparse.ArgumentParser(description='Interpolation for a pair of images')
 parser.add_argument('--video', dest='video', type=str, default=None)
+parser.add_argument('--output', dest='output', type=str, default=None)
 parser.add_argument('--img', dest='img', type=str, default=None)
 parser.add_argument('--montage', dest='montage', action='store_true', help='montage origin video')
 parser.add_argument('--UHD', dest='UHD', action='store_true', help='support 4k video')
@@ -74,7 +78,7 @@ if not args.img is None:
 
 from model.RIFE_HD import Model
 model = Model()
-model.load_model('./train_log', -1)
+model.load_model(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'train_log'), -1)
 model.eval()
 model.device()
 
@@ -105,14 +109,19 @@ else:
     tot_frame = len(videogen)
     videogen.sort(key= lambda x:int(x[:-4]))
     lastframe = cv2.imread(os.path.join(args.img, videogen[0]))[:, :, ::-1].copy()
-    videogen = videogen[1:]    
+    videogen = videogen[1:]
 h, w, _ = lastframe.shape
+vid_out_name = None
 vid_out = None
 if args.png:
     if not os.path.exists('vid_out'):
         os.mkdir('vid_out')
 else:
-    vid_out = cv2.VideoWriter('{}_{}X_{}fps.{}'.format(video_path_wo_ext, (2 ** args.exp), int(np.round(args.fps)), args.ext), fourcc, args.fps, (w, h))
+    if args.output is not None:
+        vid_out_name = args.output
+    else:
+        vid_out_name = '{}_{}X_{}fps.{}'.format(video_path_wo_ext, (2 ** args.exp), int(np.round(args.fps)), args.ext)
+    vid_out = cv2.VideoWriter(vid_out_name, fourcc, args.fps, (w, h))
     
 def clear_write_buffer(user_args, write_buffer):
     cnt = 0
@@ -172,15 +181,16 @@ while True:
     I0 = I1
     I1 = torch.from_numpy(np.transpose(frame, (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.
     I1 = F.pad(I1, padding)
-    diff = (F.interpolate(I0, (16, 16), mode='bilinear', align_corners=False)
-         - F.interpolate(I1, (16, 16), mode='bilinear', align_corners=False)).abs()
-    if diff.max() < 2e-3 and args.skip:
+    I0_small = F.interpolate(I0, (32, 32), mode='bilinear', align_corners=False)
+    I1_small = F.interpolate(I1, (32, 32), mode='bilinear', align_corners=False)
+    ssim = ssim_matlab(I0_small, I1_small)
+    if ssim > 0.995 and args.skip:
         if skip_frame % 100 == 0:
             print("Warning: Your video has {} static frames, skipping them may change the duration of the generated video.".format(skip_frame))
         skip_frame += 1
         pbar.update(1)
         continue
-    if diff.mean() > 0.15:
+    if ssim < 0.5:
         output = []
         for i in range((2 ** args.exp) - 1):
             output.append(I0)
@@ -211,9 +221,9 @@ if not vid_out is None:
 
 # move audio to new video file if appropriate
 if args.png == False and fpsNotAssigned == True and not args.skip and not args.video is None:
-    outputVideoFileName = '{}_{}X_{}fps.{}'.format(video_path_wo_ext, 2 ** args.exp, int(np.round(args.fps)), args.ext)
     try:
-        transferAudio(args.video, outputVideoFileName)
+        transferAudio(args.video, vid_out_name)
     except:
         print("Audio transfer failed. Interpolated video will have no audio")
-        os.rename("noAudio_"+outputVideoFileName, outputVideoFileName)
+        targetNoAudio = os.path.splitext(vid_out_name)[0] + "_noaudio" + os.path.splitext(vid_out_name)[1]
+        os.rename(targetNoAudio, vid_out_name)
