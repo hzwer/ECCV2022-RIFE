@@ -48,7 +48,7 @@ class IFBlock(nn.Module):
         flow = x
         if self.scale != 1:
             flow = F.interpolate(flow, scale_factor=self.scale, mode="bilinear",
-                                 align_corners=False) * self.scale
+                                 align_corners=False)
         return flow
 
 
