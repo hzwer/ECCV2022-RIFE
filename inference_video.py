@@ -192,8 +192,12 @@ while True:
         continue
     if ssim < 0.5:
         output = []
+        step = 1 / (2 ** args.exp)
+        alpha = 0
         for i in range((2 ** args.exp) - 1):
-            output.append(I0)
+            alpha += step
+            beta = 1-alpha
+            output.append(torch.from_numpy(np.transpose((cv2.addWeighted(frame[:, :, ::-1], alpha, lastframe[:, :, ::-1], beta, 0)[:, :, ::-1].copy()), (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.)
     else:
         output = make_inference(I0, I1, args.exp)
     if args.montage:
