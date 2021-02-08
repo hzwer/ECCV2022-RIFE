@@ -25,19 +25,20 @@ class IFBlock(nn.Module):
     def __init__(self, in_planes, scale=1, c=64):
         super(IFBlock, self).__init__()
         self.scale = scale
-        self.conv0 = conv(in_planes, c, 5, 2, 2)
+        self.conv0 = nn.Sequential(
+            conv(in_planes, c, 3, 2, 1),
+            conv(c, 2*c, 3, 2, 1),
+            )
         self.convblock = nn.Sequential(
-            conv(c, c),
-            conv(c, c),
-            conv(c, c),
-            conv(c, c),
-            conv(c, c),
-            conv(c, c),
-            conv(c, c),
-            conv(c, c),
+            conv(2*c, 2*c),
+            conv(2*c, 2*c),
+            conv(2*c, 2*c),
+            conv(2*c, 2*c),
+            conv(2*c, 2*c),
+            conv(2*c, 2*c),
         )        
-        self.conv1 = nn.Conv2d(c, 4, 3, 1, 1)
-
+        self.conv1 = nn.ConvTranspose2d(2*c, 4, 4, 2, 1)
+                    
     def forward(self, x):
         if self.scale != 1:
             x = F.interpolate(x, scale_factor=1. / self.scale, mode="bilinear",
