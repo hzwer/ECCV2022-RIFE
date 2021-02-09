@@ -32,7 +32,7 @@ pip3 install -r requirements.txt
 ```
 
 * Download the pretrained **HDv2** models from [here](https://drive.google.com/file/d/1wsQIhHZ3Eg4_AfCXItFKqqyDMB4NS0Yd/view?usp=sharing).
-We are optimizing the visual effects and will support animation in the future. (百度网盘链接:https://pan.baidu.com/s/1LLoVO3LTQz6aEPjvXNxlWQ 密码:vxrg，把压缩包解开后放在 train_log/\*.pkl)
+We are optimizing the visual effects and will support animation in the future. (百度网盘链接:https://pan.baidu.com/s/1JvzqHVSEFWTpOn0G4zk8Tg 密码:yg53，把压缩包解开后放在 train_log/\*.pkl)
 
 * Unzip and move the pretrained parameters to train_log/\*.pkl
 
