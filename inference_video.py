@@ -76,7 +76,7 @@ assert (not args.video is None or not args.img is None)
 if not args.img is None:
     args.png = True
 
-from model.RIFE_HD import Model
+from model.RIFE_HDv2 import Model
 model = Model()
 model.load_model(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'train_log'), -1)
 model.eval()
