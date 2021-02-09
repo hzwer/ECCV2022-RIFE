@@ -4,11 +4,9 @@
 
 A new windows app is trying to integrate RIFE, we hope everyone to try and help them improve. You can download [Flowframes](https://nmkd.itch.io/flowframes) for free. 中文补帧软件也正在开发中，免费下载 [SVFI](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation)。
 
-2.9 News: We have updated the v2.0 model, faster and much better!
+2021.2.9 News: We have updated the v2.0 model, faster and much better!
 
-1.4 News: We have updated the v1.8 model optimized for 2D animation.
-
-12.13 News: We have updated the v1.6 model and support UHD mode. Please check our [update log](https://github.com/hzwer/arXiv2020-RIFE/issues/41#issuecomment-737651979).
+2021.1.4 News: We have updated the v1.8 model optimized for 2D animation. Please check our [update log](https://github.com/hzwer/arXiv2020-RIFE/issues/41#issuecomment-737651979).
 
 There is [a tutorial of RIFE](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title) on Youtube.
 
