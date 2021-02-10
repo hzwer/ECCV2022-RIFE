@@ -1,4 +1,4 @@
-# RIFE Video Frame Interpolation v2.0
+# RIFE Video Frame Interpolation v2.1
 **Our paper has not been officially published yet, and our method and experimental results are under improvement. Due to the incorrect data reference, the latency measurement of Sepconv and TOFlow in our arxiv paper needs to be modified.**
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be) | [Bilibili](https://www.bilibili.com/video/BV1K541157te?from=search&seid=5131698847373645765)
 
@@ -30,7 +30,7 @@ pip3 install -r requirements.txt
 ```
 
 * Download the pretrained **HDv2** models from [here](https://drive.google.com/file/d/1wsQIhHZ3Eg4_AfCXItFKqqyDMB4NS0Yd/view?usp=sharing).
-We are optimizing the visual effects and will support animation in the future. (百度网盘链接:https://pan.baidu.com/s/1JvzqHVSEFWTpOn0G4zk8Tg 密码:yg53，把压缩包解开后放在 train_log/\*.pkl)
+We are optimizing the visual effects and will support animation in the future. (百度网盘链接:https://pan.baidu.com/s/1qGsnXE7-Q4UPYUNFevz60w 密码:cn1f，把压缩包解开后放在 train_log/\*.pkl)
 
 * Unzip and move the pretrained parameters to train_log/\*.pkl
 
