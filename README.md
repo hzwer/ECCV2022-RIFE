@@ -29,12 +29,11 @@ cd arXiv2020-RIFE
 pip3 install -r requirements.txt
 ```
 
-* Download the pretrained **HDv2** models from [here](https://drive.google.com/file/d/1wsQIhHZ3Eg4_AfCXItFKqqyDMB4NS0Yd/view?usp=sharing).
-We are optimizing the visual effects and will support animation in the future. (百度网盘链接:https://pan.baidu.com/s/1qGsnXE7-Q4UPYUNFevz60w 密码:cn1f，把压缩包解开后放在 train_log/\*.pkl)
+* Download the pretrained **HDv2** models from [here](https://drive.google.com/file/d/1wsQIhHZ3Eg4_AfCXItFKqqyDMB4NS0Yd/view?usp=sharing). (百度网盘链接:https://pan.baidu.com/s/1qGsnXE7-Q4UPYUNFevz60w 密码:cn1f，把压缩包解开后放在 train_log/\*.pkl)
 
 * Unzip and move the pretrained parameters to train_log/\*.pkl
 
-**This model is designed to provide better visual effects for users and should not be used for benchmarking.**
+**This model is designed to provide better visual effects for users and should not be used for paper benchmark.**
 
 ### Run
 
@@ -103,6 +102,14 @@ Using gpu acceleration (requires proper gpu drivers for docker):
 ```
 docker run --rm -it --gpus all -v /dev/dri:/dev/dri -v $PWD:/host rife:latest inference_video --exp=1 --video=untitled.mp4 --output=untitled_rife.mp4
 ```
+
+## Work collection
+[【𝟒𝐊 𝟏𝟐𝟎𝐅𝐏𝐒】TV动画《魔女之旅》NCOP リテラチュア
+](bilibili.com/video/BV1sr4y1P7Wg?from=search&seid=17356442119935352422)
+
+[「120FPS」EVA × KATE × 米山舞「绫波丽，首次口红，在那之后」](https://www.bilibili.com/video/BV1yz4y1m7iF?from=search&seid=1496025207731732060)
+
+[【4K・60fps】- 邓丽君，你有男朋友没有？- 我的愿望是要有四个（不是）](https://www.bilibili.com/video/BV1ZK411u7CM?from=search&seid=17760804974094984298)
 
 ## Evaluation
 Download [RIFE model](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing) or [RIFE2F1.5C model](https://drive.google.com/file/d/1ve9w-cRWotdvvbU1KcgtsSm12l-JUkeT/view?usp=sharing) reported by our paper.
