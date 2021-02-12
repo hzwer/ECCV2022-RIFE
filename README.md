@@ -18,7 +18,9 @@ Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, o
 
 
 **3d Animation**
-[没有鼠鼠的雏子Official - 原神魈](https://www.bilibili.com/video/BV1iU4y1s7Lk) | [今天我练出腹肌了吗 - 最终幻想14](https://www.bilibili.com/video/BV1R541177qr) | [娜不列颠 - 冰雪奇缘2](https://www.bilibili.com/video/BV1fy4y1J7Mu) | [今天我练出腹肌了吗 - 仙剑奇侠传6](https://www.bilibili.com/video/BV1ut4y167az?from=search&seid=15458655842150253738)
+[没有鼠鼠的雏子Official - 原神魈](https://www.bilibili.com/video/BV1iU4y1s7Lk) | [今天我练出腹肌了吗 - 最终幻想14](https://www.bilibili.com/video/BV1R541177qr) | [娜不列颠 - 冰雪奇缘2](https://www.bilibili.com/video/BV1fy4y1J7Mu) |
+
+[今天我练出腹肌了吗 - 仙剑奇侠传6](https://www.bilibili.com/video/BV1ut4y167az?from=search&seid=15458655842150253738) |
 
 **MV**
 [Navetek - 邓丽君](https://www.bilibili.com/video/BV1ZK411u7CM) | [生米阿怪 - 周深](https://www.bilibili.com/video/BV1Wo4y1d73b?from=search&seid=16584204362417247463) |
