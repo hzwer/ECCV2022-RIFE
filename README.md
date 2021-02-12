@@ -1,4 +1,4 @@
-# RIFE Video Frame Interpolation v2.1
+# RIFE v2.1 - Real Time Video Interpolation
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be) | [Bilibili](https://www.bilibili.com/video/BV1K541157te?from=search&seid=5131698847373645765) | [Colab](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) | [Tutorial](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title)
 
 Some apps has integrated RIFE. You can refer to [Waifu2x-Extension-GUI](https://github.com/AaronFeng753/Waifu2x-Extension-GUI), [Flowframes](https://nmkd.itch.io/flowframes) and [RIFE-ncnn-vulkan](https://github.com/nihui/rife-ncnn-vulkan). 中文补帧软件也已经发布，免费下载 [SVFI](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation)。
