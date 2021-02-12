@@ -1,5 +1,5 @@
 # RIFE Video Frame Interpolation v2.1
-## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be) | [Bilibili](https://www.bilibili.com/video/BV1K541157te?from=search&seid=5131698847373645765)
+## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be) | [Bilibili](https://www.bilibili.com/video/BV1K541157te?from=search&seid=5131698847373645765) | [Colab](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb)
 
 Some apps has integrated RIFE. You can refer to [Waifu2x-Extension-GUI](https://github.com/AaronFeng753/Waifu2x-Extension-GUI), [Flowframes](https://nmkd.itch.io/flowframes) and [RIFE-ncnn-vulkan](https://github.com/nihui/rife-ncnn-vulkan). 中文补帧软件也已经发布，免费下载 [SVFI](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation)。
 
@@ -9,9 +9,7 @@ Some apps has integrated RIFE. You can refer to [Waifu2x-Extension-GUI](https://
 
 There is [a tutorial of RIFE](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title) on Youtube.
 
-You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try.
-
-Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, our method supports 2X,4X,8X... interpolation for 1080p video, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
+Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, our method supports 2X,4X,8X... interpolation, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
 
 16X interpolation results from two input images: 
 
@@ -134,7 +132,7 @@ python3 -m torch.distributed.launch --nproc_per_node=4 train.py --world_size=4
 ## Artists
 [Navetek](https://space.bilibili.com/477230155?spm_id_from=333.788.b_765f7570696e666f.1) | [御坂大哥想让我表白](https://space.bilibili.com/94367406?spm_id_from=333.788.b_765f7570696e666f.2) | [没有鼠鼠的雏子Official](https://space.bilibili.com/11541212?spm_id_from=333.788.b_765f7570696e666f.2) | [赫萝与罗伦斯的旅途](https://space.bilibili.com/14181638?from=search&seid=5375297779239252137) | [异度界限](https://space.bilibili.com/352761108?from=search&seid=5375297779239252137)
 
-## Work collection
+## Collection
 [【𝟒𝐊 𝟏𝟐𝟎𝐅𝐏𝐒】TV动画《魔女之旅》NCOP リテラチュア
 ](https://www.bilibili.com/video/BV1sr4y1P7Wg?from=search&seid=17356442119935352422)
 
