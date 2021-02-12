@@ -136,12 +136,15 @@ def clear_write_buffer(user_args, write_buffer):
             vid_out.write(item[:, :, ::-1])
 
 def build_read_buffer(user_args, read_buffer, videogen):
-    for frame in videogen:
-        if not user_args.img is None:
-            frame = cv2.imread(os.path.join(user_args.img, frame))[:, :, ::-1].copy()
-        if user_args.montage:
-            frame = frame[:, left: left + w]
-        read_buffer.put(frame)
+    try:
+        for frame in videogen:
+             if not user_args.img is None:
+                  frame = cv2.imread(os.path.join(user_args.img, frame))[:, :, ::-1].copy()
+             if user_args.montage:
+                  frame = frame[:, left: left + w]
+             read_buffer.put(frame)
+    except:
+        pass
     read_buffer.put(None)
 
 def make_inference(I0, I1, exp):
