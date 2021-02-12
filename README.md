@@ -1,7 +1,7 @@
 # RIFE Video Frame Interpolation v2.1
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be) | [Bilibili](https://www.bilibili.com/video/BV1K541157te?from=search&seid=5131698847373645765)
 
-Some apps has integrated RIFE. You can refer to [Waifu2x-Extension-GUI](https://github.com/AaronFeng753/Waifu2x-Extension-GUI) and [Flowframes](https://nmkd.itch.io/flowframes). 中文补帧软件也已经发布，免费下载 => [SVFI](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation)。
+Some apps has integrated RIFE. You can refer to [Waifu2x-Extension-GUI](https://github.com/AaronFeng753/Waifu2x-Extension-GUI), [Flowframes](https://nmkd.itch.io/flowframes) and [RIFE-ncnn-vulkan](https://github.com/nihui/rife-ncnn-vulkan). 中文补帧软件也已经发布，免费下载 [SVFI](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation)。
 
 2021.2.9 News: We have updated the v2.0 model, faster and much better!
 
@@ -9,7 +9,7 @@ Some apps has integrated RIFE. You can refer to [Waifu2x-Extension-GUI](https://
 
 There is [a tutorial of RIFE](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title) on Youtube.
 
-You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try and generate the [our youtube demo](https://www.youtube.com/watch?v=LE2Dzl0oMHI).
+You can easily use [colaboratory](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) to have a try.
 
 Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, our method supports 2X,4X,8X... interpolation for 1080p video, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
 
