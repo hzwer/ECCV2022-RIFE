@@ -104,11 +104,14 @@ docker run --rm -it --gpus all -v /dev/dri:/dev/dri -v $PWD:/host rife:latest in
 
 ## Work collection
 [【𝟒𝐊 𝟏𝟐𝟎𝐅𝐏𝐒】TV动画《魔女之旅》NCOP リテラチュア
-](bilibili.com/video/BV1sr4y1P7Wg?from=search&seid=17356442119935352422)
+](https://www.bilibili.com/video/BV1sr4y1P7Wg?from=search&seid=17356442119935352422)
 
 [「120FPS」EVA × KATE × 米山舞「绫波丽，首次口红，在那之后」](https://www.bilibili.com/video/BV1yz4y1m7iF?from=search&seid=1496025207731732060)
 
 [【4K・60fps】- 邓丽君，你有男朋友没有？- 我的愿望是要有四个（不是）](https://www.bilibili.com/video/BV1ZK411u7CM?from=search&seid=17760804974094984298)
+
+## Artists
+[Navetek](https://space.bilibili.com/477230155?spm_id_from=333.788.b_765f7570696e666f.1) [御坂大哥想让我表白](https://space.bilibili.com/94367406?spm_id_from=333.788.b_765f7570696e666f.2) [没有鼠鼠的雏子Official](https://space.bilibili.com/11541212?spm_id_from=333.788.b_765f7570696e666f.2) [赫萝与罗伦斯的旅途](https://space.bilibili.com/14181638?from=search&seid=5375297779239252137) [异度界限](https://space.bilibili.com/352761108?from=search&seid=5375297779239252137)
 
 ## Evaluation
 **Our paper has not been officially published yet, and our method and experimental results are under improvement. Due to the incorrect data reference, the latency measurement of Sepconv and TOFlow in our arxiv paper needs to be modified.**
