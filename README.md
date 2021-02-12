@@ -15,8 +15,9 @@ Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, o
 ## Collection
 [Navetek - 邓丽君](https://www.bilibili.com/video/BV1ZK411u7CM) | [御坂大哥想让我表白 - 魔女之旅](https://www.bilibili.com/video/BV1sr4y1P7Wg) | [没有鼠鼠的雏子Official - 原神魈](https://www.bilibili.com/video/BV1iU4y1s7Lk) |
 
-[赫萝与罗伦斯的旅途 - 绫波丽](https://www.bilibili.com/video/BV1yz4y1m7iF) | [今天我练出腹肌了吗 - 最终幻想](https://www.bilibili.com/video/BV1R541177qr) | [娜不列颠 - 冰雪奇缘2](https://www.bilibili.com/video/BV1fy4y1J7Mu)
+[赫萝与罗伦斯的旅途 - 绫波丽](https://www.bilibili.com/video/BV1yz4y1m7iF) | [今天我练出腹肌了吗 - 最终幻想](https://www.bilibili.com/video/BV1R541177qr) | [娜不列颠 - 冰雪奇缘2](https://www.bilibili.com/video/BV1fy4y1J7Mu) | [ablyh - 超电磁炮](https://www.bilibili.com/video/BV1gK4y1Q7d9?from=search&seid=16584204362417247463) |
 
+[生米阿怪 - 周深](https://www.bilibili.com/video/BV1Wo4y1d73b?from=search&seid=16584204362417247463)
 ## Usage
 
 ### Installation
