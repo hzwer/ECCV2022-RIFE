@@ -1,5 +1,4 @@
 # RIFE Video Frame Interpolation v2.1
-**Our paper has not been officially published yet, and our method and experimental results are under improvement. Due to the incorrect data reference, the latency measurement of Sepconv and TOFlow in our arxiv paper needs to be modified.**
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [Project Page](https://rife-vfi.github.io) | [Reddit](https://www.reddit.com/r/linux/comments/jy4jjl/opensourced_realtime_video_frame_interpolation/) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be) | [Bilibili](https://www.bilibili.com/video/BV1K541157te?from=search&seid=5131698847373645765)
 
 Some apps has integrated RIFE. You can refer to [Waifu2x-Extension-GUI](https://github.com/AaronFeng753/Waifu2x-Extension-GUI) and [Flowframes](https://nmkd.itch.io/flowframes). 中文补帧软件也已经发布，免费下载 => [SVFI](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation)。
@@ -112,6 +111,8 @@ docker run --rm -it --gpus all -v /dev/dri:/dev/dri -v $PWD:/host rife:latest in
 [【4K・60fps】- 邓丽君，你有男朋友没有？- 我的愿望是要有四个（不是）](https://www.bilibili.com/video/BV1ZK411u7CM?from=search&seid=17760804974094984298)
 
 ## Evaluation
+**Our paper has not been officially published yet, and our method and experimental results are under improvement. Due to the incorrect data reference, the latency measurement of Sepconv and TOFlow in our arxiv paper needs to be modified.**
+
 Download [RIFE model](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing) or [RIFE2F1.5C model](https://drive.google.com/file/d/1ve9w-cRWotdvvbU1KcgtsSm12l-JUkeT/view?usp=sharing) reported by our paper.
 
 **Vimeo90K**: Download [Vimeo90K dataset](http://toflow.csail.mit.edu/) at ./vimeo_interp_test
