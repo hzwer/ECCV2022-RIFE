@@ -24,10 +24,10 @@ Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, o
 [今天我练出腹肌了吗 - 仙剑奇侠传6](https://www.bilibili.com/video/BV1ut4y167az?from=search&seid=15458655842150253738) | 
 
 **MV**
-[Navetek - 邓丽君](https://www.bilibili.com/video/BV1ZK411u7CM) | [生米阿怪 - 周深](https://www.bilibili.com/video/BV1ZN411R7xU) |
+[Navetek - 邓丽君](https://www.bilibili.com/video/BV1ZK411u7CM) | [生米阿怪 - 周深](https://www.bilibili.com/video/BV1cp4y1W717) |
 
 **MMD**
-[深邃黑暗の银鳕鱼 - 镜音铃](https://www.bilibili.com/video/BV1nU4y1W7RF?from=search&seid=151780224584608151) |
+[深邃黑暗の银鳕鱼 - 镜音铃](https://www.bilibili.com/video/BV1nU4y1W7RF?from=search&seid=151780224584608151) | [深邃黑暗の银鳕鱼 - fufu](https://www.bilibili.com/video/BV16K4y1Q7CM)
 
 
 ## Usage
