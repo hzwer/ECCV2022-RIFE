@@ -13,7 +13,7 @@ from model.RIFE import Model
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 model = Model()
-model.load_model(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'train_log'))
+model.load_model('train_log')
 model.eval()
 model.device()
 
