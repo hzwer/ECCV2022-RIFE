@@ -82,12 +82,12 @@ if torch.cuda.is_available():
 try:
     from model.RIFE_HDv2 import Model
     model = Model()
-    model.load_model(os.path.join(dname, args.modelDir), -1)
+    model.load_model(args.modelDir, -1)
     print("Loaded v2.x HD model.")
 except:
     from model.RIFE_HD import Model
     model = Model()
-    model.load_model(os.path.join(dname, args.modelDir), -1)
+    model.load_model(args.modelDir, -1)
     print("Loaded v1.x HD model")
 model.eval()
 model.device()
