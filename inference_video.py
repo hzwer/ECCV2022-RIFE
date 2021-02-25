@@ -58,6 +58,7 @@ parser.add_argument('--video', dest='video', type=str, default=None)
 parser.add_argument('--output', dest='output', type=str, default=None)
 parser.add_argument('--img', dest='img', type=str, default=None)
 parser.add_argument('--montage', dest='montage', action='store_true', help='montage origin video')
+parser.add_argument('--model', dest='modelDir', type=str, default='train_log', help='directory with trained model files')
 parser.add_argument('--fp16', dest='fp16', action='store_true', help='fp16 mode for faster and more lightweight inference on cards with Tensor Cores')
 parser.add_argument('--UHD', dest='UHD', action='store_true', help='support 4k video')
 parser.add_argument('--skip', dest='skip', action='store_true', help='whether to remove static frames before processing')
@@ -78,9 +79,16 @@ if torch.cuda.is_available():
     if(args.fp16):
         torch.set_default_tensor_type(torch.cuda.HalfTensor)
 
-from model.RIFE_HDv2 import Model
-model = Model()
-model.load_model(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'train_log'), -1)
+try:
+    from model.RIFE_HDv2 import Model
+    model = Model()
+    model.load_model(os.path.join(dname, args.modelDir), -1)
+    print("Loaded v2.x HD model.")
+except:
+    from model.RIFE_HD import Model
+    model = Model()
+    model.load_model(os.path.join(dname, args.modelDir), -1)
+    print("Loaded v1.x HD model")
 model.eval()
 model.device()
 
