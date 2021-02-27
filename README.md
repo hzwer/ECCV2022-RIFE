@@ -57,9 +57,9 @@ python3 inference_video.py --exp=2 --video=video.mp4
 ```
 (for 4X interpolation)
 ```
-python3 inference_video.py --exp=1 --video=video.mp4 --UHD
+python3 inference_video.py --exp=1 --video=video.mp4 --scale=0.5
 ```
-(If your video has very high resolution such as 2K and 4K, we recommend to use UHD mode.)
+(If your video has very high resolution such as 4K, we recommend set process scale to 0.5.)
 ```
 python3 inference_video.py --exp=2 --img=input/
 ```
