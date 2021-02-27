@@ -59,7 +59,7 @@ python3 inference_video.py --exp=2 --video=video.mp4
 ```
 python3 inference_video.py --exp=1 --video=video.mp4 --scale=0.5
 ```
-(If your video has very high resolution such as 4K, we recommend set process scale to 0.5.)
+(If your video has very high resolution such as 4K, we recommend set --scale=0.5 (default 1.0). If you generate disordered pattern on your videos, try set --scale=2.0. This parameter control the process resolution for optical flow model.)
 ```
 python3 inference_video.py --exp=2 --img=input/
 ```
