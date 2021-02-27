@@ -61,6 +61,7 @@ parser.add_argument('--montage', dest='montage', action='store_true', help='mont
 parser.add_argument('--model', dest='modelDir', type=str, default='train_log', help='directory with trained model files')
 parser.add_argument('--fp16', dest='fp16', action='store_true', help='fp16 mode for faster and more lightweight inference on cards with Tensor Cores')
 parser.add_argument('--UHD', dest='UHD', action='store_true', help='support 4k video')
+parser.add_argument('--scale', dest='scale', type=float, default=1.0, help='Try scale=0.5 for 4k video')
 parser.add_argument('--skip', dest='skip', action='store_true', help='whether to remove static frames before processing')
 parser.add_argument('--fps', dest='fps', type=int, default=None)
 parser.add_argument('--png', dest='png', action='store_true', help='whether to vid_out png format vid_outs')
@@ -68,6 +69,7 @@ parser.add_argument('--ext', dest='ext', type=str, default='mp4', help='vid_out 
 parser.add_argument('--exp', dest='exp', type=int, default=1)
 args = parser.parse_args()
 assert (not args.video is None or not args.img is None)
+assert args.scale in [0.25, 0.5, 1.0, 2.0, 4.0]
 if not args.img is None:
     args.png = True
     
@@ -159,7 +161,7 @@ def build_read_buffer(user_args, read_buffer, videogen):
 
 def make_inference(I0, I1, exp):
     global model
-    middle = model.inference(I0, I1, args.UHD)
+    middle = model.inference(I0, I1, args.scale)
     if exp == 1:
         return [middle]
     first_half = make_inference(I0, middle, exp=exp - 1)
@@ -175,12 +177,9 @@ def pad_image(img):
 if args.montage:
     left = w // 4
     w = w // 2
-if args.UHD:
-    ph = ((h - 1) // 64 + 1) * 64
-    pw = ((w - 1) // 64 + 1) * 64
-else:
-    ph = ((h - 1) // 32 + 1) * 32
-    pw = ((w - 1) // 32 + 1) * 32
+tmp = max(32, int(32 / args.scale))
+ph = ((h - 1) // tmp + 1) * tmp
+pw = ((w - 1) // tmp + 1) * tmp
 padding = (0, pw - w, 0, ph - h)
 pbar = tqdm(total=tot_frame)
 skip_frame = 1

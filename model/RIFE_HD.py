@@ -188,11 +188,9 @@ class Model:
             torch.save(self.contextnet.state_dict(), '{}/contextnet.pkl'.format(path))
             torch.save(self.fusionnet.state_dict(), '{}/unet.pkl'.format(path))
 
-    def predict(self, imgs, flow, training=True, flow_gt=None, UHD=False):
+    def predict(self, imgs, flow, training=True, flow_gt=None):
         img0 = imgs[:, :3]
         img1 = imgs[:, 3:]
-        if UHD:
-            flow = F.interpolate(flow, scale_factor=2.0, mode="bilinear", align_corners=False) * 2.0
         c0 = self.contextnet(img0, flow)
         c1 = self.contextnet(img1, -flow)
         flow = F.interpolate(flow, scale_factor=2.0, mode="bilinear",
@@ -209,10 +207,10 @@ class Model:
         else:
             return pred
 
-    def inference(self, img0, img1, UHD=False):
+    def inference(self, img0, img1, scale=1.0):
         imgs = torch.cat((img0, img1), 1)
-        flow, _ = self.flownet(imgs, UHD)
-        return self.predict(imgs, flow, training=False, UHD=UHD)
+        flow, _ = self.flownet(imgs, scale)
+        return self.predict(imgs, flow, training=False)
 
     def update(self, imgs, gt, learning_rate=0, mul=1, training=True, flow_gt=None):
         for param_group in self.optimG.param_groups:
