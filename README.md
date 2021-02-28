@@ -28,7 +28,7 @@ Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, o
 [深邃黑暗の银鳕鱼 - 镜音铃](https://www.bilibili.com/video/BV1nU4y1W7RF?from=search&seid=151780224584608151) [fufu](https://www.bilibili.com/video/BV16K4y1Q7CM) [fufu.b](https://www.bilibili.com/video/BV1Xb4y1R7iT) |
 
 **Film**
-[晨曦光晖 - 假面骑士](https://www.bilibili.com/video/BV1YK4y1J7eu?from=search&seid=2536418560129250152) |
+[晨曦光晖 - 假面骑士](https://www.bilibili.com/video/BV1YK4y1J7eu?from=search&seid=2536418560129250152) [假面骑士.b](https://www.bilibili.com/video/BV1YK4y1J7eu?from=search&seid=2536418560129250152)| 
 
 ## Usage
 
