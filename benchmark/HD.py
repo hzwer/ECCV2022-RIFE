@@ -44,7 +44,7 @@ for data in name_list:
     _, lastframe = Reader.read()
     # fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
     # video = cv2.VideoWriter(name + '.mp4', fourcc, 30, (w, h))
-    for index in range(0, 200, 2):
+    for index in range(0, 100, 2):
         if 'yuv' in name:
             IMAGE1, success1 = Reader.read(index)
             gt, _ = Reader.read(index + 1)
