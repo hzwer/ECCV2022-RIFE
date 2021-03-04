@@ -57,8 +57,6 @@ pip3 install -r requirements.txt
 
 * Unzip and move the pretrained parameters to train_log/\*.pkl
 
-**This model is designed to provide better visual effects for users and should not be used for paper benchmark.**
-
 ### Run
 
 **Video Frame Interpolation**
@@ -141,15 +139,15 @@ Download [RIFE model](https://drive.google.com/file/d/1U2AGFY00hafsPmm94-6deeM-9
 **HD**: Download [HD dataset](https://github.com/baowenbo/MEMC-Net) at ./HD_dataset
 ```
 python3 benchmark/UCF101.py
-# (Final result: "Avg PSNR: 35.246 SSIM: 0.9691")
+# "PSNR: 35.246 SSIM: 0.9691"
 python3 benchmark/Vimeo90K.py
-# (Final result: "Avg PSNR: 35.506 SSIM: 0.9779")
+# "PSNR: 35.506 SSIM: 0.9779"
 python3 benchmark/MiddelBury_Other.py
-# (Final result: "1.962")
+# "IE: 1.962"
 python3 benchmark/HD.py
-# (Final result: "PSNR: 32.124")
+# "PSNR: 32.124"
 python3 benchmark/HD_multi.py
-# (Final result: "PSNR: 19.92(544*1280), 30.03(720p), 26.71(1080p)")
+# "PSNR: 19.92(544*1280), 30.03(720p), 26.71(1080p)"
 ```
 
 ## Training and Reproduction
