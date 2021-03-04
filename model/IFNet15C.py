@@ -27,7 +27,8 @@ class IFBlock(nn.Module):
         super(IFBlock, self).__init__()
         self.scale = scale
         self.conv0 = nn.Sequential(
-            conv(in_planes, c, 3, 2, 1),
+            conv(in_planes, c//2, 3, 2, 1),
+            conv(c//2, c, 3, 2, 1),
             )
         self.convblock = nn.Sequential(
             conv(c, c),
@@ -39,7 +40,7 @@ class IFBlock(nn.Module):
             conv(c, c),
             conv(c, c),
         )
-        self.conv1 = nn.Conv2d(c, 4, 3, 1, 1)
+        self.conv1 = nn.ConvTranspose2d(c, 4, 4, 2, 1)
 
     def forward(self, x):
         if self.scale != 1:
@@ -55,7 +56,7 @@ class IFBlock(nn.Module):
 class IFNet(nn.Module):
     def __init__(self):
         super(IFNet, self).__init__()
-        self.block0 = IFBlock(6, scale=4, c=360)
+        self.block0 = IFBlock(6, scale=4, c=320)
         self.block1 = IFBlock(10, scale=2, c=225)
         self.block2 = IFBlock(10, scale=1, c=135)
 

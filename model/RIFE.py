@@ -34,29 +34,15 @@ def conv_woact(in_planes, out_planes, kernel_size=3, stride=1, padding=1, dilati
                   padding=padding, dilation=dilation, bias=True),
     )
 
-class ResBlock(nn.Module):
+class Conv2(nn.Module):
     def __init__(self, in_planes, out_planes, stride=2):
-        super(ResBlock, self).__init__()
-        if in_planes == out_planes and stride == 1:
-            self.conv0 = nn.Identity()
-        else:
-            self.conv0 = nn.Conv2d(in_planes, out_planes,
-                                   3, stride, 1, bias=False)
+        super(Conv2, self).__init__()
         self.conv1 = conv(in_planes, out_planes, 3, stride, 1)
-        self.conv2 = conv_woact(out_planes, out_planes, 3, 1, 1)
-        self.relu1 = nn.PReLU(1)
-        self.relu2 = nn.PReLU(out_planes)
-        self.fc1 = nn.Conv2d(out_planes, 16, kernel_size=1, bias=False)
-        self.fc2 = nn.Conv2d(16, out_planes, kernel_size=1, bias=False)
-
+        self.conv2 = conv(out_planes, out_planes, 3, 1, 1)
+        
     def forward(self, x):
-        y = self.conv0(x)
         x = self.conv1(x)
         x = self.conv2(x)
-        w = x.mean(3, True).mean(2, True)
-        w = self.relu1(self.fc1(w))
-        w = torch.sigmoid(self.fc2(w))
-        x = self.relu2(x * w + y)
         return x
 
 c = 16
@@ -64,36 +50,32 @@ c = 16
 class ContextNet(nn.Module):
     def __init__(self):
         super(ContextNet, self).__init__()
-        self.conv1 = ResBlock(3, c)
-        self.conv2 = ResBlock(c, 2*c)
-        self.conv3 = ResBlock(2*c, 4*c)
-        self.conv4 = ResBlock(4*c, 8*c)
+        self.conv1 = Conv2(3, c)
+        self.conv2 = Conv2(c, 2*c)
+        self.conv3 = Conv2(2*c, 4*c)
+        self.conv4 = Conv2(4*c, 8*c)
 
     def forward(self, x, flow):
         x = self.conv1(x)
         f1 = warp(x, flow)
         x = self.conv2(x)
-        flow = F.interpolate(flow, scale_factor=0.5, mode="bilinear",
-                             align_corners=False) * 0.5
+        flow = F.interpolate(flow, scale_factor=0.5, mode="bilinear", align_corners=False, recompute_scale_factor=False) * 0.5
         f2 = warp(x, flow)
         x = self.conv3(x)
-        flow = F.interpolate(flow, scale_factor=0.5, mode="bilinear",
-                             align_corners=False) * 0.5
+        flow = F.interpolate(flow, scale_factor=0.5, mode="bilinear", align_corners=False, recompute_scale_factor=False) * 0.5
         f3 = warp(x, flow)
         x = self.conv4(x)
-        flow = F.interpolate(flow, scale_factor=0.5, mode="bilinear",
-                             align_corners=False) * 0.5
+        flow = F.interpolate(flow, scale_factor=0.5, mode="bilinear", align_corners=False, recompute_scale_factor=False) * 0.5
         f4 = warp(x, flow)
         return [f1, f2, f3, f4]
-
 
 class FusionNet(nn.Module):
     def __init__(self):
         super(FusionNet, self).__init__()
-        self.down0 = ResBlock(8, 2*c)
-        self.down1 = ResBlock(4*c, 4*c)
-        self.down2 = ResBlock(8*c, 8*c)
-        self.down3 = ResBlock(16*c, 16*c)
+        self.down0 = Conv2(12, 2*c)
+        self.down1 = Conv2(4*c, 4*c)
+        self.down2 = Conv2(8*c, 8*c)
+        self.down3 = Conv2(16*c, 16*c)
         self.up0 = deconv(32*c, 8*c)
         self.up1 = deconv(16*c, 4*c)
         self.up2 = deconv(8*c, 2*c)
@@ -101,14 +83,14 @@ class FusionNet(nn.Module):
         self.conv = nn.Conv2d(c, 4, 3, 1, 1)
 
     def forward(self, img0, img1, flow, c0, c1, flow_gt):
-        warped_img0 = warp(img0, flow)
-        warped_img1 = warp(img1, -flow)
+        warped_img0 = warp(img0, flow[:, :2])
+        warped_img1 = warp(img1, flow[:, 2:4])
         if flow_gt == None:
             warped_img0_gt, warped_img1_gt = None, None
         else:
             warped_img0_gt = warp(img0, flow_gt[:, :2])
             warped_img1_gt = warp(img1, flow_gt[:, 2:4])
-        s0 = self.down0(torch.cat((warped_img0, warped_img1, flow), 1))
+        s0 = self.down0(torch.cat((img0, img1, warped_img0, warped_img1), 1))
         s1 = self.down1(torch.cat((s0, c0[0], c1[0]), 1))
         s2 = self.down2(torch.cat((s1, c0[1], c1[1]), 1))
         s3 = self.down3(torch.cat((s2, c0[2], c1[2]), 1))
@@ -118,7 +100,6 @@ class FusionNet(nn.Module):
         x = self.up3(torch.cat((x, s0), 1))
         x = self.conv(x)
         return x, warped_img0, warped_img1, warped_img0_gt, warped_img1_gt
-
 
 class Model:
     def __init__(self, local_rank=-1):
@@ -158,7 +139,7 @@ class Model:
         self.contextnet.to(device)
         self.fusionnet.to(device)
 
-    def load_model(self, path, rank):
+    def load_model(self, path, rank=-1):
         def convert(param):
             if rank == -1:
                 return {
@@ -185,8 +166,8 @@ class Model:
     def predict(self, imgs, flow, training=True, flow_gt=None):
         img0 = imgs[:, :3]
         img1 = imgs[:, 3:]
-        c0 = self.contextnet(img0, flow)
-        c1 = self.contextnet(img1, -flow)
+        c0 = self.contextnet(img0, flow[:, :2])
+        c1 = self.contextnet(img1, flow[:, 2:4])
         flow = F.interpolate(flow, scale_factor=2.0, mode="bilinear",
                              align_corners=False) * 2.0
         refine_output, warped_img0, warped_img1, warped_img0_gt, warped_img1_gt = self.fusionnet(
@@ -203,7 +184,7 @@ class Model:
 
     def inference(self, img0, img1):
         imgs = torch.cat((img0, img1), 1)
-        flow, _ = self.flownet(imgs)
+        flow, _ = self.flownet(torch.cat((img0, img1), 1))
         return self.predict(imgs, flow, training=False)
 
     def update(self, imgs, gt, learning_rate=0, mul=1, training=True, flow_gt=None):
@@ -228,8 +209,8 @@ class Model:
                                          align_corners=False) * 0.5).detach()
             loss_cons = 0
             for i in range(3):
-                loss_cons += self.epe(flow_list[i], flow_gt[:, :2], 1)
-                loss_cons += self.epe(-flow_list[i], flow_gt[:, 2:4], 1)
+                loss_cons += self.epe(flow_list[i][:, :2], flow_gt[:, :2], 1)
+                loss_cons += self.epe(flow_list[i][:, 2:4], flow_gt[:, 2:4], 1)
             loss_cons = loss_cons.mean() * 0.01
         else:
             loss_cons = torch.tensor([0])

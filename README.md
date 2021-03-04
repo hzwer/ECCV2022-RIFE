@@ -117,16 +117,26 @@ docker run --rm -it --gpus all -v /dev/dri:/dev/dri -v $PWD:/host rife:latest in
 ## Evaluation
 **Our paper has not been officially published yet, and our method and experimental results are under improvement. Due to the incorrect data reference, the latency measurement of Sepconv and TOFlow in our arxiv paper needs to be modified.**
 
-Download [RIFE model](https://drive.google.com/file/d/1c1R7iF-ypN6USo-D2YH_ORtaH3tukSlo/view?usp=sharing) or [RIFE2F1.5C model](https://drive.google.com/file/d/1ve9w-cRWotdvvbU1KcgtsSm12l-JUkeT/view?usp=sharing) reported by our paper.
+Download [RIFE model](https://drive.google.com/file/d/1U2AGFY00hafsPmm94-6deeM-9feGN-qg/view?usp=sharing) reported by our paper.
+
+**UCF101**: Download [UCF101 dataset](https://liuziwei7.github.io/projects/VoxelFlow) at ./UCF101/ucf101_interp_ours/
 
 **Vimeo90K**: Download [Vimeo90K dataset](http://toflow.csail.mit.edu/) at ./vimeo_interp_test
 
 **MiddleBury**: Download [MiddleBury OTHER dataset](https://vision.middlebury.edu/flow/data/) at ./other-data and ./other-gt-interp
+
+**HD**: Download [HD dataset](https://github.com/baowenbo/MEMC-Net) at ./HD_dataset
 ```
+python3 benchmark/UCF101.py
+# (Final result: "Avg PSNR: 35.246 SSIM: 0.9691")
 python3 benchmark/Vimeo90K.py
-# (Final result: "Avg PSNR: 35.695 SSIM: 0.9788")
+# (Final result: "Avg PSNR: 35.506 SSIM: 0.9779")
 python3 benchmark/MiddelBury_Other.py
-# (Final result: "2.058")
+# (Final result: "1.962")
+python3 benchmark/HD.py
+# (Final result: "PSNR: 32.124")
+python3 benchmark/HD_multi.py
+# (Final result: "PSNR: 19.92(544*1280), 30.03(720p), 26.71(1080p)")
 ```
 
 ## Training and Reproduction

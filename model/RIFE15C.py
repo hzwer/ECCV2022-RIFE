@@ -6,7 +6,7 @@ import torch.optim as optim
 import itertools
 from model.warplayer import warp
 from torch.nn.parallel import DistributedDataParallel as DDP
-from model.IFNet2F import *
+from model.IFNet import *
 import torch.nn.functional as F
 from model.loss import *
 
@@ -45,12 +45,12 @@ class Conv2(nn.Module):
         x = self.conv2(x)
         return x
 
-c = 16
+c = 24
 
 class ContextNet(nn.Module):
     def __init__(self):
         super(ContextNet, self).__init__()
-        self.conv1 = Conv2(3, c, 1)
+        self.conv1 = Conv2(3, c)
         self.conv2 = Conv2(c, 2*c)
         self.conv3 = Conv2(2*c, 4*c)
         self.conv4 = Conv2(4*c, 8*c)
@@ -72,7 +72,7 @@ class ContextNet(nn.Module):
 class FusionNet(nn.Module):
     def __init__(self):
         super(FusionNet, self).__init__()
-        self.down0 = Conv2(12, 2*c, 1)
+        self.down0 = Conv2(12, 2*c)
         self.down1 = Conv2(4*c, 4*c)
         self.down2 = Conv2(8*c, 8*c)
         self.down3 = Conv2(16*c, 16*c)
@@ -80,7 +80,7 @@ class FusionNet(nn.Module):
         self.up1 = deconv(16*c, 4*c)
         self.up2 = deconv(8*c, 2*c)
         self.up3 = deconv(4*c, c)
-        self.conv = nn.Conv2d(c, 4, 3, 2, 1)
+        self.conv = nn.Conv2d(c, 4, 3, 1, 1)
 
     def forward(self, img0, img1, flow, c0, c1, flow_gt):
         warped_img0 = warp(img0, flow[:, :2])
@@ -166,10 +166,10 @@ class Model:
     def predict(self, imgs, flow, training=True, flow_gt=None):
         img0 = imgs[:, :3]
         img1 = imgs[:, 3:]
-        flow = F.interpolate(flow, scale_factor=2.0, mode="bilinear",
-                             align_corners=False) * 2.0
         c0 = self.contextnet(img0, flow[:, :2])
         c1 = self.contextnet(img1, flow[:, 2:4])
+        flow = F.interpolate(flow, scale_factor=2.0, mode="bilinear",
+                             align_corners=False) * 2.0
         refine_output, warped_img0, warped_img1, warped_img0_gt, warped_img1_gt = self.fusionnet(
             img0, img1, flow, c0, c1, flow_gt)
         res = torch.sigmoid(refine_output[:, :3]) * 2 - 1
