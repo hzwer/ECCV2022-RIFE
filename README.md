@@ -1,6 +1,19 @@
 # RIFE v2.4 - Real Time Video Interpolation
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be) | [Bilibili](https://www.bilibili.com/video/BV1K541157te?from=search&seid=5131698847373645765) | [Colab](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) | [Tutorial](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title)
 
+## Table of Contents
+1. [Introduction](#introduction)
+1. [Collection](#collection)
+1. [Usage](#usage)
+1. [Evaluation](#evaluation)
+1. [Training and Reproduction](#training-and-reproduction)
+1. [Citation](#citation)
+1. [Reference](#reference)
+1. [Sponsor](#sponsor)
+
+
+## Introduction
+
 Some apps has integrated RIFE. You can refer to [Waifu2x-Extension-GUI](https://github.com/AaronFeng753/Waifu2x-Extension-GUI), [Flowframes](https://nmkd.itch.io/flowframes), [RIFE-ncnn-vulkan](https://github.com/nihui/rife-ncnn-vulkan) and [RIFE-App(Paid)](https://grisk.itch.io/rife-app). 中文补帧软件也已经发布，免费下载 [Squirrel-RIFE](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation)。
 
 2021.2.9 News: We have updated the RIFEv2 model, faster and much better! Please check our [Update Log](https://github.com/hzwer/arXiv2020-RIFE/issues/41#issuecomment-737651979).
@@ -171,6 +184,8 @@ Optical Flow:
 
 Video Interpolation: 
 [DAIN](https://github.com/baowenbo/DAIN)  [CAIN](https://github.com/myungsub/CAIN)  [TOflow](https://github.com/HyeongminLEE/AdaCoF-pytorch)  [MEMC-Net](https://github.com/baowenbo/MEMC-Net)   [SoftSplat](https://github.com/sniklaus/softmax-splatting)   [SepConv](https://github.com/sniklaus/sepconv-slomo)   [BMBC](https://github.com/JunHeum/BMBC)
+
+## Sponsor
 
 感谢支持 Paypal Sponsor: https://www.paypal.com/paypalme/hzwer
 
