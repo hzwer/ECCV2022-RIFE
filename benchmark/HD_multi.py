@@ -91,7 +91,7 @@ for data in name_list:
                 psnr = 20 * math.log10(PIXEL_MAX / math.sqrt(mse))
             else:
                 print('Not Implement')
-        psnr_list.append(psnr)
+            psnr_list.append(psnr)
     print(np.mean(psnr_list))
     tot.append(np.mean(psnr_list))
 

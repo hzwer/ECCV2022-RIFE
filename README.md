@@ -147,7 +147,7 @@ python3 benchmark/MiddelBury_Other.py
 python3 benchmark/HD.py
 # "PSNR: 32.124"
 python3 benchmark/HD_multi.py
-# "PSNR: 19.92(544*1280), 30.03(720p), 26.71(1080p)"
+# "PSNR: 18.89(544*1280), 28.83(720p), 24.96(1080p)"
 ```
 
 ## Training and Reproduction
