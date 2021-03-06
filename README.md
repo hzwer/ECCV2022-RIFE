@@ -145,7 +145,7 @@ python3 benchmark/Vimeo90K.py
 python3 benchmark/MiddelBury_Other.py
 # "IE: 1.962"
 python3 benchmark/HD.py
-# "PSNR: 32.124"
+# "PSNR: 31.99"
 python3 benchmark/HD_multi.py
 # "PSNR: 18.89(544*1280), 28.83(720p), 24.96(1080p)"
 ```
