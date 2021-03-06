@@ -110,7 +110,7 @@ class Model:
         self.optimG = AdamW(itertools.chain(
             self.flownet.parameters(),
             self.contextnet.parameters(),
-            self.fusionnet.parameters()), lr=1e-6, weight_decay=1e-5)
+            self.fusionnet.parameters()), lr=1e-6, weight_decay=1e-4)
         self.schedulerG = optim.lr_scheduler.CyclicLR(
             self.optimG, base_lr=1e-6, max_lr=1e-3, step_size_up=8000, cycle_momentum=False)
         self.epe = EPE()
