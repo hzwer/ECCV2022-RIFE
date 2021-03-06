@@ -51,9 +51,6 @@ for data in name_list:
             IMAGE2, success2 = Reader.read(index + 2)
             if not success2:
                 break
-            IMAGE1 = IMAGE1[:, :, ::-1].copy()
-            IMAGE2 = IMAGE2[:, :, ::-1].copy()
-            gt = gt[:, :, ::-1].copy()
         else:
             success1, gt = Reader.read()
             success2, frame = Reader.read()
