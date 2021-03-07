@@ -27,21 +27,18 @@ Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, o
 
 ## Collection
 **2d Animation**
-[DAIN-App vs RIFE-App](https://www.youtube.com/watch?v=0OXzVGLRhK0) | [Chika Dance](https://www.youtube.com/watch?v=yjMYefRXikI) | [御坂大哥想让我表白 - 魔女之旅](https://www.bilibili.com/video/BV1r54y1Y7fn) | [ablyh - 超电磁炮](https://www.bilibili.com/video/BV1gK4y1Q7d9?from=search&seid=16584204362417247463) | [赫萝与罗伦斯的旅途 - 绫波丽](https://www.bilibili.com/video/BV1yz4y1m7iF) | 
+[DAIN-App vs RIFE-App](https://www.youtube.com/watch?v=0OXzVGLRhK0) | [Chika Dance](https://www.youtube.com/watch?v=yjMYefRXikI) | [御坂大哥想让我表白 - 魔女之旅](https://www.bilibili.com/video/BV1r54y1Y7fn) | [ablyh - 超电磁炮](https://www.bilibili.com/video/BV1gK4y1Q7d9?from=search&seid=16584204362417247463) [超电磁炮.b](https://www.bilibili.com/video/BV1sp4y1p73K?from=search&seid=7774996509988438677) | [赫萝与罗伦斯的旅途 - 绫波丽](https://www.bilibili.com/video/BV1yz4y1m7iF) | 
 
-[没有鼠鼠的雏子Official - 千恋万花](https://www.bilibili.com/video/BV1AT4y1P7kY?from=search&seid=15458655842150253738) | [晨曦光晖 - 从零开始的异世界生活](https://www.bilibili.com/video/BV1QV411i7B4?from=search&seid=151780224584608151) |
+[没有鼠鼠的雏子Official - 千恋万花](https://www.bilibili.com/video/BV1AT4y1P7kY?from=search&seid=15458655842150253738) | [晨曦光晖 - 从零开始的异世界生活](https://www.bilibili.com/video/BV1QV411i7B4?from=search&seid=151780224584608151) | [琴乃乃 - 天才麻将少女](https://space.bilibili.com/8622744?spm_id_from=333.788.b_765f7570696e666f.3) |
 
 **3d Animation**
 [没有鼠鼠的雏子Official - 原神](https://www.bilibili.com/video/BV1iU4y1s7Lk) | [今天我练出腹肌了吗 - 最终幻想](https://www.bilibili.com/video/BV1R541177qr) [仙剑奇侠传](https://www.bilibili.com/video/BV14p4y1s7na) | [娜不列颠 - 冰雪奇缘](https://www.bilibili.com/video/BV1fy4y1J7Mu) | 
 
-**MV**
-[Navetek - 邓丽君](https://www.bilibili.com/video/BV1ZK411u7CM) | [生米阿怪 - 周深](https://www.bilibili.com/video/BV1cp4y1W717) |
+**MV and Film**
+[Navetek - 邓丽君](https://www.bilibili.com/video/BV1ZK411u7CM) | [生米阿怪 - 周深](https://www.bilibili.com/video/BV1cp4y1W717) | [晨曦光晖 - 假面骑士](https://www.bilibili.com/video/BV1YK4y1J7eu?from=search&seid=2536418560129250152) [假面骑士.b](https://www.bilibili.com/video/BV1YK4y1J7eu?from=search&seid=2536418560129250152)| 
 
 **MMD**
-[深邃黑暗の银鳕鱼 - 镜音铃](https://www.bilibili.com/video/BV1nU4y1W7RF?from=search&seid=151780224584608151) [fufu](https://www.bilibili.com/video/BV16K4y1Q7CM) [fufu.b](https://www.bilibili.com/video/BV1Xb4y1R7iT) |
-
-**Film**
-[晨曦光晖 - 假面骑士](https://www.bilibili.com/video/BV1YK4y1J7eu?from=search&seid=2536418560129250152) [假面骑士.b](https://www.bilibili.com/video/BV1YK4y1J7eu?from=search&seid=2536418560129250152)| 
+[深邃黑暗の银鳕鱼 - 镜音铃](https://www.bilibili.com/video/BV1nU4y1W7RF?from=search&seid=151780224584608151) [fufu](https://www.bilibili.com/video/BV16K4y1Q7CM) [fufu.b](https://www.bilibili.com/video/BV1Xb4y1R7iT) | [Abism0 - 弱音](https://www.bilibili.com/video/BV1Wf4y147cP?from=search&seid=7774996509988438677) |
 
 ## Usage
 
