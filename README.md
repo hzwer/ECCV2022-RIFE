@@ -139,7 +139,7 @@ python3 benchmark/UCF101.py
 # "PSNR: 35.246 SSIM: 0.9691"
 python3 benchmark/Vimeo90K.py
 # "PSNR: 35.506 SSIM: 0.9779"
-python3 benchmark/MiddelBury_Other.py
+python3 benchmark/MiddleBury_Other.py
 # "IE: 1.962"
 python3 benchmark/HD.py
 # "PSNR: 31.99"
