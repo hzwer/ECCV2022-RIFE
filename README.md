@@ -14,8 +14,6 @@
 
 ## Introduction
 
-Some apps has integrated RIFE. You can refer to [Waifu2x-Extension-GUI](https://github.com/AaronFeng753/Waifu2x-Extension-GUI), [Flowframes](https://nmkd.itch.io/flowframes), [RIFE-ncnn-vulkan](https://github.com/nihui/rife-ncnn-vulkan) and [RIFE-App(Paid)](https://grisk.itch.io/rife-app). 中文补帧软件也已经发布，免费下载 [Squirrel-RIFE](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation)。
-
 2021.3.9 News: We have updated our arXiv paper and fixed most of the defects.
 
 2021.2.9 News: We have updated the RIFEv2 model, faster and much better! Please check our [Update Log](https://github.com/hzwer/arXiv2020-RIFE/issues/41#issuecomment-737651979).
@@ -28,6 +26,9 @@ Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, o
 ![Demo](./demo/I2_slomo_clipped.gif)
 
 ## Collection
+**Software**
+[Squirrel-RIFE(中文软件)](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation) | [Waifu2x-Extension-GUI](https://github.com/AaronFeng753/Waifu2x-Extension-GUI) | [Flowframes](https://nmkd.itch.io/flowframes) | [RIFE-ncnn-vulkan](https://github.com/nihui/rife-ncnn-vulkan) | [RIFE-App(Paid)](https://grisk.itch.io/rife-app) | [Autodesk Flame](https://vimeo.com/505942142) |
+
 **2d Animation**
 [DAIN-App vs RIFE-App](https://www.youtube.com/watch?v=0OXzVGLRhK0) | [Chika Dance](https://www.youtube.com/watch?v=yjMYefRXikI) | [御坂大哥想让我表白 - 魔女之旅](https://www.bilibili.com/video/BV1r54y1Y7fn) | [ablyh - 超电磁炮](https://www.bilibili.com/video/BV1gK4y1Q7d9?from=search&seid=16584204362417247463) [超电磁炮.b](https://www.bilibili.com/video/BV1sp4y1p73K?from=search&seid=7774996509988438677) | [赫萝与罗伦斯的旅途 - 绫波丽](https://www.bilibili.com/video/BV1yz4y1m7iF) | 
 
@@ -37,7 +38,7 @@ Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, o
 [没有鼠鼠的雏子Official - 原神](https://www.bilibili.com/video/BV1iU4y1s7Lk) | [今天我练出腹肌了吗 - 最终幻想](https://www.bilibili.com/video/BV1R541177qr) [仙剑奇侠传](https://www.bilibili.com/video/BV14p4y1s7na) | [娜不列颠 - 冰雪奇缘](https://www.bilibili.com/video/BV1fy4y1J7Mu) | 
 
 **MV and Film**
-[Navetek - 邓丽君](https://www.bilibili.com/video/BV1ZK411u7CM) | [生米阿怪 - 周深](https://www.bilibili.com/video/BV1cp4y1W717) | [晨曦光晖 - 假面骑士](https://www.bilibili.com/video/BV1YK4y1J7eu?from=search&seid=2536418560129250152) [假面骑士.b](https://www.bilibili.com/video/BV1YK4y1J7eu?from=search&seid=2536418560129250152)| 
+[Navetek - 邓丽君](https://www.bilibili.com/video/BV1ZK411u7CM) | [生米阿怪 - 周深](https://www.bilibili.com/video/BV1cp4y1W717) | [晨曦光晖 - 假面骑士](https://www.bilibili.com/video/BV1YK4y1J7eu?from=search&seid=2536418560129250152) [假面骑士.b](https://www.bilibili.com/video/BV1YK4y1J7eu?from=search&seid=2536418560129250152)| [Life in a Day 2020](https://www.youtube.com/user/lifeinaday) |
 
 **MMD**
 [深邃黑暗の银鳕鱼 - 镜音铃](https://www.bilibili.com/video/BV1nU4y1W7RF?from=search&seid=151780224584608151) [fufu](https://www.bilibili.com/video/BV16K4y1Q7CM) [fufu.b](https://www.bilibili.com/video/BV1Xb4y1R7iT) | [Abism0 - 弱音](https://www.bilibili.com/video/BV1Wf4y147cP?from=search&seid=7774996509988438677) |
