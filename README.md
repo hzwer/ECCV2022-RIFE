@@ -38,7 +38,7 @@ Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, o
 [没有鼠鼠的雏子Official - 原神](https://www.bilibili.com/video/BV1iU4y1s7Lk) | [今天我练出腹肌了吗 - 最终幻想](https://www.bilibili.com/video/BV1R541177qr) [仙剑奇侠传](https://www.bilibili.com/video/BV14p4y1s7na) | [娜不列颠 - 冰雪奇缘](https://www.bilibili.com/video/BV1fy4y1J7Mu) | 
 
 **MV and Film**
-[Navetek - 邓丽君](https://www.bilibili.com/video/BV1ZK411u7CM) | [生米阿怪 - 周深](https://www.bilibili.com/video/BV1cp4y1W717) | [晨曦光晖 - 假面骑士](https://www.bilibili.com/video/BV1YK4y1J7eu?from=search&seid=2536418560129250152) [假面骑士.b](https://www.bilibili.com/video/BV1YK4y1J7eu?from=search&seid=2536418560129250152)| [Life in a Day 2020](https://www.youtube.com/user/lifeinaday) |
+[Navetek - 邓丽君](https://www.bilibili.com/video/BV1ZK411u7CM) | [生米阿怪 - 周深](https://www.bilibili.com/video/BV1cp4y1W717) | [Life in a Day 2020](https://www.youtube.com/user/lifeinaday) |
 
 **MMD**
 [深邃黑暗の银鳕鱼 - 镜音铃](https://www.bilibili.com/video/BV1nU4y1W7RF?from=search&seid=151780224584608151) [fufu](https://www.bilibili.com/video/BV16K4y1Q7CM) [fufu.b](https://www.bilibili.com/video/BV1Xb4y1R7iT) | [Abism0 - 弱音](https://www.bilibili.com/video/BV1Wf4y147cP?from=search&seid=7774996509988438677) |
@@ -155,7 +155,7 @@ Each sample includes images (I0 I1 Imid : 9 x 256 x 448), and optical flow (flow
 
 For origin images, you can download them from [Vimeo90K dataset](http://toflow.csail.mit.edu/).
 
-For generating optical flow labels, our paper use [pytorch-liteflownet](https://github.com/sniklaus/pytorch-liteflownet). We also recommend [RAFT](https://github.com/princeton-vl/RAFT) because it's easier to configure. We generate optical flow labels on 2X size images for better labels. You can also generate labels during training, or [finetune the optical flow network](https://github.com/hzwer/arXiv2020-RIFE/issues/99#issuecomment-798231465) on your training set. Although these methods can improve the quality of optical flow labels, we find that they have little effect on frame interpolation performance.
+For generating optical flow labels, our paper use [pytorch-liteflownet](https://github.com/sniklaus/pytorch-liteflownet). We finetune it for 1 epoch on Vimeo90K dataset, and save the parameters at [finetuned liteflownet](https://drive.google.com/file/d/1XS0yR0ZGSFxf7gSVuQ9ahj658acEi2fF/view?usp=sharing).  We generate optical flow labels on 2X size images for better labels. You can also generate labels during training, or [finetune the optical flow network](https://github.com/hzwer/arXiv2020-RIFE/issues/99#issuecomment-798231465) on your training set. 
 
 We use 16 CPUs, 4 GPUs and 20G memory for training: 
 ```
