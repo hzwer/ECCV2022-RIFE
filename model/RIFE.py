@@ -116,6 +116,7 @@ class Model:
         self.epe = EPE()
         self.ter = Ternary()
         self.sobel = SOBEL()
+        # self.vgg = VGGPerceptualLoss().to(device)
         if local_rank != -1:
             self.flownet = DDP(self.flownet, device_ids=[
                                local_rank], output_device=local_rank)
@@ -220,6 +221,7 @@ class Model:
         if training:
             self.optimG.zero_grad()
             loss_G = loss_l1 + loss_cons + loss_ter
+            # loss_G = self.vgg(pred, gt) + loss_cons + loss_ter
             loss_G.backward()
             self.optimG.step()
         return pred, merged_img, flow, loss_l1, loss_flow, loss_cons, loss_ter, loss_mask
