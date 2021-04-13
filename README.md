@@ -134,7 +134,7 @@ Download [RIFE model](https://drive.google.com/file/d/1U2AGFY00hafsPmm94-6deeM-9
 
 **MiddleBury**: Download [MiddleBury OTHER dataset](https://vision.middlebury.edu/flow/data/) at ./other-data and ./other-gt-interp
 
-**HD**: Download [HD dataset](https://github.com/baowenbo/MEMC-Net) at ./HD_dataset
+**HD**: Download [HD dataset](https://github.com/baowenbo/MEMC-Net) at ./HD_dataset. We also provide a [google drive download link](https://drive.google.com/file/d/1iHaLoR2g1-FLgr9MEv51NH_KQYMYz-FA/view?usp=sharing).
 ```
 python3 benchmark/UCF101.py
 # "PSNR: 35.246 SSIM: 0.9691"
