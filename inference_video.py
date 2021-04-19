@@ -200,7 +200,7 @@ I1 = pad_image(I1)
 # number of frames to interpolate including duplicate frames to replace
 duplicate_count = 0
 # last valid frame (non-duplicate)
-duplicate_frame = None
+last_Tensor = I1
 
 while True:
     frame = read_buffer.get()
@@ -218,27 +218,24 @@ while True:
             print("\nWarning: Your video has {} static frames, skipping them may change the duration of the generated video.".format(skip_frame))
         skip_frame += 1
         pbar.update(1)
-        if args.skip:
-            continue
-
-        if duplicate_count:
+        
+        if not(args.skip):
             duplicate_count += 2**args.exp # 2^exp-1+1: number of frames to interpolate + duplicate frame
-        else:
-            duplicate_count = 2**args.exp  # 2^exp-1+1: number of frames to interpolate + duplicate frame
-            duplicate_frame = I0
+            
         continue
-    if ssim < 0.5:
-        output = []
-        step = 1 / (2 ** args.exp)
-        alpha = 0
-        for i in range((2 ** args.exp) - 1):
-            alpha += step
-            beta = 1-alpha
-            output.append(torch.from_numpy(np.transpose((cv2.addWeighted(frame[:, :, ::-1], alpha, lastframe[:, :, ::-1], beta, 0)[:, :, ::-1].copy()), (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.)
+    
+    if duplicate_count:
+        duplicate_count += 2**args.exp - 1 # number of frames to interpolate
+        output = make_inference(last_Tensor, I1, duplicate_count)
     else:
-        if duplicate_count:
-            duplicate_count += 2**args.exp - 1 # number of frames to interpolate
-            output = make_inference(duplicate_frame, I1, duplicate_count)
+        if ssim < 0.5:
+            output = []
+            step = 1 / (2 ** args.exp)
+            alpha = 0
+            for i in range((2 ** args.exp) - 1):
+                alpha += step
+                beta = 1-alpha
+                output.append(torch.from_numpy(np.transpose((cv2.addWeighted(frame[:, :, ::-1], alpha, lastframe[:, :, ::-1], beta, 0)[:, :, ::-1].copy()), (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.)
         else:
             output = make_inference(I0, I1, 2**args.exp-1) if args.exp else []
 
@@ -256,7 +253,7 @@ while True:
     lastframe = frame
     # reset if and only if not duplicate
     duplicate_count=0
-    duplicate_frame=None
+    last_Tensor = I1
 if args.montage:
     write_buffer.put(np.concatenate((lastframe, lastframe), 1))
 else:
