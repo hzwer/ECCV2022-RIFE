@@ -64,8 +64,7 @@ class VimeoDataset(Dataset):
             flow_gt = torch.from_numpy(flow_gt.copy()).permute(2, 0, 1)
             img0 = torch.from_numpy(img0.copy()).permute(2, 0, 1)
             img1 = torch.from_numpy(img1.copy()).permute(2, 0, 1)
-            gt = torch.from_numpy(gt.copy()).permute(2, 0, 1)
-            return torch.cat((img0, img1, gt), 0), flow_gt                
+            gt = torch.from_numpy(gt.copy()).permute(2, 0, 1)           
             if random.uniform(0, 1) < 0.5:
                 img0 = img0[:, :, ::-1]
                 img1 = img1[:, :, ::-1]
