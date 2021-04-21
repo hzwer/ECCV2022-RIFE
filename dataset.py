@@ -61,10 +61,6 @@ class VimeoDataset(Dataset):
         img0, gt, img1, flow_gt = self.getimg(index)
         if self.dataset_name == 'train':
             img0, gt, img1, flow_gt = self.aug(img0, gt, img1, flow_gt, 224, 224)
-            flow_gt = torch.from_numpy(flow_gt.copy()).permute(2, 0, 1)
-            img0 = torch.from_numpy(img0.copy()).permute(2, 0, 1)
-            img1 = torch.from_numpy(img1.copy()).permute(2, 0, 1)
-            gt = torch.from_numpy(gt.copy()).permute(2, 0, 1)           
             if random.uniform(0, 1) < 0.5:
                 img0 = img0[:, :, ::-1]
                 img1 = img1[:, :, ::-1]
