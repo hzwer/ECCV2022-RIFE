@@ -19,7 +19,7 @@ def get_learning_rate(step):
         mul = step / 2000.
     else:
         mul = np.cos((step - 2000) / (args.epoch * args.step_per_epoch - 2000.) * math.pi) * 0.5 + 0.5
-    return 3e-4 * mul
+    return 1e-4 * mul
 
 def flow2rgb(flow_map_np):
     h, w, _ = flow_map_np.shape
@@ -45,7 +45,7 @@ def train(model, local_rank):
     train_data = DataLoader(dataset, batch_size=args.batch_size, num_workers=8, pin_memory=True, drop_last=True, sampler=sampler)
     args.step_per_epoch = train_data.__len__()
     dataset_val = VimeoDataset('validation')
-    val_data = DataLoader(dataset_val, batch_size=16, pin_memory=True, num_workers=8)
+    val_data = DataLoader(dataset_val, batch_size=12, pin_memory=True, num_workers=8)
     evaluate(model, val_data, nr_eval, local_rank, writer_val)
     model.save_model(log_path, local_rank)
     print('training...')
@@ -138,7 +138,7 @@ def evaluate(model, val_data, nr_eval, local_rank, writer_val):
 if __name__ == "__main__":    
     parser = argparse.ArgumentParser(description='slomo')
     parser.add_argument('--epoch', default=300, type=int)
-    parser.add_argument('--batch_size', default=16, type=int, help='minibatch size')
+    parser.add_argument('--batch_size', default=12, type=int, help='minibatch size') # 4 * 12 = 48
     parser.add_argument('--local_rank', default=0, type=int, help='local rank')
     parser.add_argument('--world_size', default=4, type=int, help='world size')
     args = parser.parse_args()
