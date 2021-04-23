@@ -20,7 +20,7 @@ def transferAudio(sourceVideo, targetVideo):
 
     # split audio from original video file and store in "temp" directory
     if True:
-        
+
         # clear old "temp" directory if it exits
         if os.path.isdir("temp"):
             # remove temp directory
@@ -29,12 +29,12 @@ def transferAudio(sourceVideo, targetVideo):
         os.makedirs("temp")
         # extract audio from video
         os.system('ffmpeg -y -i "{}" -c:a copy -vn {}'.format(sourceVideo, tempAudioFileName))
-    
+
     targetNoAudio = os.path.splitext(targetVideo)[0] + "_noaudio" + os.path.splitext(targetVideo)[1]
     os.rename(targetVideo, targetNoAudio)
     # combine audio file and new video file
     os.system('ffmpeg -y -i "{}" -i {} -c copy "{}"'.format(targetNoAudio, tempAudioFileName, targetVideo))
-    
+
     if os.path.getsize(targetVideo) == 0: # if ffmpeg failed to merge the video and audio together try converting the audio to aac
         tempAudioFileName = "./temp/audio.m4a"
         os.system('ffmpeg -y -i "{}" -c:a aac -b:a 160k -vn {}'.format(sourceVideo, tempAudioFileName))
@@ -44,7 +44,7 @@ def transferAudio(sourceVideo, targetVideo):
             print("Audio transfer failed. Interpolated video will have no audio")
         else:
             print("Lossless audio transfer failed. Audio was transcoded to AAC (M4A) instead.")
-    
+
             # remove audio-less video
             os.remove(targetNoAudio)
     else:
@@ -74,7 +74,7 @@ if args.UHD and args.scale==1.0:
 assert args.scale in [0.25, 0.5, 1.0, 2.0, 4.0]
 if not args.img is None:
     args.png = True
-    
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 torch.set_grad_enabled(False)
 if torch.cuda.is_available():
@@ -136,7 +136,7 @@ else:
     else:
         vid_out_name = '{}_{}X_{}fps.{}'.format(video_path_wo_ext, (2 ** args.exp), int(np.round(args.fps)), args.ext)
     vid_out = cv2.VideoWriter(vid_out_name, fourcc, args.fps, (w, h))
-    
+
 def clear_write_buffer(user_args, write_buffer):
     cnt = 0
     while True:
@@ -172,7 +172,7 @@ def make_inference(I0, I1, n):
         return [*first_half, middle, *second_half]
     else:
         return [*first_half, *second_half]
-    
+
 def pad_image(img):
     if(args.fp16):
         return F.pad(img, padding).half()
@@ -197,10 +197,6 @@ _thread.start_new_thread(clear_write_buffer, (args, write_buffer))
 
 I1 = torch.from_numpy(np.transpose(lastframe, (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.
 I1 = pad_image(I1)
-# number of frames to interpolate including duplicate frames to replace
-duplicate_count = 0
-# last valid frame (non-duplicate)
-last_Tensor = I1
 
 while True:
     frame = read_buffer.get()
@@ -217,27 +213,20 @@ while True:
         if skip_frame % 100 == 0:
             print("\nWarning: Your video has {} static frames, skipping them may change the duration of the generated video.".format(skip_frame))
         skip_frame += 1
-        pbar.update(1)
-        
-        if not(args.skip):
-            duplicate_count += 2**args.exp # 2^exp-1+1: number of frames to interpolate + duplicate frame
-            
-        continue
-    
-    if duplicate_count:
-        duplicate_count += 2**args.exp - 1 # number of frames to interpolate
-        output = make_inference(last_Tensor, I1, duplicate_count)
+        if args.skip:
+            pbar.update(1)
+            continue
+
+    if ssim < 0.5:
+        output = []
+        step = 1 / (2 ** args.exp)
+        alpha = 0
+        for i in range((2 ** args.exp) - 1):
+            alpha += step
+            beta = 1-alpha
+            output.append(torch.from_numpy(np.transpose((cv2.addWeighted(frame[:, :, ::-1], alpha, lastframe[:, :, ::-1], beta, 0)[:, :, ::-1].copy()), (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.)
     else:
-        if ssim < 0.5:
-            output = []
-            step = 1 / (2 ** args.exp)
-            alpha = 0
-            for i in range((2 ** args.exp) - 1):
-                alpha += step
-                beta = 1-alpha
-                output.append(torch.from_numpy(np.transpose((cv2.addWeighted(frame[:, :, ::-1], alpha, lastframe[:, :, ::-1], beta, 0)[:, :, ::-1].copy()), (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.)
-        else:
-            output = make_inference(I0, I1, 2**args.exp-1) if args.exp else []
+        output = make_inference(I0, I1, 2**args.exp-1) if args.exp else []
 
     if args.montage:
         write_buffer.put(np.concatenate((lastframe, lastframe), 1))
@@ -251,9 +240,7 @@ while True:
             write_buffer.put(mid[:h, :w])
     pbar.update(1)
     lastframe = frame
-    # reset if and only if not duplicate
-    duplicate_count=0
-    last_Tensor = I1
+
 if args.montage:
     write_buffer.put(np.concatenate((lastframe, lastframe), 1))
 else:
