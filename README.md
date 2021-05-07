@@ -126,7 +126,7 @@ docker run --rm -it --gpus all -v /dev/dri:/dev/dri -v $PWD:/host rife:latest in
 ```
 
 ## Evaluation
-Download [RIFE model](https://drive.google.com/file/d/1U2AGFY00hafsPmm94-6deeM-9feGN-qg/view?usp=sharing) reported by our paper.
+Download [RIFE model](https://drive.google.com/file/d/1U2AGFY00hafsPmm94-6deeM-9feGN-qg/view?usp=sharing) or [RIFE-Large model](https://drive.google.com/file/d/1khrpNkbrACYk3YVfHuRDJS5iUDSN7vFw/view?usp=sharing) reported by our paper.
 
 **UCF101**: Download [UCF101 dataset](https://liuziwei7.github.io/projects/VoxelFlow) at ./UCF101/ucf101_interp_ours/
 
@@ -136,6 +136,7 @@ Download [RIFE model](https://drive.google.com/file/d/1U2AGFY00hafsPmm94-6deeM-9
 
 **HD**: Download [HD dataset](https://github.com/baowenbo/MEMC-Net) at ./HD_dataset. We also provide a [google drive download link](https://drive.google.com/file/d/1iHaLoR2g1-FLgr9MEv51NH_KQYMYz-FA/view?usp=sharing).
 ```
+# RIFE
 python3 benchmark/UCF101.py
 # "PSNR: 35.246 SSIM: 0.9691"
 python3 benchmark/Vimeo90K.py
