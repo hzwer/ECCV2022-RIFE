@@ -199,7 +199,7 @@ class Model:
         scale_list = [8, 4, 2]
         flow, _ = self.flownet(imgs, scale_list)
         res = self.predict(imgs, flow, training=False, UHD=False)
-        return self.predict(imgs, flow, training=False, UHD=False)
+        return res
 
     def update(self, imgs, gt, learning_rate=0, mul=1, training=True, flow_gt=None):
         for param_group in self.optimG.param_groups:
