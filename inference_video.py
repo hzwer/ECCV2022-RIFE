@@ -84,10 +84,16 @@ if torch.cuda.is_available():
         torch.set_default_tensor_type(torch.cuda.HalfTensor)
 
 try:
-    from model.RIFE_HDv2 import Model
-    model = Model()
-    model.load_model(args.modelDir, -1)
-    print("Loaded v2.x HD model.")
+    try:
+        from model.RIFE_HDv2 import Model
+        model = Model()
+        model.load_model(args.modelDir, -1)
+        print("Loaded v2.x HD model.")
+    except:
+        from model.RIFE_HDv3 import Model
+        model = Model()
+        model.load_model(args.modelDir, -1)
+        print("Loaded v3.x HD model.")
 except:
     from model.RIFE_HD import Model
     model = Model()
