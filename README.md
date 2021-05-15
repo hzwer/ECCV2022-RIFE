@@ -57,6 +57,8 @@ pip3 install -r requirements.txt
 
 * Unzip and move the pretrained parameters to train_log/\*
 
+* This model is not reported by our paper, for our paper model please refer to [evaluation](https://github.com/hzwer/arXiv2020-RIFE#evaluation).
+
 ### Run
 
 **Video Frame Interpolation**
