@@ -1,4 +1,4 @@
-# RIFE v3.0 - Real Time Video Interpolation
+# RIFE - Real Time Video Interpolation
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be) | [Colab](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) | [Tutorial](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title) | [Demo](https://www.youtube.com/watch?v=oFnyq-e_b3g)
 
 ## Table of Contents
@@ -14,9 +14,7 @@
 
 ## Introduction
 
-2021.3.9 News: We have updated our arXiv paper and fixed most of the defects.
-
-2021.2.9 News: We have updated the RIFEv2 model, faster and much better! Please check our [Update Log](https://github.com/hzwer/arXiv2020-RIFE/issues/41#issuecomment-737651979).
+2021.5.15 News: We are working on RIFE-HD-v3 model. lease check our [Update Log v3](https://github.com/hzwer/arXiv2020-RIFE/issues/164). For previous version, you may refer to [Update log v2](https://github.com/hzwer/arXiv2020-RIFE/issues/41).
 
 Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, our method supports 2X,4X,8X... interpolation, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
 
@@ -53,7 +51,7 @@ cd arXiv2020-RIFE
 pip3 install -r requirements.txt
 ```
 
-* Download the pretrained **HD** models from [here](https://drive.google.com/file/d/1JmwH8L3pdy49NroCVwracDW5UM43AAqd/view?usp=sharing). (百度网盘链接:链接:https://pan.baidu.com/s/1_cC0sUdi6qx9tOkagddslw  密码:tgmd，把压缩包解开后放在 train_log/\*)
+* Download the pretrained **HD** models from [here](https://drive.google.com/file/d/1xn4R3TQyFhtMXN2pa3lRB8cd4E1zckQe/view?usp=sharing). (百度网盘链接:链接:https://pan.baidu.com/s/1W4p_Ni04HLI_jTy45sVodA 密码:64bz，把压缩包解开后放在 train_log/\*)
 
 * Unzip and move the pretrained parameters to train_log/\*
 
