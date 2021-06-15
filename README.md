@@ -16,7 +16,7 @@
 
 2021.5.15 News: We are working on RIFE-HD-v3 model. lease check our [Update Log v3](https://github.com/hzwer/arXiv2020-RIFE/issues/164). For previous version, you may refer to [Update log v2](https://github.com/hzwer/arXiv2020-RIFE/issues/41).
 
-Our model can run 30+FPS for 2X 1080p interpolation on a 2080Ti GPU. Currently, our method supports 2X,4X,8X... interpolation, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
+The HDv3 model can run 30+FPS for 2X 1080p interpolation on a 2080Ti GPU. Currently, our method supports 2X,4X,8X... interpolation, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
 
 16X interpolation results from two input images: 
 
