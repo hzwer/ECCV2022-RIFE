@@ -16,7 +16,7 @@
 
 2021.5.15 News: We are working on RIFE-HD-v3 model. lease check our [Update Log v3](https://github.com/hzwer/arXiv2020-RIFE/issues/164). For previous version, you may refer to [Update log v2](https://github.com/hzwer/arXiv2020-RIFE/issues/41).
 
-Our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, our method supports 2X,4X,8X... interpolation, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
+Our model can run 30+FPS for 2X 1080p interpolation on a 2080Ti GPU. Currently, our method supports 2X,4X,8X... interpolation, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
 
 16X interpolation results from two input images: 
 
@@ -51,7 +51,7 @@ cd arXiv2020-RIFE
 pip3 install -r requirements.txt
 ```
 
-* Download the pretrained **HD** models from [here](https://drive.google.com/file/d/1xn4R3TQyFhtMXN2pa3lRB8cd4E1zckQe/view?usp=sharing). (百度网盘链接:https://pan.baidu.com/s/1W4p_Ni04HLI_jTy45sVodA 密码:64bz，把压缩包解开后放在 train_log/\*)
+* Download the pretrained **HD** models from [here](https://drive.google.com/file/d/10-2AaFUyX-c7yCfubsxF2NTvM7DgvS8l/view?usp=sharing). (百度网盘链接:https://pan.baidu.com/s/1cJ7-dPuwR8THPUGWb207ZQ 密码:aa0w，把压缩包解开后放在 train_log/\*)
 
 * Unzip and move the pretrained parameters to train_log/\*
 
