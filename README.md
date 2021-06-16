@@ -156,7 +156,7 @@ Each sample includes images (I0 I1 Imid : 9 x 256 x 448), and optical flow (flow
 
 For origin images, you can download them from [Vimeo90K dataset](http://toflow.csail.mit.edu/).
 
-For generating optical flow labels, our paper use [pytorch-liteflownet](https://github.com/sniklaus/pytorch-liteflownet). In our trainning, we use the optical flow labels generated on 2X size images using official released model. You can also generate labels during training, or [finetune the optical flow network](https://github.com/hzwer/arXiv2020-RIFE/issues/99#issuecomment-798231465) on your training set. 
+For generating optical flow labels, our paper use [pytorch-liteflownet](https://github.com/sniklaus/pytorch-liteflownet). Please notice that due to the data augmentation during training, generating optical flow labels during training may cause performance loss. We recommend that readers use RAFT to generate optical flow labels because it is easier to deploy. As long as the generated labels are correct, our method is not sensitive to the teacher model. Because the teacher can see the intermediate frame, the quality of the generated optical flow is much higher than that of the student.
 
 We use 16 CPUs, 4 GPUs and 20G memory for training: 
 ```
