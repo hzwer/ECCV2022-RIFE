@@ -13,10 +13,9 @@
 
 
 ## Introduction
+This project is the implement of [RIFE: Real-Time Intermediate Flow Estimation for Video Frame Interpolation](https://arxiv.org/abs/2011.06294). If you are a developer, welcome to follow [Pratical-RIFE](https://github.com/hzwer/Pratical-RIFE), which aims to make RIFE more practical for users by adding various features and design new models.
 
-2021.5.15 News: We are working on RIFE-HD-v3 model. lease check our [Update Log v3](https://github.com/hzwer/arXiv2020-RIFE/issues/164). For previous version, you may refer to [Update log v2](https://github.com/hzwer/arXiv2020-RIFE/issues/41).
-
-The HDv3 model can run 40+FPS for 2X 720p interpolation on a 2080Ti GPU. Currently, our method supports 2X,4X,8X... interpolation, and multi-frame interpolation between a pair of images. Everyone is welcome to use our alpha version and make suggestions!
+Currently, our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. It supports 2X,4X,8X... interpolation, and multi-frame interpolation between a pair of images. 
 
 16X interpolation results from two input images: 
 
