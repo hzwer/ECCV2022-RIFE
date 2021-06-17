@@ -9,7 +9,7 @@ import warnings
 import _thread
 import skvideo.io
 from queue import Queue, Empty
-from benchmark.pytorch_msssim import ssim_matlab
+from model.pytorch_msssim import ssim_matlab
 
 warnings.filterwarnings("ignore")
 

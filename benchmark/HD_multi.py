@@ -7,7 +7,7 @@ import torch
 import argparse
 import numpy as np
 from torch.nn import functional as F
-from pytorch_msssim import ssim_matlab
+from model.pytorch_msssim import ssim_matlab
 from model.RIFE import Model
 from skimage.color import rgb2yuv, yuv2rgb
 from yuv_frame_io import YUV_Read,YUV_Write
