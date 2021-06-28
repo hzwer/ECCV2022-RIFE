@@ -183,7 +183,7 @@ class Model:
         else:
             return pred
 
-    def inference(self, img0, img1):
+    def inference(self, img0, img1, scale=None):
         imgs = torch.cat((img0, img1), 1)
         flow, _ = self.flownet(torch.cat((img0, img1), 1))
         return self.predict(imgs, flow, training=False)
