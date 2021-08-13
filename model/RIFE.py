@@ -57,7 +57,15 @@ class Model:
             return pred, merged
         else:
             return pred
+<<<<<<< HEAD
     '''
+=======
+
+    def inference(self, img0, img1, scale=None):
+        imgs = torch.cat((img0, img1), 1)
+        flow, _ = self.flownet(torch.cat((img0, img1), 1))
+        return self.predict(imgs, flow, training=False)
+>>>>>>> origin/main
 
     def update(self, imgs, gt, learning_rate=0, mul=1, training=True, flow_gt=None):
         for param_group in self.optimG.param_groups:

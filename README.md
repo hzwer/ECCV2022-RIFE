@@ -35,7 +35,7 @@ cd arXiv2020-RIFE
 pip3 install -r requirements.txt
 ```
 
-* Download the pretrained **HD** models from [here](https://drive.google.com/file/d/10-2AaFUyX-c7yCfubsxF2NTvM7DgvS8l/view?usp=sharing). (百度网盘链接:https://pan.baidu.com/s/1cJ7-dPuwR8THPUGWb207ZQ 密码:aa0w，把压缩包解开后放在 train_log/\*)
+* Download the pretrained **HD** models from [here](https://drive.google.com/file/d/1APIzVeI-4ZZCEuIRE1m6WYfSCaOsi_7_/view?usp=sharing). (百度网盘链接:https://pan.baidu.com/share/init?surl=u6Q7-i4Hu4Vx9_5BJibPPA 密码:hfk3，把压缩包解开后放在 train_log/\*)
 
 * Unzip and move the pretrained parameters to train_log/\*
 

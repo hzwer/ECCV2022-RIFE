@@ -213,7 +213,7 @@ while True:
     I1 = pad_image(I1)
     I0_small = F.interpolate(I0, (32, 32), mode='bilinear', align_corners=False)
     I1_small = F.interpolate(I1, (32, 32), mode='bilinear', align_corners=False)
-    ssim = ssim_matlab(I0_small, I1_small)
+    ssim = ssim_matlab(I0_small[:, :3], I1_small[:, :3])
 
     if ssim > 0.995:
         if skip_frame % 100 == 0:
