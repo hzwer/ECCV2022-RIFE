@@ -134,13 +134,7 @@ python3 benchmark/HD_multi.py
 ```
 
 ## Training and Reproduction
-Because Vimeo90K dataset and the corresponding optical flow labels are too large, we cannot provide a complete dataset download link. We provide you with [a subset containing 100 samples](https://drive.google.com/file/d/1_MQmFWqaptBuEbsV2tmbqFsxmxMIqYDU/view?usp=sharing) for testing the pipeline. Please unzip it at ./dataset
-
-Each sample includes images (I0 I1 Imid : 9 x 256 x 448), and optical flow (flow_t0, flow_t1: 4, 256, 448). 
-
-For origin images, you can download them from [Vimeo90K dataset](http://toflow.csail.mit.edu/).
-
-For generating optical flow labels, our paper use [pytorch-liteflownet](https://github.com/sniklaus/pytorch-liteflownet). Please notice that due to the data augmentation during training, generating optical flow labels during training may cause performance loss. We recommend that readers use RAFT to generate optical flow labels because it is easier to deploy. As long as the generated labels are correct, our method is not sensitive to the teacher model. Because the teacher can see the intermediate frame, the quality of the generated optical flow is much higher than that of the student.
+Download [Vimeo90K dataset](http://toflow.csail.mit.edu/).
 
 We use 16 CPUs, 4 GPUs and 20G memory for training: 
 ```
