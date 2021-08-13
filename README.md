@@ -122,15 +122,15 @@ Download [RIFE model](https://drive.google.com/file/d/1U2AGFY00hafsPmm94-6deeM-9
 ```
 # RIFE
 python3 benchmark/UCF101.py
-# "PSNR: 35.246 SSIM: 0.9691"
+# "PSNR: 35.282 SSIM: 0.9688"
 python3 benchmark/Vimeo90K.py
-# "PSNR: 35.506 SSIM: 0.9779"
+# "PSNR: 35.615 SSIM: 0.9779"
 python3 benchmark/MiddleBury_Other.py
-# "IE: 1.962"
+# "IE: 1.961"
 python3 benchmark/HD.py
-# "PSNR: 31.99"
+# "PSNR: 32.14"
 python3 benchmark/HD_multi.py
-# "PSNR: 18.89(544*1280), 28.83(720p), 24.96(1080p)"
+# "PSNR: 19.03(544*1280), 29.14(720p), 24.87(1080p)"
 ```
 
 ## Training and Reproduction
