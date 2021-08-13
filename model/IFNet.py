@@ -92,6 +92,9 @@ class IFNet(nn.Module):
             warped_img1_teacher = warp(img1, flow_teacher[:, 2:4])
             mask_teacher = torch.sigmoid(mask + mask_d)
             merged_teacher = warped_img0_teacher * mask_teacher + warped_img1_teacher * (1 - mask_teacher)
+        else:
+            flow_teacher = None
+            merged_teacher = None
         for i in range(3):
             merged[i] = merged[i][0] * mask_list[i] + merged[i][1] * (1 - mask_list[i])
             if gt.shape[1] == 3:

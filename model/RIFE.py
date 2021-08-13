@@ -36,8 +36,15 @@ class Model:
         self.flownet.to(device)
 
     def load_model(self, path, rank=0):
-        if rank == 0:
-            self.flownet.load_state_dict(torch.load('{}/flownet.pkl'.format(path)))
+        def convert(param):
+            return {
+            k.replace("module.", ""): v
+                for k, v in param.items()
+                if "module." in k
+            }
+            
+        if rank <= 0:
+            self.flownet.load_state_dict(convert(torch.load('{}/flownet.pkl'.format(path))))
         
     def save_model(self, path, rank=0):
         if rank == 0:
@@ -57,16 +64,13 @@ class Model:
             return pred, merged
         else:
             return pred
-<<<<<<< HEAD
     '''
-=======
 
-    def inference(self, img0, img1, scale=None):
+    def inference(self, img0, img1, scale_list=[4, 2, 1]):
         imgs = torch.cat((img0, img1), 1)
-        flow, _ = self.flownet(torch.cat((img0, img1), 1))
-        return self.predict(imgs, flow, training=False)
->>>>>>> origin/main
-
+        flow, mask, merged, flow_teacher, merged_teacher, loss_distill = self.flownet(imgs, scale_list)
+        return merged[2]
+    
     def update(self, imgs, gt, learning_rate=0, mul=1, training=True, flow_gt=None):
         for param_group in self.optimG.param_groups:
             param_group['lr'] = learning_rate
