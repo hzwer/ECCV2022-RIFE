@@ -10,27 +10,27 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 class VimeoDataset(Dataset):
     def __init__(self, dataset_name, batch_size=32):
         self.batch_size = batch_size
-        self.path = './dataset/'
         self.dataset_name = dataset_name
         self.load_data()
         self.h = 256
         self.w = 448
-        xx = np.arange(0, self.w).reshape(1,-1).repeat(self.h,0)
-        yy = np.arange(0, self.h).reshape(-1,1).repeat(self.w,1)
-        self.grid = np.stack((xx,yy),2).copy()
+        self.data_root = 'vimeo_triplet'
+        self.image_root = os.path.join(self.data_root, 'sequences')
+        train_fn = os.path.join(self.data_root, 'tri_trainlist.txt')
+        test_fn = os.path.join(self.data_root, 'tri_testlist.txt')
+        with open(train_fn, 'r') as f:
+            self.trainlist = f.read().splitlines()
+        with open(test_fn, 'r') as f:
+            self.testlist = f.read().splitlines()                                                    
 
     def __len__(self):
         return len(self.meta_data)
 
     def load_data(self):
-        self.train_data = []
-        self.flow_data = []
-        self.val_data = []
         if self.dataset_name == 'train':
-            self.meta_data = self.train_data
+            self.meta_data = self.trainlist
         else:
-            self.meta_data = self.val_data
-        self.nr_sample = len(self.meta_data)        
+            self.meta_data = self.testlist
 
     def aug(self, img0, gt, img1, h, w):
         ih, iw, _ = img0.shape
@@ -42,10 +42,13 @@ class VimeoDataset(Dataset):
         return img0, gt, img1
 
     def getimg(self, index):
-        data = self.meta_data[index]
-        img0 = data[0:3].transpose(1, 2, 0)
-        img1 = data[3:6].transpose(1, 2, 0)
-        gt = data[6:9].transpose(1, 2, 0)
+        imgpath = self.meta_data[index]
+        imgpaths = [imgpath + '/im1.png', imgpath + '/im2.png', imgpath + '/im3.png']
+
+        # Load images
+        img0 = cv2.imread(imgpaths[0])
+        gt = cv2.imread(imgpaths[1])
+        img1 = cv2.imread(imgpaths[2])
         return img0, gt, img1
             
     def __getitem__(self, index):        
