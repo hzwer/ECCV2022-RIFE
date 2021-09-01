@@ -3,8 +3,8 @@
 
 ## Table of Contents
 1. [Introduction](#introduction)
-1. [Collection](#collection)
-1. [Usage](#usage)
+1. [Collection](#software)
+1. [Usage](#cli-usage)
 1. [Evaluation](#evaluation)
 1. [Training and Reproduction](#training-and-reproduction)
 1. [Citation](#citation)
