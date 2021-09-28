@@ -90,7 +90,7 @@ try:
         model.load_model(args.modelDir, -1)
         print("Loaded v2.x HD model.")
     except:
-        from train_log.oldmodel.RIFE_HDv3 import Model
+        from train_log.RIFE_HDv3 import Model
         model = Model()
         model.load_model(args.modelDir, -1)
         print("Loaded v3.x HD model.")
