@@ -1,3 +1,4 @@
+import os
 import cv2
 import ast
 import torch
@@ -10,8 +11,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 class VimeoDataset(Dataset):
     def __init__(self, dataset_name, batch_size=32):
         self.batch_size = batch_size
-        self.dataset_name = dataset_name
-        self.load_data()
+        self.dataset_name = dataset_name        
         self.h = 256
         self.w = 448
         self.data_root = 'vimeo_triplet'
@@ -21,7 +21,8 @@ class VimeoDataset(Dataset):
         with open(train_fn, 'r') as f:
             self.trainlist = f.read().splitlines()
         with open(test_fn, 'r') as f:
-            self.testlist = f.read().splitlines()                                                    
+            self.testlist = f.read().splitlines()   
+        self.load_data()
 
     def __len__(self):
         return len(self.meta_data)
@@ -42,7 +43,7 @@ class VimeoDataset(Dataset):
         return img0, gt, img1
 
     def getimg(self, index):
-        imgpath = self.meta_data[index]
+        imgpath = os.path.join(self.image_root, self.meta_data[index])
         imgpaths = [imgpath + '/im1.png', imgpath + '/im2.png', imgpath + '/im3.png']
 
         # Load images
