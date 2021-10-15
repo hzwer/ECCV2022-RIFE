@@ -19,7 +19,7 @@ class Model:
     def __init__(self, local_rank=-1):
         self.flownet = IFNet()
         self.device()
-        self.optimG = AdamW(self.flownet.parameters(), lr=1e-6, weight_decay=1e-4)
+        self.optimG = AdamW(self.flownet.parameters(), lr=1e-6, weight_decay=1e-3) # use large weight decay may avoid NaN loss
         self.epe = EPE()
         self.lap = LapLoss()
         self.sobel = SOBEL()
