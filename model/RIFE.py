@@ -5,7 +5,6 @@ from torch.optim import AdamW
 import torch.optim as optim
 import itertools
 from model.warplayer import warp
-from torchstat import stat
 from torch.nn.parallel import DistributedDataParallel as DDP
 from model.IFNet import *
 import torch.nn.functional as F
