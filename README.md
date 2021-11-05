@@ -129,8 +129,6 @@ python3 benchmark/MiddleBury_Other.py
 # "IE: 1.956"
 python3 benchmark/HD.py
 # "PSNR: 32.14"
-python3 benchmark/HD_multi.py
-# "PSNR: 18.60(544*1280), 29.02(720p), 24.73(1080p)"
 ```
 
 ## Training and Reproduction
