@@ -69,9 +69,7 @@ python3 inference_video.py --exp=2 --video=video.mp4 --fps=60
 ```
 python3 inference_video.py --video=video.mp4 --montage --png
 ```
-(if you want to montage the origin video, skip static frames and save the png format output)
-
-The warning info, 'Warning: Your video has *** static frames, it may change the duration of the generated video.' means that your video has changed the frame rate by adding static frames, it is common if you have processed 25FPS video to 30FPS.
+(if you want to montage the origin video and save the png format output)
 
 **Image Interpolation**
 
