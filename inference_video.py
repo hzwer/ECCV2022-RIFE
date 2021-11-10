@@ -69,6 +69,8 @@ parser.add_argument('--ext', dest='ext', type=str, default='mp4', help='vid_out 
 parser.add_argument('--exp', dest='exp', type=int, default=1)
 args = parser.parse_args()
 assert (not args.video is None or not args.img is None)
+if args.skip:
+    print("skip flag is abandoned, please refer to issue #207.")
 if args.UHD and args.scale==1.0:
     args.scale = 0.5
 assert args.scale in [0.25, 0.5, 1.0, 2.0, 4.0]
@@ -117,10 +119,10 @@ if not args.video is None:
     fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
     video_path_wo_ext, ext = os.path.splitext(args.video)
     print('{}.{}, {} frames in total, {}FPS to {}FPS'.format(video_path_wo_ext, args.ext, tot_frame, fps, args.fps))
-    if args.png == False and fpsNotAssigned == True and not args.skip:
+    if args.png == False and fpsNotAssigned == True:
         print("The audio will be merged after interpolation process")
     else:
-        print("Will not merge audio because using png, fps or skip flag!")
+        print("Will not merge audio because using png or fps flag!")
 else:
     videogen = []
     for f in os.listdir(args.img):
@@ -193,7 +195,6 @@ ph = ((h - 1) // tmp + 1) * tmp
 pw = ((w - 1) // tmp + 1) * tmp
 padding = (0, pw - w, 0, ph - h)
 pbar = tqdm(total=tot_frame)
-skip_frame = 1
 if args.montage:
     lastframe = lastframe[:, left: left + w]
 write_buffer = Queue(maxsize=500)
@@ -203,9 +204,14 @@ _thread.start_new_thread(clear_write_buffer, (args, write_buffer))
 
 I1 = torch.from_numpy(np.transpose(lastframe, (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.
 I1 = pad_image(I1)
+temp = None # save lastframe when processing static frame
 
 while True:
-    frame = read_buffer.get()
+    if temp is not None:
+        frame = temp
+        temp = None
+    else:
+        frame = read_buffer.get()
     if frame is None:
         break
     I0 = I1
@@ -215,14 +221,19 @@ while True:
     I1_small = F.interpolate(I1, (32, 32), mode='bilinear', align_corners=False)
     ssim = ssim_matlab(I0_small[:, :3], I1_small[:, :3])
 
-    if ssim > 0.995:
-        if skip_frame % 100 == 0:
-            print("\nWarning: Your video has {} static frames, skipping them may change the duration of the generated video.".format(skip_frame))
-        skip_frame += 1
-        if args.skip:
-            pbar.update(1)
-            continue
-
+    if ssim > 0.996:
+        frame = read_buffer.get() # read a new frame
+        if frame is None:
+            frame = lastframe
+        else:
+            temp = frame
+        I1 = torch.from_numpy(np.transpose(frame, (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.
+        I1 = pad_image(I1)
+        I1 = model.inference(I0, I1, args.scale)
+        I1_small = F.interpolate(I1, (32, 32), mode='bilinear', align_corners=False)
+        ssim = ssim_matlab(I0_small[:, :3], I1_small[:, :3])
+        frame = (I1[0] * 255).byte().cpu().numpy().transpose(1, 2, 0)[:h, :w]
+        
     if ssim < 0.2:
         output = []
         for i in range((2 ** args.exp) - 1):
@@ -264,7 +275,7 @@ if not vid_out is None:
     vid_out.release()
 
 # move audio to new video file if appropriate
-if args.png == False and fpsNotAssigned == True and not args.skip and not args.video is None:
+if args.png == False and fpsNotAssigned == True and not args.video is None:
     try:
         transferAudio(args.video, vid_out_name)
     except:
