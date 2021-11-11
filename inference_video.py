@@ -221,9 +221,11 @@ while True:
     I1_small = F.interpolate(I1, (32, 32), mode='bilinear', align_corners=False)
     ssim = ssim_matlab(I0_small[:, :3], I1_small[:, :3])
 
-    if ssim > 0.996:
+    break_flag = False
+    if ssim > 0.996:        
         frame = read_buffer.get() # read a new frame
         if frame is None:
+            break_flag = True
             frame = lastframe
         else:
             temp = frame
@@ -233,7 +235,7 @@ while True:
         I1_small = F.interpolate(I1, (32, 32), mode='bilinear', align_corners=False)
         ssim = ssim_matlab(I0_small[:, :3], I1_small[:, :3])
         frame = (I1[0] * 255).byte().cpu().numpy().transpose(1, 2, 0)[:h, :w]
-        
+    
     if ssim < 0.2:
         output = []
         for i in range((2 ** args.exp) - 1):
@@ -262,6 +264,8 @@ while True:
             write_buffer.put(mid[:h, :w])
     pbar.update(1)
     lastframe = frame
+    if break_flag:
+        break
 
 if args.montage:
     write_buffer.put(np.concatenate((lastframe, lastframe), 1))
