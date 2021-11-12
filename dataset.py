@@ -28,10 +28,14 @@ class VimeoDataset(Dataset):
         return len(self.meta_data)
 
     def load_data(self):
+        cnt = int(len(self.trainlist) * 0.95)
         if self.dataset_name == 'train':
-            self.meta_data = self.trainlist
-        else:
+            self.meta_data = self.trainlist[:cnt]
+        elif self.dataset_name == 'test':
             self.meta_data = self.testlist
+        else:
+            self.meta_data = self.trainlist[cnt:]
+            
 
     def aug(self, img0, gt, img1, h, w):
         ih, iw, _ = img0.shape
