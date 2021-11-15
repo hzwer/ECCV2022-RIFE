@@ -21,6 +21,8 @@ Currently, our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. I
 
 ![Demo](./demo/I0_slomo_clipped.gif)
 ![Demo](./demo/I2_slomo_clipped.gif)
+![Demo](./demo/D0_slomo_clipped.gif)
+![Demo](./demo/D2_slomo_clipped.gif)
 
 ## Software
 [Squirrel-RIFE(中文软件)](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation) | [Waifu2x-Extension-GUI](https://github.com/AaronFeng753/Waifu2x-Extension-GUI) | [Flowframes](https://nmkd.itch.io/flowframes) | [RIFE-ncnn-vulkan](https://github.com/nihui/rife-ncnn-vulkan) | [RIFE-App(Paid)](https://grisk.itch.io/rife-app) | [Autodesk Flame](https://vimeo.com/505942142) | [SVP](https://www.svp-team.com/wiki/RIFE_AI_interpolation) |
