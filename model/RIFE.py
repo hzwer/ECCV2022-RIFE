@@ -7,6 +7,7 @@ import itertools
 from model.warplayer import warp
 from torch.nn.parallel import DistributedDataParallel as DDP
 from model.IFNet import *
+from model.IFNet_m import *
 import torch.nn.functional as F
 from model.loss import *
 from model.laplacian import *
@@ -15,8 +16,11 @@ from model.refine import *
 device = torch.device("cuda")
     
 class Model:
-    def __init__(self, local_rank=-1):
-        self.flownet = IFNet()
+    def __init__(self, local_rank=-1, arbitrary=False):
+        if arbitrary == True:
+            self.flownet = IFNet_m()
+        else:
+            self.flownet = IFNet()
         self.device()
         self.optimG = AdamW(self.flownet.parameters(), lr=1e-6, weight_decay=1e-3) # use large weight decay may avoid NaN loss
         self.epe = EPE()
@@ -49,13 +53,13 @@ class Model:
         if rank == 0:
             torch.save(self.flownet.state_dict(),'{}/flownet.pkl'.format(path))
 
-    def inference(self, img0, img1, scale_list=[4, 2, 1], TTA=False):
+    def inference(self, img0, img1, scale_list=[4, 2, 1], TTA=False, timestep=0.5):
         imgs = torch.cat((img0, img1), 1)
-        flow, mask, merged, flow_teacher, merged_teacher, loss_distill = self.flownet(imgs, scale_list)
+        flow, mask, merged, flow_teacher, merged_teacher, loss_distill = self.flownet(imgs, scale_list, timestep=timestep)
         if TTA == False:
             return merged[2]
         else:
-            flow2, mask2, merged2, flow_teacher2, merged_teacher2, loss_distill2 = self.flownet(imgs.flip(2).flip(3), scale_list)
+            flow2, mask2, merged2, flow_teacher2, merged_teacher2, loss_distill2 = self.flownet(imgs.flip(2).flip(3), scale_list, timestep=timestep)
             return (merged[2] + merged2[2].flip(2).flip(3)) / 2
     
     def update(self, imgs, gt, learning_rate=0, mul=1, training=True, flow_gt=None):

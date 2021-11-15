@@ -13,7 +13,7 @@ from skimage.color import rgb2yuv, yuv2rgb
 from yuv_frame_io import YUV_Read,YUV_Write
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-model = Model()
+model = Model(arbitrary=True)
 model.load_model('train_log')
 model.eval()
 model.device()
@@ -31,14 +31,21 @@ name_list = [
     ('HD_dataset/HD544p_GT/Sintel_Temple1_1280x544.yuv', 544, 1280),
     ('HD_dataset/HD544p_GT/Sintel_Temple2_1280x544.yuv', 544, 1280),
 ]
-def inference(I0, I1, pad, multi=2):
+def inference(I0, I1, pad, multi=2, arbitrary=True):
     img = [I0, I1]
-    for i in range(multi):
-        res = [I0]
-        for j in range(len(img) - 1):
-            res.append(model.inference(img[j], img[j + 1]))
-            res.append(img[j + 1])
-        img = res
+    if not arbitrary:
+        for i in range(multi):
+            res = [I0]
+            for j in range(len(img) - 1):
+                res.append(model.inference(img[j], img[j + 1]))
+                res.append(img[j + 1])
+            img = res
+    else:
+        img = [I0]
+        p = 2**multi
+        for i in range(p-1):
+            img.append(model.inference(I0, I1, timestep=(i+1)*(1./p)))
+        img.append(I1)
     for i in range(len(img)):
         img[i] = img[i][0][:, pad: -pad]
     return img[1: -1]

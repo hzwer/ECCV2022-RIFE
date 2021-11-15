@@ -50,17 +50,18 @@ class IFBlock(nn.Module):
         mask = tmp[:, 4:5]
         return flow, mask
     
-class IFNet(nn.Module):
+class IFNet_m(nn.Module):
     def __init__(self):
-        super(IFNet, self).__init__()
-        self.block0 = IFBlock(6, c=240)
-        self.block1 = IFBlock(13+4, c=150)
-        self.block2 = IFBlock(13+4, c=90)
-        self.block_tea = IFBlock(16+4, c=90)
+        super(IFNet_m, self).__init__()
+        self.block0 = IFBlock(6+1, c=240)
+        self.block1 = IFBlock(13+4+1, c=150)
+        self.block2 = IFBlock(13+4+1, c=90)
+        self.block_tea = IFBlock(16+4+1, c=90)
         self.contextnet = Contextnet()
         self.unet = Unet()
 
     def forward(self, x, scale=[4,2,1], timestep=0.5):
+        timestep = (x[:, :1].clone() * 0 + 1) * timestep
         img0 = x[:, :3]
         img1 = x[:, 3:6]
         gt = x[:, 6:] # In inference time, gt is None
@@ -74,11 +75,11 @@ class IFNet(nn.Module):
         stu = [self.block0, self.block1, self.block2]
         for i in range(3):
             if flow != None:
-                flow_d, mask_d = stu[i](torch.cat((img0, img1, warped_img0, warped_img1, mask), 1), flow, scale=scale[i])
+                flow_d, mask_d = stu[i](torch.cat((img0, img1, timestep, warped_img0, warped_img1, mask), 1), flow, scale=scale[i])
                 flow = flow + flow_d
                 mask = mask + mask_d
             else:
-                flow, mask = stu[i](torch.cat((img0, img1), 1), None, scale=scale[i])
+                flow, mask = stu[i](torch.cat((img0, img1, timestep), 1), None, scale=scale[i])
             mask_list.append(torch.sigmoid(mask))
             flow_list.append(flow)
             warped_img0 = warp(img0, flow[:, :2])
@@ -86,7 +87,7 @@ class IFNet(nn.Module):
             merged_student = (warped_img0, warped_img1)
             merged.append(merged_student)
         if gt.shape[1] == 3:
-            flow_d, mask_d = self.block_tea(torch.cat((img0, img1, warped_img0, warped_img1, mask, gt), 1), flow, scale=1)
+            flow_d, mask_d = self.block_tea(torch.cat((img0, img1, timestep, warped_img0, warped_img1, mask, gt), 1), flow, scale=1)
             flow_teacher = flow + flow_d
             warped_img0_teacher = warp(img0, flow_teacher[:, :2])
             warped_img1_teacher = warp(img1, flow_teacher[:, 2:4])
