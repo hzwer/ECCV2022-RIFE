@@ -132,7 +132,7 @@ python3 benchmark/HD.py
 
 # RIFE_m
 python3 benchmark/HD_multi_4X.py
-# PSNR: 22.957132606703333(544*1280), 31.871078606228604(720p), 34.25086674776585(1080p)
+# "PSNR: 22.96(544*1280), 31.87(720p), 34.25(1080p)"
 ```
 
 ## Training and Reproduction
