@@ -110,7 +110,7 @@ docker run --rm -it --gpus all -v /dev/dri:/dev/dri -v $PWD:/host rife:latest in
 ```
 
 ## Evaluation
-Download [RIFE model](https://drive.google.com/file/d/1h42aGYPNJn2q8j_GVkS_yDu__G_UZ2GX/view?usp=sharing) reported by our paper.
+Download [RIFE model](https://drive.google.com/file/d/1h42aGYPNJn2q8j_GVkS_yDu__G_UZ2GX/view?usp=sharing) or [RIFE_m model](https://drive.google.com/file/d/147XVsDXBfJPlyct2jfo9kpbL944mNeZr/view?usp=sharing) reported by our paper.
 
 **UCF101**: Download [UCF101 dataset](https://liuziwei7.github.io/projects/VoxelFlow) at ./UCF101/ucf101_interp_ours/
 
@@ -129,6 +129,10 @@ python3 benchmark/MiddleBury_Other.py
 # "IE: 1.956"
 python3 benchmark/HD.py
 # "PSNR: 32.14"
+
+# RIFE_m
+python3 benchmark/HD_multi_4X.py
+# PSNR: 22.957132606703333(544*1280), 31.871078606228604(720p), 34.25086674776585(1080p)
 ```
 
 ## Training and Reproduction
