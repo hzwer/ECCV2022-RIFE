@@ -14,7 +14,7 @@ from yuv_frame_io import YUV_Read,YUV_Write
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 model = Model(arbitrary=True)
-model.load_model('train_log')
+model.load_model('RIFE_m_train_log')
 model.eval()
 model.device()
 
