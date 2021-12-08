@@ -1,5 +1,5 @@
 # RIFE - Real Time Video Interpolation
-## [arXiv](https://arxiv.org/abs/2011.06294) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be) | [Colab](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) | [Tutorial](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title) | [Demo](https://www.youtube.com/watch?v=oFnyq-e_b3g)
+## [arXiv](https://arxiv.org/abs/2011.06294) | [YouTube](https://www.youtube.com/watch?v=60DX2T3zyVo&feature=youtu.be) [[2]](https://www.youtube.com/watch?v=qt7HNKae9e0&t=137s) | [Colab](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) | [Tutorial](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title)
 
 ## Table of Contents
 1. [Introduction](#introduction)
