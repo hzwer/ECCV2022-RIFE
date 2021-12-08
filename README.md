@@ -1,6 +1,13 @@
 # RIFE - Real Time Video Interpolation
 ## [arXiv](https://arxiv.org/abs/2011.06294) | [YouTube](https://www.youtube.com/results?search_query=rife+interpolation&sp=CAM%253D) | [Colab](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) | [Tutorial](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title)
 
+16X interpolation results from two input images: 
+
+![Demo](./demo/I0_slomo_clipped.gif)
+![Demo](./demo/I2_slomo_clipped.gif)
+![Demo](./demo/D0_slomo_clipped.gif)
+![Demo](./demo/D2_slomo_clipped.gif)
+
 ## Table of Contents
 1. [Introduction](#introduction)
 1. [Software](#software)
@@ -11,18 +18,10 @@
 1. [Reference](#reference)
 1. [Sponsor](#sponsor)
 
-
 ## Introduction
 This project is the implement of [RIFE: Real-Time Intermediate Flow Estimation for Video Frame Interpolation](https://arxiv.org/abs/2011.06294). If you are a developer, welcome to follow [Practical-RIFE](https://github.com/hzwer/Practical-RIFE), which aims to make RIFE more practical for users by adding various features and design new models.
 
-Currently, our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. It supports 2X,4X,8X... interpolation, and multi-frame interpolation between a pair of images. 
-
-16X interpolation results from two input images: 
-
-![Demo](./demo/I0_slomo_clipped.gif)
-![Demo](./demo/I2_slomo_clipped.gif)
-![Demo](./demo/D0_slomo_clipped.gif)
-![Demo](./demo/D2_slomo_clipped.gif)
+Currently, our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. It supports arbitarry-timestep interpolation, and multi-frame interpolation between a pair of images. 
 
 ## Software
 [Squirrel-RIFE(中文软件)](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation) | [Waifu2x-Extension-GUI](https://github.com/AaronFeng753/Waifu2x-Extension-GUI) | [Flowframes](https://nmkd.itch.io/flowframes) | [RIFE-ncnn-vulkan](https://github.com/nihui/rife-ncnn-vulkan) | [RIFE-App(Paid)](https://grisk.itch.io/rife-app) | [Autodesk Flame](https://vimeo.com/505942142) | [SVP](https://www.svp-team.com/wiki/RIFE_AI_interpolation) |
