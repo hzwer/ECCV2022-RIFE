@@ -24,11 +24,13 @@ This project is the implement of [RIFE: Real-Time Intermediate Flow Estimation f
 Currently, our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. It supports arbitarry-timestep interpolation, and multi-frame interpolation between a pair of images. 
 
 ## Software
-[Squirrel-RIFE(中文)](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation) | [Waifu2x-Extension-GUI](https://github.com/AaronFeng753/Waifu2x-Extension-GUI) | [Flowframes](https://nmkd.itch.io/flowframes) | [RIFE-ncnn-vulkan](https://github.com/nihui/rife-ncnn-vulkan) | [Autodesk Flame](https://vimeo.com/505942142) | [SVP](https://www.svp-team.com/wiki/RIFE_AI_interpolation) |
+[Flowframes](https://nmkd.itch.io/flowframes) | [Squirrel-RIFE(中文)](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation) | [Waifu2x-Extension-GUI](https://github.com/AaronFeng753/Waifu2x-Extension-GUI) | [Autodesk Flame](https://vimeo.com/505942142) | [SVP](https://www.svp-team.com/wiki/RIFE_AI_interpolation) 
 
 [RIFE-App(Paid)](https://grisk.itch.io/rife-app) | [Steam-VFI(Paid)](https://store.steampowered.com/app/1692080/SVFI/) 
 
 We are not responsible for and participating in the development of above software. According to the open source license, we respect the commercial behavior of other developers.
+
+[VapourSynth-RIFE](https://github.com/HolyWu/vs-rife) | [RIFE-ncnn-vulkan](https://github.com/nihui/rife-ncnn-vulkan) | [VapourSynth-RIFE-ncnn-Vulkan](https://github.com/HomeOfVapourSynthEvolution/VapourSynth-RIFE-ncnn-Vulkan)
 ## CLI Usage
 
 ### Installation
