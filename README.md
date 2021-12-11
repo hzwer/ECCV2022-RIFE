@@ -8,16 +8,6 @@
 ![Demo](./demo/D0_slomo_clipped.gif)
 ![Demo](./demo/D2_slomo_clipped.gif)
 
-## Table of Contents
-1. [Introduction](#introduction)
-1. [Software](#software)
-1. [Usage](#cli-usage)
-1. [Evaluation](#evaluation)
-1. [Training and Reproduction](#training-and-reproduction)
-1. [Citation](#citation)
-1. [Reference](#reference)
-1. [Sponsor](#sponsor)
-
 ## Introduction
 This project is the implement of [RIFE: Real-Time Intermediate Flow Estimation for Video Frame Interpolation](https://arxiv.org/abs/2011.06294). If you are a developer, welcome to follow [Practical-RIFE](https://github.com/hzwer/Practical-RIFE), which aims to make RIFE more practical for users by adding various features and design new models.
 
