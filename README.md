@@ -3,15 +3,11 @@
 
 16X interpolation results from two input images: 
 
-![Demo](./demo/I0_slomo_clipped.gif)
 ![Demo](./demo/I2_slomo_clipped.gif)
-![Demo](./demo/D0_slomo_clipped.gif)
 ![Demo](./demo/D2_slomo_clipped.gif)
 
 ## Introduction
-This project is the implement of [RIFE: Real-Time Intermediate Flow Estimation for Video Frame Interpolation](https://arxiv.org/abs/2011.06294). If you are a developer, welcome to follow [Practical-RIFE](https://github.com/hzwer/Practical-RIFE), which aims to make RIFE more practical for users by adding various features and design new models.
-
-Currently, our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. It supports arbitarry-timestep interpolation, and multi-frame interpolation between a pair of images. 
+This project is the implement of [RIFE: Real-Time Intermediate Flow Estimation for Video Frame Interpolation](https://arxiv.org/abs/2011.06294). Currently, our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. It supports arbitarry-timestep interpolation, and multi-frame interpolation between a pair of images. 
 
 ## Software
 [Flowframes](https://nmkd.itch.io/flowframes) | [Squirrel-RIFE(中文)](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation) | [Waifu2x-Extension-GUI](https://github.com/AaronFeng753/Waifu2x-Extension-GUI) | [Autodesk Flame](https://vimeo.com/505942142) | [SVP](https://www.svp-team.com/wiki/RIFE_AI_interpolation) 
@@ -21,6 +17,8 @@ Currently, our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. I
 We are not responsible for and participating in the development of above software. According to the open source license, we respect the commercial behavior of other developers.
 
 [VapourSynth-RIFE](https://github.com/HolyWu/vs-rife) | [RIFE-ncnn-vulkan](https://github.com/nihui/rife-ncnn-vulkan) | [VapourSynth-RIFE-ncnn-Vulkan](https://github.com/HomeOfVapourSynthEvolution/VapourSynth-RIFE-ncnn-Vulkan)
+
+If you are a developer, welcome to follow [Practical-RIFE](https://github.com/hzwer/Practical-RIFE), which aims to make RIFE more practical for users by adding various features and design new models.
 ## CLI Usage
 
 ### Installation
