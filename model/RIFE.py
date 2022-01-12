@@ -81,7 +81,6 @@ class Model:
             self.optimG.step()
         else:
             flow_teacher = flow[2]
-            merged_teacher = merged[2] 
         return merged[2], {
             'merged_tea': merged_teacher,
             'mask': mask,
