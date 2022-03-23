@@ -26,8 +26,8 @@ If you are a developer, welcome to follow [Practical-RIFE](https://github.com/hz
 ### Installation
 
 ```
-git clone git@github.com:hzwer/arXiv2020-RIFE.git
-cd arXiv2020-RIFE
+git clone git@github.com:hzwer/arXiv2021-RIFE.git
+cd arXiv2021-RIFE
 pip3 install -r requirements.txt
 ```
 
@@ -140,11 +140,11 @@ python3 -m torch.distributed.launch --nproc_per_node=4 train.py --world_size=4
 ## Citation
 
 ```
-@article{huang2020rife,
+@article{huang2021rife,
   title={RIFE: Real-Time Intermediate Flow Estimation for Video Frame Interpolation},
   author={Huang, Zhewei and Zhang, Tianyuan and Heng, Wen and Shi, Boxin and Zhou, Shuchang},
   journal={arXiv preprint arXiv:2011.06294},
-  year={2020}
+  year={2021}
 }
 ```
 
