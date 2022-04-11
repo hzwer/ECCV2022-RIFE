@@ -76,6 +76,7 @@ class VimeoDataset(Dataset):
                 tmp = img1
                 img1 = img0
                 img0 = tmp
+                # timestep = 1 - timestep
         img0 = torch.from_numpy(img0.copy()).permute(2, 0, 1)
         img1 = torch.from_numpy(img1.copy()).permute(2, 0, 1)
         gt = torch.from_numpy(gt.copy()).permute(2, 0, 1)
