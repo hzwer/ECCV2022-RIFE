@@ -137,6 +137,14 @@ We use 16 CPUs, 4 GPUs and 20G memory for training:
 python3 -m torch.distributed.launch --nproc_per_node=4 train.py --world_size=4
 ```
 
+## Revision History
+First of all, we are sorry for the troubles caused by multiple submission versions to the follower. We will not modify the weight and method of the model baseline anymore. We also tried our best to check the test results of all other methods. You are welcome to cite our results.
+
+Major Revisions：
+2021.3.18 [arXiv](https://arxiv.org/pdf/2011.06294v5.pdf): Modify the main experimental data, especially the runtime related issues.
+2021.8.12 [arXiv](https://arxiv.org/pdf/2011.06294v6.pdf): Remove pretrained model dependency and propose privileged distillation scheme for frame interpolation.
+2021.11.17 [arXiv](https://arxiv.org/pdf/2011.06294v11.pdf): Support arbitrary-time frame interpolation, aka RIFEm and add more experiments.
+
 ## Citation
 
 ```
