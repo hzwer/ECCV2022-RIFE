@@ -76,7 +76,7 @@ class Model:
         loss_tea = (self.lap(merged_teacher, gt)).mean()
         if training:
             self.optimG.zero_grad()
-            loss_G = loss_l1 + loss_tea + loss_distill * 0.01
+            loss_G = loss_l1 + loss_tea + loss_distill * 0.01 # when training RIFEm, the weight of loss_distill should be 0.005 or 0.002
             loss_G.backward()
             self.optimG.step()
         else:
