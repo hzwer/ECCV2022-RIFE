@@ -39,7 +39,7 @@ try:
         model = Model()
         model.load_model(args.modelDir, -1)
         print("Loaded v1.x HD model")
-expect:
+except:
     from model.RIFE import Model
     model = Model()
     model.load_model(args.modelDir, -1)
