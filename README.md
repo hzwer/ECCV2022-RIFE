@@ -144,7 +144,7 @@ Major Revisions：
 
 2021.3.18 [arXiv](https://arxiv.org/pdf/2011.06294v5.pdf): Modify the main experimental data, especially the runtime related issues.
 
-2021.8.12 [arXiv](https://arxiv.org/pdf/2011.06294v6.pdf): Remove pretrained model dependency and propose privileged distillation scheme for frame interpolation.
+2021.8.12 [arXiv](https://arxiv.org/pdf/2011.06294v6.pdf): Remove pretrained model dependency and propose privileged distillation scheme for frame interpolation. Remove [census loss](https://github.com/hzwer/arXiv2021-RIFE/blob/0e241367847a0895748e64c6e1604c94db54d395/model/loss.py#L20) supervision.
 
 2021.11.17 [arXiv](https://arxiv.org/pdf/2011.06294v11.pdf): Support arbitrary-time frame interpolation, aka RIFEm and add more experiments.
 
