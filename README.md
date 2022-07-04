@@ -1,4 +1,8 @@
-# RIFE - Real-Time Intermediate Flow Estimation for Video Frame Interpolation
+# Real-Time Intermediate Flow Estimation for Video Frame Interpolation
+**2022.7.4 - Our paper is accepted by ECCV2022 🎉. Thanks to all relevant authors, contributors and users!**
+
+In the past year and a half, RIFE has submitted five submissions（rejected by CVPR21 ICCV21 CVPR22 AAAI22). Thanks to all anonymous reviewers, your suggestions have helped to significantly improve the paper! Our latest version paper will be released ASAP. We recently change the organization of the paper and adds more experiments and insights.
+
 ## [YouTube](https://www.youtube.com/results?search_query=rife+interpolation&sp=CAM%253D) | [BiliBili](https://search.bilibili.com/all?keyword=SVFI&order=stow&duration=0&tids_1=0) | [Colab](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) | [Tutorial](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title)
 
 **Pinned Software: [RIFE-App](https://grisk.itch.io/rife-app) | [FlowFrames](https://nmkd.itch.io/flowframes) | [SVFI (中文)](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation)**
@@ -138,15 +142,22 @@ python3 -m torch.distributed.launch --nproc_per_node=4 train.py --world_size=4
 ```
 
 ## Revision History
-First of all, we are sorry for the troubles caused by multiple submission versions to the follower. We will not modify the weight and method of the model baseline anymore. We also tried our best to check the test results of all other methods. You are welcome to cite our results.
-
 Major Revisions：
 
 2021.3.18 [arXiv](https://arxiv.org/pdf/2011.06294v5.pdf): Modify the main experimental data, especially the runtime related issues.
 
-2021.8.12 [arXiv](https://arxiv.org/pdf/2011.06294v6.pdf): Remove pretrained model dependency and propose privileged distillation scheme for frame interpolation. Remove [census loss](https://github.com/hzwer/arXiv2021-RIFE/blob/0e241367847a0895748e64c6e1604c94db54d395/model/loss.py#L20) supervision.
+2021.8.12 [arXiv](https://arxiv.org/pdf/2011.06294v6.pdf): Remove pre-trained model dependency and propose privileged distillation scheme for frame interpolation. Remove [census loss](https://github.com/hzwer/arXiv2021-RIFE/blob/0e241367847a0895748e64c6e1604c94db54d395/model/loss.py#L20) supervision.
 
 2021.11.17 [arXiv](https://arxiv.org/pdf/2011.06294v11.pdf): Support arbitrary-time frame interpolation, aka RIFEm and add more experiments.
+
+## Recommend
+We sincerely recommend some related papers:
+
+CVPR22 - [Optimizing Video Prediction via Video Frame Interpolation](https://openaccess.thecvf.com/content/CVPR2022/html/Wu_Optimizing_Video_Prediction_via_Video_Frame_Interpolation_CVPR_2022_paper.html)
+
+CVPR22 - [Video Frame Interpolation with Transformer](https://openaccess.thecvf.com/content/CVPR2022/html/Lu_Video_Frame_Interpolation_With_Transformer_CVPR_2022_paper.html)
+
+CVPR22 - [IFRNet: Intermediate Feature Refine Network for Efficient Frame Interpolation](https://openaccess.thecvf.com/content/CVPR2022/html/Kong_IFRNet_Intermediate_Feature_Refine_Network_for_Efficient_Frame_Interpolation_CVPR_2022_paper.html)
 
 ## Citation
 
