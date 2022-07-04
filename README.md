@@ -1,7 +1,7 @@
 # Real-Time Intermediate Flow Estimation for Video Frame Interpolation
 **2022.7.4 - Our paper is accepted by ECCV2022 🎉. Thanks to all relevant authors, contributors and users!**
 
-In the past year and a half, RIFE has submitted five submissions（rejected by CVPR21 ICCV21 CVPR22 AAAI22). Thanks to all anonymous reviewers, your suggestions have helped to significantly improve the paper! Our latest version paper will be released ASAP. We recently change the organization of the paper and adds more experiments and insights.
+From 2020 to 2022, RIFE has submitted five submissions（rejected by CVPR21 ICCV21 AAAI22 CVPR22). Thanks to all anonymous reviewers, your suggestions have helped to significantly improve the paper! Our latest version paper will be released ASAP. We recently modify the organization of the paper and adds more insights.
 
 ## [YouTube](https://www.youtube.com/results?search_query=rife+interpolation&sp=CAM%253D) | [BiliBili](https://search.bilibili.com/all?keyword=SVFI&order=stow&duration=0&tids_1=0) | [Colab](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) | [Tutorial](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title)
 
