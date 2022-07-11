@@ -162,11 +162,11 @@ CVPR22 - [IFRNet: Intermediate Feature Refine Network for Efficient Frame Interp
 ## Citation
 
 ```
-@article{huang2021rife,
-  title={RIFE: Real-Time Intermediate Flow Estimation for Video Frame Interpolation},
+@inproceedings{huang2022rife,
+  title={Real-Time Intermediate Flow Estimation for Video Frame Interpolation},
   author={Huang, Zhewei and Zhang, Tianyuan and Heng, Wen and Shi, Boxin and Zhou, Shuchang},
-  journal={arXiv preprint arXiv:2011.06294},
-  year={2021}
+  booktitle={Proceedings of the European Conference on Computer Vision (ECCV)},
+  year={2022}
 }
 ```
 
