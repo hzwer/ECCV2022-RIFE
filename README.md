@@ -6,7 +6,7 @@ This project is the implement of [Real-Time Intermediate Flow Estimation for Vid
 
 From 2020 to 2022, RIFE has submitted five submissions（rejected by CVPR21 ICCV21 AAAI22 CVPR22). Thanks to all anonymous reviewers, your suggestions have helped to significantly improve the paper! The latest version can be found on arXiv.
 
-## [YouTube](https://www.youtube.com/results?search_query=rife+interpolation&sp=CAM%253D) | [BiliBili](https://search.bilibili.com/all?keyword=SVFI&order=stow&duration=0&tids_1=0) | [Colab](https://colab.research.google.com/github/hzwer/arXiv2020-RIFE/blob/main/Colab_demo.ipynb) | [Tutorial](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title)
+## [YouTube](https://www.youtube.com/results?search_query=rife+interpolation&sp=CAM%253D) | [BiliBili](https://search.bilibili.com/all?keyword=SVFI&order=stow&duration=0&tids_1=0) | [Colab](https://colab.research.google.com/github/hzwer/ECCV2022-RIFE/blob/main/Colab_demo.ipynb) | [Tutorial](https://www.youtube.com/watch?v=gf_on-dbwyU&feature=emb_title)
 
 **Pinned Software: [RIFE-App](https://grisk.itch.io/rife-app) | [FlowFrames](https://nmkd.itch.io/flowframes) | [SVFI (中文)](https://github.com/YiWeiHuang-stack/Squirrel-Video-Frame-Interpolation)**
 
@@ -30,8 +30,8 @@ If you are a developer, welcome to follow [Practical-RIFE](https://github.com/hz
 ### Installation
 
 ```
-git clone git@github.com:hzwer/arXiv2021-RIFE.git
-cd arXiv2021-RIFE
+git clone git@github.com:megvii-research/ECCV2022-RIFE.git
+cd ECCV2022-RIFE
 pip3 install -r requirements.txt
 ```
 
@@ -39,7 +39,7 @@ pip3 install -r requirements.txt
 
 * Unzip and move the pretrained parameters to train_log/\*
 
-* This model is not reported by our paper, for our paper model please refer to [evaluation](https://github.com/hzwer/arXiv2020-RIFE#evaluation).
+* This model is not reported by our paper, for our paper model please refer to [evaluation](https://github.com/hzwer/ECCV2022-RIFE#evaluation).
 
 ### Run
 
