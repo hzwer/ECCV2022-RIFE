@@ -24,6 +24,8 @@ We are not responsible for and participating in the development of above softwar
 
 [VapourSynth-RIFE](https://github.com/HolyWu/vs-rife) | [RIFE-ncnn-vulkan](https://github.com/nihui/rife-ncnn-vulkan) | [VapourSynth-RIFE-ncnn-Vulkan](https://github.com/HomeOfVapourSynthEvolution/VapourSynth-RIFE-ncnn-Vulkan)
 
+<img src="https://api.star-history.com/svg?repos=Justin62628/Squirrel-RIFE,n00mkrad/flowframes,nihui/rife-ncnn-vulkan,hzwer/Practical-RIFE&type=Date" height="320" width="480" />
+
 If you are a developer, welcome to follow [Practical-RIFE](https://github.com/hzwer/Practical-RIFE), which aims to make RIFE more practical for users by adding various features and design new models with faster speed.
 ## CLI Usage
 
