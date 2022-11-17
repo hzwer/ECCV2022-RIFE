@@ -40,6 +40,9 @@ def train(model, local_rank):
     if local_rank == 0:
         writer = SummaryWriter('train')
         writer_val = SummaryWriter('validate')
+    else:
+        writer = None
+        writer_val = None
     step = 0
     nr_eval = 0
     dataset = VimeoDataset('train')
