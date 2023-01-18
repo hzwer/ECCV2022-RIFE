@@ -3,9 +3,12 @@ import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-import torch
+if torch.backends.mps.is_available():
+    device = torch.device("mps")
+else:
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 
 def gauss_kernel(size=5, channels=3):
     kernel = torch.tensor([[1., 4., 6., 4., 1],

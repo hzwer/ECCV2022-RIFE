@@ -7,7 +7,10 @@ import random
 from torch.utils.data import DataLoader, Dataset
 
 cv2.setNumThreads(1)
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+if torch.backends.mps.is_available():
+    device = torch.device("mps")
+else:
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 class VimeoDataset(Dataset):
     def __init__(self, dataset_name, batch_size=32):
         self.batch_size = batch_size
