@@ -85,7 +85,7 @@ if not args.img is None:
 
 if torch.backends.mps.is_available():
     device = torch.device("mps")
-    os.environment["PYTORCH_ENABLE_MPS_FALLBACK"] = 1
+    os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = '1'
     if(args.fp16):
         torch.set_default_tensor_type(torch.HalfTensor)
 elif torch.cuda.is_available():
