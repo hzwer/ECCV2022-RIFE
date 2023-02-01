@@ -85,7 +85,6 @@ if not args.img is None:
 
 if torch.backends.mps.is_available():
     device = torch.device("mps")
-    os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = '1'
     if(args.fp16):
         torch.set_default_tensor_type(torch.HalfTensor)
 elif torch.cuda.is_available():
@@ -129,11 +128,9 @@ if not args.video is None:
     fps = videoCapture.get(cv2.CAP_PROP_FPS)
     tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
     videoCapture.release()
+    fpsNotAssigned = True
     if args.fps is None:
-        fpsNotAssigned = True
         args.fps = fps * (2 ** args.exp)
-    else:
-        fpsNotAssigned = False
     videogen = skvideo.io.vreader(args.video)
     lastframe = next(videogen)
     fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
