@@ -20,7 +20,7 @@ else:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
 class Model:
-    def __init__(self, local_rank=-1, arbitrary=False):
+    def __init__(self, local_rank=-1, mps=False, arbitrary=False):
         if arbitrary == True:
             self.flownet = IFNet_m()
         else:
@@ -30,7 +30,7 @@ class Model:
         self.epe = EPE()
         self.lap = LapLoss()
         self.sobel = SOBEL()
-        if local_rank != -1:
+        if local_rank != -1 and mps is False:
             self.flownet = DDP(self.flownet, device_ids=[local_rank], output_device=local_rank)
 
     def train(self):
