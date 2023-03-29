@@ -173,6 +173,7 @@ CVPR23 - [A Dynamic Multi-Scale Voxel Flow Network for Video Prediction](https:/
 CVPR23 - [Extracting Motion and Appearance via Inter-Frame Attention for Efficient Video Frame Interpolation](https://arxiv.org/abs/2303.00440)
 
 ## Citation
+If you think this project is helpful, please feel free to leave a star or cite our paper:
 
 ```
 @inproceedings{huang2022rife,
