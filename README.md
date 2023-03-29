@@ -168,6 +168,10 @@ CVPR22 - [Video Frame Interpolation with Transformer](https://openaccess.thecvf.
 
 CVPR22 - [IFRNet: Intermediate Feature Refine Network for Efficient Frame Interpolation](https://openaccess.thecvf.com/content/CVPR2022/html/Kong_IFRNet_Intermediate_Feature_Refine_Network_for_Efficient_Frame_Interpolation_CVPR_2022_paper.html)
 
+CVPR23 - [A Dynamic Multi-Scale Voxel Flow Network for Video Prediction](https://huxiaotaostasy.github.io/DMVFN/)
+
+CVPR23 - [Extracting Motion and Appearance via Inter-Frame Attention for Efficient Video Frame Interpolation](https://arxiv.org/abs/2303.00440)
+
 ## Citation
 
 ```
