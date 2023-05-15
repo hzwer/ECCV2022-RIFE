@@ -1,7 +1,7 @@
 numpy>=1.16
 tqdm>=4.35.0
 sk-video>=1.1.10
-torch==1.7.1
+torch>=1.7.1, <=1.8.0
 opencv-python>=4.1.2
 moviepy>=1.0.3
 torchvision==0.8.2
