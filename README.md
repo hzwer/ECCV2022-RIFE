@@ -1,12 +1,12 @@
 # Real-Time Intermediate Flow Estimation for Video Frame Interpolation
 ## Introduction
-This project is the implement of [Real-Time Intermediate Flow Estimation for Video Frame Interpolation](https://arxiv.org/abs/2011.06294). Currently, our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. It supports arbitrary-timestep interpolation between a pair of images. 
+This project is the implement of [Real-Time Intermediate Flow Estimation for Video Frame Interpolation](https://arxiv.org/abs/2011.06294). Currently, our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. It supports arbitrary-timestep interpolation between a pair of images.
 
 **2023.10 - We recently release new [v4.7-4.8](https://github.com/hzwer/Practical-RIFE/tree/main#model-list) optimized for anime scenes!** 🎉
 
 2022.7.4 - Our paper is accepted by ECCV2022. Thanks to all relevant authors, contributors and users!
 
-From 2020 to 2022, we submitted RIFE for five submissions（rejected by CVPR21 ICCV21 AAAI22 CVPR22). Thanks to all anonymous reviewers, your suggestions have helped to significantly improve the paper!  
+From 2020 to 2022, we submitted RIFE for five submissions（rejected by CVPR21 ICCV21 AAAI22 CVPR22). Thanks to all anonymous reviewers, your suggestions have helped to significantly improve the paper! -> [author website](https://github.com/hzwer)
 
 [ECCV Poster](https://drive.google.com/file/d/1xCXuLUCSwhN61kvIF8jxDvQiUGtLK0kN/view?usp=sharing) | [ECCV 5-min presentation](https://youtu.be/qdp-NYqWQpA) | [论文中文介绍](https://zhuanlan.zhihu.com/p/568553080) | [rebuttal (2WA1WR->3WA)](https://drive.google.com/file/d/16IVjwRpwbTuJbYyTn4PizKX8I257QxY-/view?usp=sharing)
 
