@@ -1,4 +1,4 @@
-numpy>=1.16 
+numpy>=1.16, <=1.23.5
 tqdm>=4.35.0 
 sk-video>=1.1.10 
 torch>=1.6.0 
