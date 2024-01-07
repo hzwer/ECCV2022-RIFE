@@ -1,33 +1,14 @@
-#!/usr/bin/env python2.7
-
 import sys
 import getopt
 import math
 import numpy
-# import torch
-# import torch.utils.serialization
-# import PIL
-# import PIL.Image
-
 import random
 import logging
 import numpy as np
-from scipy.misc import imsave, imresize
-import matplotlib as mpl
-# mpl.use('Agg')
-import matplotlib.pyplot as plt
-# plt.style.use('bmh')
 from skimage.color import rgb2yuv, yuv2rgb
-
+from PIL import Image
 import os
-from scipy.misc import imread, imsave, imshow, imresize, imsave
 from shutil import copyfile
-from skimage.measure import compare_ssim, compare_psnr
-
-
-# from PYTHON_Flow2Color.flowToColor import flowToColor
-# from PYTHON_Flow2Color.writeFlowFile import writeFlowFile
-# from AverageMeter import  *
 
 class YUV_Read():
     def __init__(self, filepath, h, w, format='yuv420', toRGB=True):
@@ -66,33 +47,17 @@ class YUV_Read():
         V = np.reshape(V, [int(self.w / 2), int(self.h / 2)], order='F')
         V = np.transpose(V)
 
-        U = imresize(U, [self.h, self.w], interp='nearest')
-        V = imresize(V, [self.h, self.w], interp='nearest')
+        U = np.array(Image.fromarray(U).resize([self.w, self.h]))
+        V = np.array(Image.fromarray(V).resize([self.w, self.h]))
 
-        # plt.figure(3)
-        # plt.title("GT")
-        # plt.imshow(np.stack((Y,Y,Y),axis=-1))
-        # plt.show()
-        #
-        # plt.figure(3)
-        # plt.title("GT")
-        # plt.imshow(np.stack((U,U,U),axis=-1))
-        # plt.show()
-        # plt.figure(3)
-        # plt.title("GT")
-        # plt.imshow(np.stack((V,V,V),axis=-1))
-        # plt.show()
         if self.toRGB:
             Y = Y / 255.0
             U = U / 255.0 - 0.5
             V = V / 255.0 - 0.5
+
             self.YUV = np.stack((Y, U, V), axis=-1)
             self.RGB = (255.0 * np.clip(yuv2rgb(self.YUV), 0.0, 1.0)).astype('uint8')
 
-            # plt.figure(3)
-            # plt.title("GT")
-            # plt.imshow(self.RGB)
-            # plt.show()
             self.YUV = None
             return self.RGB, True
         else:
@@ -105,14 +70,10 @@ class YUV_Read():
 
 class YUV_Write():
     def __init__(self, filepath, fromRGB=True):
-
-        # self.h = h
-        # self.w = w
         if os.path.exists(filepath):
             print(filepath)
-            # raise("YUV File Exist Error")
   
-        self.fp = open(filepath, 'wb')  # no appending
+        self.fp = open(filepath, 'wb')
         self.fromRGB = fromRGB
 
     def write(self, Frame):
@@ -135,9 +96,6 @@ class YUV_Write():
             Y = Y[:, :, 0]
             U = U[:, :, 0]
             V = V[:, :, 0]
-            # print(Y.shape)
-
-            # Y = np.transpose(Y,())
             U = np.clip(U + 0.5, 0.0, 1.0)
             V = np.clip(V + 0.5, 0.0, 1.0)
 
@@ -152,21 +110,6 @@ class YUV_Write():
             U = YUV[::2, ::2, 1]
             V = YUV[::2, ::2, 2]
 
-        # plt.figure(3)
-        # plt.title("GT")
-        # plt.imshow(np.stack((Y,Y,Y),axis=-1))
-        # plt.show()
-        #
-        # plt.figure(3)
-        # plt.title("GT")
-        # plt.imshow(np.stack((U,U,U),axis=-1))
-        # plt.show()
-        # plt.figure(3)
-        # plt.title("GT")
-        # plt.imshow(np.stack((V,V,V),axis=-1))
-        # plt.show()
-        # print(Y.shape)
-        # print(U.shape)
         Y = Y.flatten()  # the first order is 0-dimension so don't need to transpose before flatten
         U = U.flatten()
         V = V.flatten()
