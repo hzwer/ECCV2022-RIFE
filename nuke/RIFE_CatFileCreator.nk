@@ -1,0 +1,16 @@
+CatFileCreator {
+ torchScriptFile RIFE.pt
+ catFile RIFE.cat
+ channelsIn rgba.red,rgba.green,rgba.blue,rgba.alpha,forward.u,forward.v,backward.u,backward.v
+ channelsOut rgba.red,rgba.green,rgba.blue,rgba.alpha,depth.Z
+ modelId RIFEv4
+ name CatFileCreator_RIFE
+ tile_color 0x1f00ffff
+ postage_stamp false
+ addUserKnob {20 User}
+ addUserKnob {7 timestep}
+ timestep 0.5
+ addUserKnob {7 scale R 0 8}
+ scale 1
+ addUserKnob {6 optical_flow +STARTLINE}
+}

@@ -1,0 +1,13 @@
+{
+    "minimum_nuke_version_required": 14.1,
+    "version": 1,
+    "category": "Optical Flow",
+    "description": "RIFE Retimer - https://github.com/rafaelperez/ECCV2022-RIFE",
+    "cats": [
+        {
+            "filepath": "RIFE.gizmo",
+            "name": "RIFE",
+            "icon": "RIFE.png"
+        }
+    ]
+}

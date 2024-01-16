@@ -1,0 +1,351 @@
+Gizmo {
+ name RIFE
+ onCreate "nuke.thisNode().knob(\"reset_range\").execute()"
+ addUserKnob {20 RIFE}
+ addUserKnob {26 localGPU l "Local GPU:" T ""}
+ addUserKnob {26 gpuName l "" -STARTLINE T ""}
+ addUserKnob {6 useGPU l "Use GPU if available" +STARTLINE}
+ useGPU true
+ addUserKnob {26 ""}
+ addUserKnob {3 in l "Input Range" t "The first frame of input to use."}
+ addUserKnob {3 out l "" t "The last frame of input to use." -STARTLINE}
+ addUserKnob {22 reset_range l Reset -STARTLINE T "node = nuke.thisNode()\nframe_range = node.upstreamFrameRange(0) if node.input(0) else nuke.root().frameRange()\nnode.knob(\"in\").setValue(frame_range.first())\nnode.knob(\"out\").setValue(frame_range.last())"}
+ addUserKnob {4 retimedChannels l Channels t "Sets the channels affected by the retime." M {all rgb rgba "" "" ""}}
+ retimedChannels rgba
+ addUserKnob {4 timing l Timing t "Sets how to control the new timing of the clip:\n\n<b>• Speed</b> - describes the retiming in terms of overall output duration. For example, double speed halves the duration of the clip and half speed doubles the duration of the clip.\n\n<b>• Frame</b> - describes the retiming in relative terms, for example, ’at frame 100 in the output clip, display frame 50 of the source clip‘. You’ll need to set at least 2 key frames for this to retime the clip." M {Speed Frame "" "" ""}}
+ addUserKnob {7 speed l Speed t "This control is only active if <b>Timing</b> is set to <b>Speed</b>.\n\nValues below 1 slow down the clip and vice versa. For example, to slow down the clip by a factor of two (half speed), set this value to 0.5." R 0 5}
+ speed 0.5
+ addUserKnob {7 timingFrame l Frame t "This control is active only if <b>Timing</b> is set to <b>Frame</b>.\n\nUse this to specify the source frame at the current frame in the timeline. For example, to slow down a 50 frame clip by half, key the <b>Frame</b> to 1 at frame 1 and the <b>Frame</b> to 50 at frame 100." +HIDDEN R 0 1000}
+ timingFrame 1
+ addUserKnob {7 outputFrame l "Output Frame" +INVISIBLE R 0 1000}
+ outputFrame {{"\[python -execlocal output_frame\\ =\\ nuke.expression(\\\"timing\\ ==\\ 0\\ ?\\ speed.integrate(in,\\ frame)\\ +\\ in\\ :\\ timingFrame\\\")\\n\\nuse_speed\\ =\\ nuke.thisNode()\\\[\\\"timing\\\"\\].getValue()\\ ==\\ 0\\ \\ \\nspeed_knob\\ =\\ nuke.thisNode()\\\[\\\"speed\\\"\\]\\ntiming_frame_knob\\ =\\ nuke.thisNode()\\\[\\\"timingFrame\\\"\\]\\noutput_fame_text_knob\\ =\\ nuke.thisNode()\\\[\\\"outputFrameText\\\"\\]\\n\\ntiming_frame_knob.setVisible(not\\ use_speed)\\nspeed_knob.setVisible(use_speed)\\noutput_fame_text_knob.setValue(str(round(output_frame,4)))\\n\\ \\ \\ \\nret\\ =\\ output_frame]"}}
+ addUserKnob {26 outputFrameText l "Output Frame" t "Displays the current output frame." T 0.0}
+ addUserKnob {4 downrez l Downrez t "Scales down the input to optimize optical flow calculation.  \n\nBy reducing the input size, memory requirements are lowered. For some 4K shots with significant motion, this preprocessing can also refine the quality of the retime." M {"1/1 (Full Res)" 1/2 1/4}}
+ addUserKnob {3 detail l Detail t "This parameter control the processing resolution for the optical flow model.\n\nThe recommended values for:\n• <b>HD</b>: 3 (+/- 1)\n• <b>UHD/4K</b>: 2 (+/- 1).\n\nThe <b>maximum</b> value is <b>4</b>.\n\nHigher values pick up finer movement, but also uses more memory."}
+ detail 3
+ addUserKnob {41 filter l Filter t "Filtering method for the STMap distortion.\n\n<b>Note:</b> Only effective if <b>Channels</b> is set to <b>all</b>." T C_STMap1.filter}
+ addUserKnob {6 skipKeyframes l "Process only intermediate frames" t "When processing keyframes (e.g. 11, 12, 13), RIFE can introduce slight distortion or filtering. \n\nThis option processes only intermediate frames (e.g. 11.5, 12.5) while skipping the keyframes.  \n\nThis is useful for cases where the result needs to match the original unmodified frames exactly." +STARTLINE}
+ addUserKnob {20 infoTab l Info}
+ addUserKnob {26 toolName l "" +STARTLINE T "<font size='7'>RIFE</font> v1.0 | Released 2024-01-14"}
+ addUserKnob {26 ""}
+ addUserKnob {26 authorName l "" +STARTLINE T "Rafael Silva"}
+ addUserKnob {26 authorMail l "" +STARTLINE T "<a href=\"mailto:rafael@rafael.ai\"><span style=\"color:#C8C8C8;\">rafael@rafael.ai</a>"}
+ addUserKnob {26 ""}
+ addUserKnob {26 credit l "" +STARTLINE T "<br>TorchScript port based on the official RIFE implementation.<br><a href=\"https://github.com/megvii-research/ECCV2022-RIFE\"><span style=\"color:#C8C8C8;\">https://github.com/megvii-research/ECCV2022-RIFE</a><br>"}
+ addUserKnob {26 model l "" +STARTLINE T "Model weights version 4.14 from Practical RIFE<br><a href=\"https://github.com/hzwer/Practical-RIFE\"><span style=\"color:#C8C8C8;\">https://github.com/hzwer/Practical-RIFE</a>"}
+ addUserKnob {26 ""}
+ addUserKnob {26 thanks l "" +STARTLINE T "Don't hesitate to reach out with any bugs, suggestions, or questions."}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0x444444ff
+  label "<center>all channels"
+  xpos -262
+  ypos 292
+  bdwidth 525
+  bdheight 424
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x444444ff
+  label <center>rgba
+  xpos 370
+  ypos 292
+  bdwidth 141
+  bdheight 424
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -260
+  ypos -562
+ }
+ Assert {
+  expression {{"\[python nuke.NUKE_VERSION_MAJOR\\ >=\\ 14\\ and\\ nuke.NUKE_VERSION_MINOR\\ >=\\ 1]"}}
+  message "Nuke14.1 or higher required."
+  name Assert1
+  xpos -260
+  ypos -481
+ }
+ Dot {
+  name Dot2
+  xpos -226
+  ypos -390
+ }
+set N199a58a0 [stack 0]
+ OCIOColorSpace {
+  in_colorspace scene_linear
+  out_colorspace color_picking
+  name OCIOColorSpace1
+  xpos -260
+  ypos -346
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  name Shuffle1
+  label "ensure rgba"
+  xpos -260
+  ypos -280
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove1
+  label "rgb(a) only"
+  xpos -260
+  ypos -208
+  disable {{"parent.retimedChannels == 0"}}
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3"
+  name Shuffle2
+  label "fill alpha"
+  xpos -260
+  ypos -136
+  disable {{"parent.retimedChannels != 1"}}
+ }
+ Crop {
+  box {0 0 {width} {height}}
+  crop false
+  name Crop1
+  xpos -260
+  ypos -58
+ }
+set N174c02b0 [stack 0]
+ FrameHold {
+  firstFrame {{"clamp(int(parent.outputFrame), parent.in, parent.out)"}}
+  name FrameHold1
+  xpos -260
+  ypos 8
+ }
+set N19e7f9e0 [stack 0]
+ Dot {
+  name Dot3
+  xpos -226
+  ypos 498
+ }
+set N19eef0e0 [stack 0]
+ Dot {
+  name Dot10
+  xpos -226
+  ypos 714
+ }
+set N19b5e390 [stack 0]
+push $N174c02b0
+ FrameHold {
+  firstFrame {{"clamp(int(parent.outputFrame)+1, parent.in, parent.out)"}}
+  name FrameHold2
+  xpos -150
+  ypos 8
+ }
+set N19a938a0 [stack 0]
+push $N19e7f9e0
+ Shuffle2 {
+  inputs 2
+  fromInput1 {{1} B A}
+  out1 forward
+  fromInput2 {{1} B A}
+  out2 backward
+  mappings "4 rgba.red 0 0 forward.u 0 0 rgba.green 0 1 forward.v 0 1 rgba.blue 0 2 backward.u 1 0 rgba.alpha 0 3 backward.v 1 1"
+  name Shuffle3
+  xpos -150
+  ypos 86
+ }
+ Reformat {
+  type scale
+  scale {{"2 ** (parent.downrez * -1.0)"}}
+  name Reformat1
+  label downrez
+  xpos -150
+  ypos 128
+ }
+ Inference {
+onCreate "\nthis = nuke.thisNode()\ngpuName = this.knob(\"gpuName\").value()\nthis.parent().knob(\"gpuName\").setValue(gpuName)\n"
+  useGPUIfAvailable {{parent.useGPU}}
+  modelFile "\[lsearch -inline \[plugins -all RIFE.cat] *.cat]"
+  serialiseKnob {timestep:{"parent.outputFrame - int(parent.outputFrame)"};scale:{"2**(min(5, max(0, parent.detail))-3)"};optical_flow:{"parent.retimedChannels == 0 | parent.downrez !=0"};}
+  name Inference1
+    label "timestep \[value timestep]\nscale \[value scale]"
+  xpos -150
+  ypos 194
+ }
+ Dot {
+  name Dot7
+  xpos -116
+  ypos 330
+ }
+set N19d8a2c0 [stack 0]
+ Dot {
+  name Dot6
+  xpos 214
+  ypos 330
+ }
+set N19ee5ea0 [stack 0]
+ Reformat {
+  type scale
+  scale {{2**(parent.downrez)}}
+  name Reformat3
+  label uprez
+  xpos 180
+  ypos 464
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  in1 depth
+  fromInput2 {{0} B}
+  mappings "4 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.red 0 0 black -1 -1 rgba.green 0 1 depth.Z 0 0 rgba.alpha 0 3"
+  name Shuffle4
+  label mask
+  xpos 180
+  ypos 536
+ }
+push $N19d8a2c0
+ Expression {
+  temp_name0 stmap_x
+  temp_expr0 x/(width-1)
+  temp_name1 stmap_y
+  temp_expr1 y/(height-1)
+  channel0 {rgba.red -rgba.green -rgba.blue none}
+  expr0 (r*0.5/((width-1)/2))+stmap_x
+  channel1 {-rgba.red rgba.green -rgba.blue none}
+  expr1 (g*-0.5/((height-1)/2))+stmap_y
+  channel2 {-rgba.red -rgba.green rgba.blue none}
+  expr2 (b*0.5/((width-1)/2))+stmap_x
+  channel3 {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  expr3 (a*-0.5/((height-1)/2))+stmap_y
+  name Expression1
+  label flow
+  xpos -150
+  ypos 368
+ }
+ Reformat {
+  type scale
+  scale {{2**(parent.downrez)}}
+  name Reformat2
+  label uprez
+    xpos -150
+  ypos 440
+ }
+set N19880c90 [stack 0]
+push $N19eef0e0
+ C_STMap2_1 {
+  inputs 2
+  uv rgb
+  name C_STMap1
+  xpos -150
+  ypos 560
+ }
+ set C19e03610 [stack 0]
+push $N19880c90
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.alpha 0 3 rgba.green 0 1 rgba.blue 0 2 rgba.red 0 0 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3"
+  name Shuffle6
+  xpos -40
+  ypos 518
+ }
+push $N19a938a0
+ Dot {
+  name Dot8
+  xpos 104
+  ypos 18
+ }
+ Dot {
+  name Dot4
+  xpos 104
+  ypos 522
+ }
+clone $C19e03610 {
+  inputs 2
+  xpos -40
+  ypos 560
+  selected false
+ }
+ Keymix {
+  inputs 3
+  name Keymix1
+  xpos -40
+  ypos 632
+ }
+push $N19ee5ea0
+ Dot {
+  name Dot5
+  xpos 434
+  ypos 330
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove2
+  xpos 400
+  ypos 470
+ }
+ Dot {
+  name Dot11
+  xpos 434
+  ypos 522
+ }
+ Switch {
+  inputs 2
+  which {{"parent.retimedChannels == 0 | parent.downrez !=0"}}
+  name Switch1
+  label "all channels/rgb(a)\nor downsample"
+  xpos -40
+  ypos 698
+ }
+push $N19b5e390
+ Merge2 {
+  inputs 2
+  operation copy
+  also_merge all
+  name Merge1
+  xpos -150
+  ypos 758
+ }
+ Switch {
+  inputs 2
+  which {{"parent.outputFrame == int(parent.outputFrame)"}}
+  name Switch2
+  label "bypass integer frames"
+  xpos -260
+  ypos 801
+  disable {{!parent.skipKeyframes}}
+ }
+ OCIOColorSpace {
+  in_colorspace color_picking
+  out_colorspace scene_linear
+  name OCIOColorSpace5
+  xpos -260
+  ypos 854
+ }
+push $N199a58a0
+ Dot {
+  name Dot1
+  xpos 544
+  ypos -390
+ }
+ Dot {
+  name Dot9
+  xpos 544
+  ypos 570
+ }
+ Switch {
+  inputs 2
+  which {{"\[if \{\[catch \{set n_channels \[channels \[node Input1]] \}]\} \{return 0\} \{return \[llength \$n_channels]\}]"}}
+  name Switch3
+  label bypass
+  xpos -260
+  ypos 896
+ }
+ Output {
+  name Output1
+  xpos -260
+  ypos 1022
+ }
+end_group
