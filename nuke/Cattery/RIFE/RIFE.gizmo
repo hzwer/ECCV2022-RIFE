@@ -63,7 +63,7 @@ Gizmo {
   ypos -562
  }
  Assert {
-  expression {{"\[python nuke.NUKE_VERSION_MAJOR\\ >=\\ 14\\ and\\ nuke.NUKE_VERSION_MINOR\\ >=\\ 1]"}}
+  expression {{"\$nuke_version > 14.1"}}
   message "Nuke14.1 or higher required."
   name Assert1
   xpos -260
@@ -167,7 +167,7 @@ push $N19e7f9e0
  Inference {
 onCreate "\nthis = nuke.thisNode()\ngpuName = this.knob(\"gpuName\").value()\nthis.parent().knob(\"gpuName\").setValue(gpuName)\n"
   useGPUIfAvailable {{parent.useGPU}}
-  modelFile "\[lsearch -inline \[plugins -all RIFE.cat] *.cat]"
+  modelFile "\[lsearch -inline \[plugins -all RIFE_n$nuke_version_major.cat] *.cat]"
   serialiseKnob {timestep:{"parent.outputFrame - int(parent.outputFrame)"};scale:{"2**(min(5, max(0, parent.detail))-3)"};optical_flow:{"parent.retimedChannels == 0 | parent.downrez !=0"};}
   name Inference1
     label "timestep \[value timestep]\nscale \[value scale]"
