@@ -1,6 +1,5 @@
 Gizmo {
  name RIFE
- onCreate "nuke.thisNode().knob(\"reset_range\").execute()"
  addUserKnob {20 RIFE}
  addUserKnob {26 localGPU l "Local GPU:" T ""}
  addUserKnob {26 gpuName l "" -STARTLINE T ""}
@@ -8,8 +7,10 @@ Gizmo {
  useGPU true
  addUserKnob {26 ""}
  addUserKnob {3 in l "Input Range" t "The first frame of input to use."}
+ in 1
  addUserKnob {3 out l "" t "The last frame of input to use." -STARTLINE}
- addUserKnob {22 reset_range l Reset -STARTLINE T "node = nuke.thisNode()\nframe_range = node.upstreamFrameRange(0) if node.input(0) else nuke.root().frameRange()\nnode.knob(\"in\").setValue(frame_range.first())\nnode.knob(\"out\").setValue(frame_range.last())"}
+ out 100
+ addUserKnob {22 reset_range l Reset -STARTLINE T "n = nuke.thisNode()\nn\[\"in\"].setValue(n.firstFrame())\nn\[\"out\"].setValue(n.lastFrame())"}
  addUserKnob {4 retimedChannels l Channels t "Sets the channels affected by the retime." M {all rgb rgba "" "" ""}}
  retimedChannels rgba
  addUserKnob {4 timing l Timing t "Sets how to control the new timing of the clip:\n\n<b>• Speed</b> - describes the retiming in terms of overall output duration. For example, double speed halves the duration of the clip and half speed doubles the duration of the clip.\n\n<b>• Frame</b> - describes the retiming in relative terms, for example, ’at frame 100 in the output clip, display frame 50 of the source clip‘. You’ll need to set at least 2 key frames for this to retime the clip." M {Speed Frame "" "" ""}}
