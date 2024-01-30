@@ -22,7 +22,7 @@ https://github.com/rafaelperez/RIFE-for-Nuke/assets/1684365/6b35a9ea-dee3-414f-9
 
 https://github.com/rafaelperez/RIFE-for-Nuke/assets/1684365/266f4733-4ed6-4806-accb-ae351d2318da
 
-https://github.com/rafaelperez/RIFE-for-Nuke/assets/1684365/a962acce-f188-4ea5-99aa-a58c91ff60e8
+https://github.com/rafaelperez/RIFE-for-Nuke/assets/1684365/bac1cfd1-4877-438d-bbc8-26cda375dceb
 
 https://github.com/rafaelperez/RIFE-for-Nuke/assets/1684365/6607f72c-1f1e-450d-b15d-d57c2d978bbe
 
@@ -85,6 +85,12 @@ The principal model **IFNet** has been modified for compatibility with **TorchSc
 This makes it transformable into a native [Nuke's inference node](https://learn.foundry.com/nuke/content/reference_guide/air_nodes/inference.html) through the [CatFileCreator](https://learn.foundry.com/nuke/content/reference_guide/air_nodes/catfilecreator.html).
 
 For more detailed information about the training data and technical specifics, please consult the original repository.
+
+## Compiling the model (Google Colab)
+
+This [Google Colab](https://colab.research.google.com/drive/10TDRhwYiC9-pmNzi97BjVHFj9-br_GZ6) sets up a Linux environment on Google's servers that you can use to compile the TorchScript `RIFE.pt` model.  
+This way you don't have to worry about fighting with dependencies on your local machine.
+
 
 ## License and Acknowledgments
 
