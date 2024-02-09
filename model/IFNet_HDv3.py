@@ -88,14 +88,14 @@ class IFBlock(nn.Module):
         )
 
     def forward(self, x, flow: Optional[torch.Tensor]=None, scale: float=1.0):
-        x = F.interpolate(x, scale_factor= 1. / scale, mode="bilinear", align_corners=False)
+        x = F.interpolate(x, scale_factor= 1. / scale, mode="bilinear", align_corners=False, recompute_scale_factor=False)
         if flow is not None:
-            flow = F.interpolate(flow, scale_factor= 1. / scale, mode="bilinear", align_corners=False) * 1. / scale
+            flow = F.interpolate(flow, scale_factor= 1. / scale, mode="bilinear", align_corners=False, recompute_scale_factor=False) * 1. / scale
             x = torch.cat((x, flow), 1)
         feat = self.conv0(x)
         feat = self.convblock(feat)
         tmp = self.lastconv(feat)
-        tmp = F.interpolate(tmp, scale_factor=scale, mode="bilinear", align_corners=False)
+        tmp = F.interpolate(tmp, scale_factor=scale, mode="bilinear", align_corners=False, recompute_scale_factor=False)
         flow = tmp[:, :4] * scale
         mask = tmp[:, 4:5]
         return flow, mask

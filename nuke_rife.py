@@ -4,6 +4,7 @@ import torch
 logging.basicConfig(level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
 
+
 def trace_rife():
     from model.RIFE_HDv3 import Model
 
@@ -39,25 +40,28 @@ def trace_rife():
             pad_dims = (0, pad_w - w, 0, pad_h - h)
             x = torch.nn.functional.pad(x, pad_dims)
 
-            if x.device != device:
-                x = x.to(device)
-
-            scale_list = (8.0/scale, 4.0/scale, 2.0/scale, 1.0/scale)
+            scale_list = (8.0 / scale, 4.0 / scale, 2.0 / scale, 1.0 / scale)
             flow, mask, image = self.flownet((x), timestep, scale_list)
-            
+
             # Return the optical flow and mask
             if self.optical_flow:
-                return torch.cat((flow[:, :, :h, :w], mask[:, :, :h, :w]), 1)
-            
-            # Return the interpolated frames
-            alpha = torch.ones((b, 1, h, w), dtype=x.dtype, device=x.device)
-            return torch.cat((image[:, :, :h, :w], alpha), dim=1)
+                return torch.cat((flow[:, :, :h, :w], mask[:, :, :h, :w]), 1).contiguous()
 
-    model_file = "./nuke/RIFE/RIFE.pt"
+            # Return the interpolated frames
+            alpha = torch.ones((b, 1, h, w), dtype=x.dtype, device=device)
+            return torch.cat((image[:, :, :h, :w], alpha), dim=1).contiguous()
+
     with torch.jit.optimized_execution(True):
-        torch.jit.enable_onednn_fusion(True)
         rife_nuke = torch.jit.script(FlowNetNuke())
-        rife_nuke = torch.jit.freeze(rife_nuke.eval(), preserved_attrs=["optical_flow", "timestep", "scale"])
+        model_file = "./nuke/Cattery/RIFE/RIFE_n13.pt"
+
+        # Freeze the model for performance if not using torch 1.6 (Nuke 13)
+        if not torch.__version__.startswith("1.6"):
+            model_file = "./nuke/Cattery/RIFE/RIFE_n14.pt"
+            rife_nuke = torch.jit.freeze(
+                rife_nuke.eval(), preserved_attrs=["optical_flow", "timestep", "scale"]
+            )
+
         rife_nuke.save(model_file)
         LOGGER.info(rife_nuke.code)
         LOGGER.info(rife_nuke.graph)
