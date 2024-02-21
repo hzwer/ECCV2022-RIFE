@@ -64,8 +64,8 @@ Gizmo {
   ypos -562
  }
  Assert {
-  expression {{"\$nuke_version > 14.1"}}
-  message "Nuke14.1 or higher required."
+  expression {{"\$nuke_version > 13.208"}}
+  message "Nuke13.2v8 or higher required."
   name Assert1
   xpos -260
   ypos -481
