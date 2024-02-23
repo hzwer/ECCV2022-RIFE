@@ -6,7 +6,13 @@ output/*
 train_log/*
 
 test/
-.idea/
 *.npz
 
 *.zip
+
+# Nuke autosaves
+*.autosave
+
+# IDEs
+.vscode/
+.idea/
