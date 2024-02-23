@@ -34,7 +34,7 @@ Special thanks to:
 
 ## Compatibility
 
-**Nuke 14.1+**, tested on **Linux** and **Windows**.
+**Nuke 13.2v8+**, tested on **Linux** and **Windows**.
 
 ## Installation
 
@@ -86,11 +86,41 @@ This makes it transformable into a native [Nuke's inference node](https://learn.
 
 For more detailed information about the training data and technical specifics, please consult the original repository.
 
-## Compiling the model (Google Colab)
+## Compiling the Model
 
-This [Google Colab](https://colab.research.google.com/drive/10TDRhwYiC9-pmNzi97BjVHFj9-br_GZ6) sets up a Linux environment on Google's servers that you can use to compile the TorchScript `RIFE.pt` model.  
-This way you don't have to worry about fighting with dependencies on your local machine.
+To retrain or modify the model for use with **Nuke's CatFileCreator**, you'll need to convert it into the PyTorch format `.pt`. Below are the primary methods to achieve this:
 
+### Cloud-Based Compilation (Recommended for Nuke 14+)
+
+**Google Colaboratory** offers a free, cloud-based development environment ideal for experimentation or quick modifications. It's important to note that Colaboratory uses **Python 3.10**, which is incompatible with the **PyTorch version (1.6.0)** required by Nuke 13.
+
+For those targetting **Nuke 14** or **15**, **Colaboratory** is a convenient choice.
+
+This Google Colab link:
+
+https://colab.research.google.com/drive/10TDRhwYiC9-pmNzi97BjVHFj9-br_GZ6
+
+provides a **basic setup** for compiling the **TorchScript** `RIFE.pt` model directly on Google's servers.
+
+### Local Compilation (Required for Nuke 13+)
+
+Compiling the model locally gives you full control over the versions of **Python**, **PyTorch**, and **CUDA** you use. Setting up older versions, however, can be challenging.
+
+For **Nuke 13**, which requires **PyTorch 1.6.0**, using **Docker** is highly recommended. This recommendation stems from the lack of official PyTorch package support for **CUDA 11**.
+
+Fortunately, Nvidia offers Docker images tailored for various GPUs. The Docker image version **20.07** is specifically suited for **PyTorch 1.6.0 + CUDA 11** requirements.
+
+Access to these images requires registration on [Nvidia's NGC Catalog](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch).
+
+Once Docker is installed on your system, execute the following command to initiate a terminal within the required environment. You can then clone the repository and run `python nuke_rife.py` to compile the model.
+
+`docker run --gpus all -it --rm nvcr.io/nvidia/pytorch:20.07-py3`
+
+For projects targeting **Nuke 14+**, which requires PyTorch 1.12, the Docker image version **22.05** is recommended:
+
+`docker run --gpus all -it --rm nvcr.io/nvidia/pytorch:22.05-py3`
+
+For more information on selecting the appropriate Python, PyTorch, and CUDA combination, refer to [Nvidia's Framework Containers Support Matrix](https://docs.nvidia.com/deeplearning/frameworks/support-matrix/index.html#framework-matrix-2020).
 
 ## License and Acknowledgments
 
