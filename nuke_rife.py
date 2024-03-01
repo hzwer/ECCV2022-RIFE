@@ -8,7 +8,6 @@ PATH = "model/flownet.pkl"
 
 
 def load_flownet():
-
     def convert(param):
         return {k.replace("module.", ""): v for k, v in param.items() if "module." in k}
 
@@ -22,9 +21,10 @@ def load_flownet():
 
 
 def trace_rife():
-
     class FlowNetNuke(torch.nn.Module):
-        def __init__(self, timestep: float = 0.5, scale: float = 1.0, optical_flow: int = 0):
+        def __init__(
+            self, timestep: float = 0.5, scale: float = 1.0, optical_flow: int = 0
+        ):
             super().__init__()
             self.optical_flow = optical_flow
             self.timestep = timestep
@@ -37,7 +37,9 @@ def trace_rife():
             dtype = x.dtype
 
             timestep = self.timestep
-            scale = self.scale if self.scale in [0.125, 0.25, 0.5, 1.0, 2.0, 4.0] else 1.0
+            scale = (
+                self.scale if self.scale in [0.125, 0.25, 0.5, 1.0, 2.0, 4.0] else 1.0
+            )
             device = torch.device("cuda") if x.is_cuda else torch.device("cpu")
 
             # Padding
