@@ -18,8 +18,6 @@ def load_flownet():
         flownet.cuda()
 
     flownet.load_state_dict(convert(torch.load(PATH)), False)
-    # flownet.eval()
-    # flownet.requires_grad_(False)
     return flownet
 
 
@@ -33,10 +31,6 @@ def trace_rife():
             self.scale = scale
             self.flownet = load_flownet()
             self.flownet_half = load_flownet().half()
-
-        def __del__(self):
-            del self.flownet
-            del self.flownet_half
 
         def forward(self, x):
             b, c, h, w = x.shape
@@ -60,8 +54,6 @@ def trace_rife():
             else:
                 flow, mask, image = self.flownet_half((x), timestep, scale_list)
 
-            del x
-            
             # Return the optical flow and mask
             if self.optical_flow:
                 return torch.cat((flow[:, :, :h, :w], mask[:, :, :h, :w]), 1)
