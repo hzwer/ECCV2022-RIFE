@@ -36,6 +36,8 @@ Special thanks to:
 
 **Nuke 13.2v8+**, tested on **Linux** and **Windows**.
 
+⚠️ **Nuke 13.2v7 - Linux** unfortunately has a bug in the **Inference** node that throwns the error `MLPlanarIop -> Unknown Error`.
+
 ## Installation
 
 1. Download and unzip the latest release from [here](https://github.com/rafaelperez/RIFE-for-Nuke/releases).
@@ -45,6 +47,22 @@ Special thanks to:
 **RIFE** will then be accessible under the toolbar at **Cattery > Optical Flow > RIFE**.
 
 ![cattery_menu_2](https://github.com/rafaelperez/ECCV2022-RIFE/assets/1684365/89239c18-3288-461d-815c-501fd4a63720)
+
+### ⚠️ Extra Steps for Nuke 13
+
+4. Add the path for **RIFE** to your `init.py`:
+``` py
+import nuke
+nuke.pluginAddPath('./Cattery/RIFE')
+```
+
+5. Add an menu item to the toolbar in your `menu.py`:
+
+``` py
+import nuke
+toolbar = nuke.menu("Nodes")
+toolbar.addCommand('Cattery/Optical Flow/RIFE', 'nuke.createNode("RIFE")', icon="RIFE.png")
+```
 
 ## Options
 
