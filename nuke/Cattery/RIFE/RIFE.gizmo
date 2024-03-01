@@ -236,6 +236,7 @@ set N19880c90 [stack 0]
 push $N19eef0e0
  C_STMap2_1 {
   inputs 2
+  useGPUIfAvailable false
   uv rgb
   name C_STMap1
   xpos -150
