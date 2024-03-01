@@ -1,37 +1,46 @@
 import logging
 import torch
+from model.IFNet_HDv3 import IFNet
 
 logging.basicConfig(level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
+PATH = "model/flownet.pkl"
+
+
+def load_flownet():
+    def convert(param):
+        return {k.replace("module.", ""): v for k, v in param.items() if "module." in k}
+
+    flownet = IFNet()
+
+    if torch.cuda.is_available():
+        flownet.cuda()
+
+    flownet.load_state_dict(convert(torch.load(PATH)), False)
+    return flownet
 
 
 def trace_rife():
-    from model.RIFE_HDv3 import Model
-
-    model = Model()
-    model.load_model("model", -1)
-    LOGGER.info("Loaded v4.14 model.")
-    model.eval()
-    model.device()
-    LOGGER.info(model)
-
     class FlowNetNuke(torch.nn.Module):
-        def __init__(self, timestep: float = 0.5, scale: float = 1.0, optical_flow: int = 0):
+        def __init__(
+            self, timestep: float = 0.5, scale: float = 1.0, optical_flow: int = 0
+        ):
             super().__init__()
             self.optical_flow = optical_flow
             self.timestep = timestep
             self.scale = scale
-            self.flownet = model.flownet
+            self.flownet = load_flownet()
+            self.flownet_half = load_flownet().half()
 
         def forward(self, x):
-            timestep = self.timestep
-            scale = self.scale if self.scale in [0.125, 0.25, 0.5, 1.0, 2.0, 4.0] else 1.0
             b, c, h, w = x.shape
-            device = torch.device("cuda") if x.is_cuda else torch.device("cpu")
+            dtype = x.dtype
 
-            # Force input to float32
-            if x.dtype != torch.float32:
-                x = x.to(torch.float32)
+            timestep = self.timestep
+            scale = (
+                self.scale if self.scale in [0.125, 0.25, 0.5, 1.0, 2.0, 4.0] else 1.0
+            )
+            device = torch.device("cuda") if x.is_cuda else torch.device("cpu")
 
             # Padding
             padding_factor = max(128, int(128 / scale))
@@ -41,27 +50,23 @@ def trace_rife():
             x = torch.nn.functional.pad(x, pad_dims)
 
             scale_list = (8.0 / scale, 4.0 / scale, 2.0 / scale, 1.0 / scale)
-            flow, mask, image = self.flownet((x), timestep, scale_list)
+
+            if dtype == torch.float32:
+                flow, mask, image = self.flownet((x), timestep, scale_list)
+            else:
+                flow, mask, image = self.flownet_half((x), timestep, scale_list)
 
             # Return the optical flow and mask
             if self.optical_flow:
-                return torch.cat((flow[:, :, :h, :w], mask[:, :, :h, :w]), 1).contiguous()
+                return torch.cat((flow[:, :, :h, :w], mask[:, :, :h, :w]), 1)
 
             # Return the interpolated frames
-            alpha = torch.ones((b, 1, h, w), dtype=x.dtype, device=device)
+            alpha = torch.ones((b, 1, h, w), dtype=dtype, device=device)
             return torch.cat((image[:, :, :h, :w], alpha), dim=1).contiguous()
 
     with torch.jit.optimized_execution(True):
-        rife_nuke = torch.jit.script(FlowNetNuke())
-        model_file = "./nuke/Cattery/RIFE/RIFE_n13.pt"
-
-        # Freeze the model for performance if not using torch 1.6 (Nuke 13)
-        if not torch.__version__.startswith("1.6"):
-            model_file = "./nuke/Cattery/RIFE/RIFE_n14.pt"
-            rife_nuke = torch.jit.freeze(
-                rife_nuke.eval(), preserved_attrs=["optical_flow", "timestep", "scale"]
-            )
-
+        rife_nuke = torch.jit.script(FlowNetNuke().eval().requires_grad_(False))
+        model_file = "./nuke/Cattery/RIFE/RIFE.pt"
         rife_nuke.save(model_file)
         LOGGER.info(rife_nuke.code)
         LOGGER.info(rife_nuke.graph)
