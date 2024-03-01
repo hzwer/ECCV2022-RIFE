@@ -78,7 +78,7 @@ Gizmo {
 set N199a58a0 [stack 0]
  OCIOColorSpace {
   in_colorspace scene_linear
-  out_colorspace color_picking
+  out_colorspace sRGBf
   name OCIOColorSpace1
   xpos -260
   ypos -346
@@ -321,7 +321,7 @@ push $N19b5e390
   disable {{!parent.skipKeyframes}}
  }
  OCIOColorSpace {
-  in_colorspace color_picking
+  in_colorspace sRGBf
   out_colorspace scene_linear
   name OCIOColorSpace5
   xpos -260
