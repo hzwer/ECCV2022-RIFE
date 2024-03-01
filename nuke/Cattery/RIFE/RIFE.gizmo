@@ -27,7 +27,7 @@ Gizmo {
  addUserKnob {41 filter l Filter t "Filtering method for the STMap distortion.\n\n<b>Note:</b> Only effective if <b>Channels</b> is set to <b>all</b>." T C_STMap1.filter}
  addUserKnob {6 skipKeyframes l "Process only intermediate frames" t "When processing keyframes (e.g. 11, 12, 13), RIFE can introduce slight distortion or filtering. \n\nThis option processes only intermediate frames (e.g. 11.5, 12.5) while skipping the keyframes.  \n\nThis is useful for cases where the result needs to match the original unmodified frames exactly." +STARTLINE}
  addUserKnob {20 infoTab l Info}
- addUserKnob {26 toolName l "" +STARTLINE T "<font size='7'>RIFE</font> v1.0 | Released 2024-01-14"}
+ addUserKnob {26 toolName l "" +STARTLINE T "<font size='7'>RIFE</font> v1.0.2 | Released 2024-03-01"}
  addUserKnob {26 ""}
  addUserKnob {26 authorName l "" +STARTLINE T "Rafael Silva"}
  addUserKnob {26 authorMail l "" +STARTLINE T "<a href=\"mailto:rafael@rafael.ai\"><span style=\"color:#C8C8C8;\">rafael@rafael.ai</a>"}
