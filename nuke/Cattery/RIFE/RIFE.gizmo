@@ -168,7 +168,8 @@ push $N19e7f9e0
  Inference {
 onCreate "\nthis = nuke.thisNode()\ngpuName = this.knob(\"gpuName\").value()\nthis.parent().knob(\"gpuName\").setValue(gpuName)\n"
   useGPUIfAvailable {{parent.useGPU}}
-  modelFile "\[lsearch -inline \[plugins -all RIFE_n$nuke_version_major.cat] *.cat]"
+  modelFile "\[lsearch -inline \[plugins -all RIFE.cat] *.cat]"
+  halfPrecision true
   serialiseKnob {timestep:{"parent.outputFrame - int(parent.outputFrame)"};scale:{"2**(min(5, max(0, parent.detail))-3)"};optical_flow:{"parent.retimedChannels == 0 | parent.downrez !=0"};}
   name Inference1
     label "timestep \[value timestep]\nscale \[value scale]"
