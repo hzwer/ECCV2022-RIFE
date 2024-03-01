@@ -5,20 +5,39 @@ from typing import Optional, List
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-def warp(tenInput, tenFlow):
-    device = tenInput.device
-    tenHorizontal = torch.linspace(-1.0, 1.0, tenFlow.shape[3], device=device).view(
-        1, 1, 1, tenFlow.shape[3]).expand(tenFlow.shape[0], -1, tenFlow.shape[2], -1)
-    tenVertical = torch.linspace(-1.0, 1.0, tenFlow.shape[2], device=device).view(
-        1, 1, tenFlow.shape[2], 1).expand(tenFlow.shape[0], -1, -1, tenFlow.shape[3])
-    backwarp_tenGrid = torch.cat(
-        [tenHorizontal, tenVertical], 1).to(device)
+def warp(img, flow):
+    """Warps an image or feature map using optical flow.
 
-    tenFlow = torch.cat([tenFlow[:, 0:1, :, :] / ((tenInput.shape[3] - 1.0) / 2.0),
-                         tenFlow[:, 1:2, :, :] / ((tenInput.shape[2] - 1.0) / 2.0)], 1)
+    This function applies optical flow to warp an image. If the input is of
+    dtype `.float16`, it is converted to `.float32` to prevent NaN values.
 
-    g = (backwarp_tenGrid + tenFlow).permute(0, 2, 3, 1)
-    return torch.nn.functional.grid_sample(input=tenInput, grid=g, mode='bilinear', padding_mode='border', align_corners=True)
+    Args:
+        img (Tensor): The input image or feature map to be warped.
+        flow (Tensor): The optical flow (displacement) tensor.
+
+    Returns:
+        Tensor: The warped image, in the same dtype as the input.
+    """
+    B, C, H, W = flow.shape
+    device = flow.device
+    dtype = flow.dtype
+    if dtype == torch.float16:
+        flow = flow.float()
+        img = img.float()
+
+    grid_x = torch.linspace(-1.0, 1.0, W, device=device).view(
+        1, 1, 1, W).expand(B, -1, H, -1)
+    grid_y = torch.linspace(-1.0, 1.0, H, device=device).view(
+        1, 1, H, 1).expand(B, -1, -1, W)
+    grid = torch.cat(
+        [grid_x, grid_y], 1).to(device)
+
+    flow = torch.cat([flow[:, 0:1, :, :] / ((img.shape[3] - 1.0) / 2.0),
+                         flow[:, 1:2, :, :] / ((img.shape[2] - 1.0) / 2.0)], 1)
+
+    stmap = (grid + flow).permute(0, 2, 3, 1)
+    warped_img = torch.nn.functional.grid_sample(input=img, grid=stmap, mode='bilinear', padding_mode='border', align_corners=True)
+    return warped_img.half() if dtype == torch.float16 else warped_img
 
 def conv(in_planes, out_planes, kernel_size=3, stride=1, padding=1, dilation=1):
     return nn.Sequential(
