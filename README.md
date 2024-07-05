@@ -81,7 +81,7 @@ python3 inference_video.py --video=video.mp4 --montage --png
 
 **Extended Application**
 
-You may refer to [#278](https://github.com/megvii-research/ECCV2022-RIFE/issues/278#event-7199085190) for **Optical Flow Estimation** and refer to [#291](https://github.com/hzwer/ECCV2022-RIFE/issues/291#issuecomment-1328685348) for video stitching.
+You may refer to [#278](https://github.com/megvii-research/ECCV2022-RIFE/issues/278#event-7199085190) for **Optical Flow Estimation** and refer to [#291](https://github.com/hzwer/ECCV2022-RIFE/issues/291#issuecomment-1328685348) for **Video Stitching**.
 
 **Image Interpolation**
 
