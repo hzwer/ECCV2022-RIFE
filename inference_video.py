@@ -278,7 +278,7 @@ if args.montage:
 else:
     write_buffer.put(lastframe)
 
-write_buffer.put(frame)
+write_buffer.put(None)
 
 import time
 while(not write_buffer.empty()):
