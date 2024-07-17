@@ -119,6 +119,14 @@ Using gpu acceleration (requires proper gpu drivers for docker):
 docker run --rm -it --gpus all -v /dev/dri:/dev/dri -v $PWD:/host rife:latest inference_video --exp=1 --video=untitled.mp4 --output=untitled_rife.mp4
 ```
 
+### Run in MAC
+
+Before running the inference, you need to set the following environment variable:
+
+````
+export PYTORCH_ENABLE_MPS_FALLBACK=1 
+````
+
 ## Evaluation
 Download [RIFE model](https://drive.google.com/file/d/1h42aGYPNJn2q8j_GVkS_yDu__G_UZ2GX/view?usp=sharing) or [RIFE_m model](https://drive.google.com/file/d/147XVsDXBfJPlyct2jfo9kpbL944mNeZr/view?usp=sharing) reported by our paper.
 

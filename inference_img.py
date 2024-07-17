@@ -6,11 +6,16 @@ from torch.nn import functional as F
 import warnings
 warnings.filterwarnings("ignore")
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-torch.set_grad_enabled(False)
-if torch.cuda.is_available():
+if torch.backends.mps.is_available():
+    device = torch.device("mps")
+    os.environment["PYTORCH_ENABLE_MPS_FALLBACK"] = 1
+elif torch.cuda.is_available():
+    device = torch.device("cuda")
     torch.backends.cudnn.enabled = True
     torch.backends.cudnn.benchmark = True
+else:
+    device = torch.device("cpu")
+torch.set_grad_enabled(False)
 
 parser = argparse.ArgumentParser(description='Interpolation for a pair of images')
 parser.add_argument('--img', dest='img', nargs=2, required=True)

@@ -9,7 +9,11 @@ import numpy as np
 from torch.nn import functional as F
 from model.pytorch_msssim import ssim_matlab
 from model.RIFE import Model
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+if torch.backends.mps.is_available():
+    device = torch.device("mps")
+else:
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 model = Model()
 model.load_model('train_log')
