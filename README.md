@@ -2,7 +2,7 @@
 ## Introduction
 This project is the implement of [Real-Time Intermediate Flow Estimation for Video Frame Interpolation](https://arxiv.org/abs/2011.06294). Currently, our model can run 30+FPS for 2X 720p interpolation on a 2080Ti GPU. It supports arbitrary-timestep interpolation between a pair of images.
 
-**2024.08 - We find that [4.22.lite](https://github.com/hzwer/Practical-RIFE/tree/main?tab=readme-ov-file#model-list) is quite suitable for post-processing of some diffusion model generated videos. For example, it can increase the original 15fps to 60fps.**
+**2024.08 - We find that [4.22.lite](https://github.com/hzwer/Practical-RIFE/tree/main?tab=readme-ov-file#model-list) is quite suitable for post-processing of [some diffusion model generated videos](https://drive.google.com/drive/folders/1hSzUn10Era3JCaVz0Z5Eg4wT9R6eJ9U9?usp=sharing).**
 
 2023.11 - We recently release new [v4.7-4.10](https://github.com/hzwer/Practical-RIFE/tree/main#model-list) optimized for anime scenes! We draw from [SAFA](https://github.com/megvii-research/WACV2024-SAFA/tree/main)’s research.
 
