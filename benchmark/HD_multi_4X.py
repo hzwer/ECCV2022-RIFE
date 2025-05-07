@@ -11,7 +11,11 @@ from model.pytorch_msssim import ssim_matlab
 from model.RIFE import Model
 from skimage.color import rgb2yuv, yuv2rgb
 from yuv_frame_io import YUV_Read,YUV_Write
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+if torch.backends.mps.is_available():
+    device = torch.device("mps")
+else:
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 model = Model(arbitrary=True)
 model.load_model('RIFE_m_train_log')

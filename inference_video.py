@@ -11,6 +11,11 @@ import skvideo.io
 from queue import Queue, Empty
 from model.pytorch_msssim import ssim_matlab
 
+np_version = [int(i) for i in np.__version__.split('.')]
+if np_version[0] == 2 or (np_version[0] == 1 and np_version[1] >= 20):
+    np.float = float
+    np.int = int
+
 warnings.filterwarnings("ignore")
 
 def transferAudio(sourceVideo, targetVideo):
@@ -77,13 +82,21 @@ assert args.scale in [0.25, 0.5, 1.0, 2.0, 4.0]
 if not args.img is None:
     args.png = True
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-torch.set_grad_enabled(False)
-if torch.cuda.is_available():
+
+if torch.backends.mps.is_available():
+    device = torch.device("mps")
+    if(args.fp16):
+        torch.set_default_tensor_type(torch.HalfTensor)
+elif torch.cuda.is_available():
+    device = torch.device("cuda")
     torch.backends.cudnn.enabled = True
     torch.backends.cudnn.benchmark = True
     if(args.fp16):
         torch.set_default_tensor_type(torch.cuda.HalfTensor)
+else:
+    device = torch.device("cpu")
+torch.set_grad_enabled(False)
+
 
 try:
     try:
@@ -115,11 +128,9 @@ if not args.video is None:
     fps = videoCapture.get(cv2.CAP_PROP_FPS)
     tot_frame = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)
     videoCapture.release()
+    fpsNotAssigned = True
     if args.fps is None:
-        fpsNotAssigned = True
         args.fps = fps * (2 ** args.exp)
-    else:
-        fpsNotAssigned = False
     videogen = skvideo.io.vreader(args.video)
     lastframe = next(videogen)
     fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
