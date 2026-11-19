@@ -110,6 +110,17 @@ except:
 model.eval()
 model.device()
 
+def numbered_pngs(directory):
+    frames = []
+    for entry in os.scandir(directory):
+        stem, extension = os.path.splitext(entry.name)
+        if entry.is_file() and extension.lower() == '.png' and stem.isdecimal():
+            frames.append((int(stem), entry.name))
+    if not frames:
+        raise ValueError(f"No numbered PNG frames found in {directory}")
+    return [name for _, name in sorted(frames)]
+
+
 if not args.video is None:
     videoCapture = cv2.VideoCapture(args.video)
     fps = videoCapture.get(cv2.CAP_PROP_FPS)
@@ -130,12 +141,8 @@ if not args.video is None:
     else:
         print("Will not merge audio because using png or fps flag!")
 else:
-    videogen = []
-    for f in os.listdir(args.img):
-        if 'png' in f:
-            videogen.append(f)
+    videogen = numbered_pngs(args.img)
     tot_frame = len(videogen)
-    videogen.sort(key= lambda x:int(x[:-4]))
     lastframe = cv2.imread(os.path.join(args.img, videogen[0]), cv2.IMREAD_UNCHANGED)[:, :, ::-1].copy()
     videogen = videogen[1:]
 h, w, _ = lastframe.shape
